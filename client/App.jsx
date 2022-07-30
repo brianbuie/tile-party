@@ -1,25 +1,19 @@
-import styled from "styled-components";
-import Theme from "@/ui/Theme";
-
-const Headline = styled.h1`
-  margin: 0;
-  padding: 1em;
-  text-align: center;
-`;
-
-const Container = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+import { IconProvider } from "@/ui/Icons";
+import { FetchProvider } from "@/utils/useFetch";
+import ThemeProvider from "@/brand/Theme";
+import Page from "@/layout/Page";
+import Game from "@/game/Game";
 
 const App = () => (
-  <Theme>
-    <Container>
-      <Headline>Tile Party</Headline>
-    </Container>
-  </Theme>
+  <ThemeProvider>
+    <IconProvider>
+      <FetchProvider>
+        <Page>
+          <Game />
+        </Page>
+      </FetchProvider>
+    </IconProvider>
+  </ThemeProvider>
 );
 
 export default App;

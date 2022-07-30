@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
 import express from "express";
-import api from "./api/api";
+import router from "./api/router";
 
 // Only load env file if not already defined
 if (!process.env.NODE_ENV) dotenv.config();
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.use("/api", api);
+app.use("/api", router);
 
 app.use(express.static(".build"));
 

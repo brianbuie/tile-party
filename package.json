@@ -4,10 +4,17 @@
   "version": "0.0.0",
   "scripts": {
     "dev:client": "vite",
-    "dev:server": "nodemon --watch api -r esm server.js",
-    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
+    "dev:server": "nodemon -r esm server.js",
+    "dev": "concurrently yarn:dev:* -p none",
     "build": "vite build --emptyOutDir",
     "start": "dotenv_config_path=.env.prod node -r esm server.js"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "api/",
+      "common/",
+      "server.js"
+    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
@@ -28,9 +35,11 @@
     "express": "^4.18.1",
     "framer-motion": "^6.5.1",
     "lodash": "^4.17.21",
+    "path-parser": "^6.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "use-http": "^1.0.26"
   }
 }

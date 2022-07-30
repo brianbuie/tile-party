@@ -11,6 +11,7 @@ const Box = styled.div`
   padding: ${({ pad }) => pad || "0"};
   margin: ${({ margin }) => margin || "0"};
   z-index: ${({ z }) => z || "auto"};
+  ${({ cursor }) => (cursor ? `cursor: ${cursor};` : "")}
   flex-grow: ${({ grow }) => (grow === true ? "1" : grow || "0")};
   background: ${({ bkg, theme }) => theme.colors[bkg] || bkg || "transparent"};
   position: ${({ absoluteFill, position }) => (absoluteFill ? "absolute" : position || "relative")};
