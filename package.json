@@ -7,8 +7,7 @@
     "dev:server": "nodemon --watch api -r esm server.js",
     "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
     "build": "vite build --emptyOutDir",
-    "serve": "vite preview",
-    "start": "node -r esm server.js"
+    "start": "dotenv_config_path=.env.prod node -r esm server.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
