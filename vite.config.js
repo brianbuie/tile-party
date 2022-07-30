@@ -13,7 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
-      "@public": path.resolve(__dirname, "./public"),
+      "@common": path.resolve(__dirname, "./common"),
     },
   },
   server: {

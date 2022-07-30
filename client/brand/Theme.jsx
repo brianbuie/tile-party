@@ -36,14 +36,19 @@ const GlobalStyle = createGlobalStyle`
 		font-size: 15px;
 		color: white;
 		font-family: ${theme.fontFamily};
+    height: fill-available;
 	}
 
 	body {
 		padding: 0;
 		margin: 0;
 		background: linear-gradient(${theme.colors.purple}, ${theme.colors.navy});
-		min-height: 100vh;
 	}
+
+  body, #root {
+   	min-height: 100vh;
+    min-height: fill-available;
+  }
 
 	* {
 		box-sizing: border-box;
