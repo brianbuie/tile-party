@@ -18,3 +18,5 @@ export const useFetch = (routeName, options, deps) => {
   console.log("fetching " + route);
   return useHttp(route, options, deps);
 };
+
+export { routes };

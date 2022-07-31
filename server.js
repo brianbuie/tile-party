@@ -1,43 +1,54 @@
-import dotenv from "dotenv";
-// Only load env file if not already defined
-if (!process.env.NODE_ENV) dotenv.config();
-
-import path from "path";
+/*
+  Express init
+*/
 import express from "express";
-import passport from "passport";
-import session from "express-session";
-import router from "./api/router";
-import { passportInit } from "./api/auth";
-
-const { PORT, NODE_ENV } = process.env;
-
+import helmet from "helmet";
+import "express-async-errors";
 const app = express();
+app.use(helmet());
 
-// Redirect to https
+/*
+  Database Connect
+*/
+import mongoose from "mongoose";
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.Promise = global.Promise;
+mongoose.set("toJSON", { virtuals: true });
+mongoose.set("toObject", { virtuals: true });
+mongoose.connection.on("error", console.error);
+
+/*
+  Request parsing
+*/
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+/*
+  Redirect to https
+*/
 app.use((req, res, next) => {
-  const notProd = NODE_ENV !== "production";
+  const notProd = process.env.NODE_ENV !== "production";
   const isLocalhost = req.socket.localAddress === req.socket.remoteAddress;
   const isHttps = req.header("x-forwarded-proto") === "https";
   if (notProd || isLocalhost || isHttps) return next();
   res.redirect(`https://${req.header("host")}${req.url}`);
 });
 
-// Auth
-passportInit();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
-app.use(passport.initialize());
-app.use(passport.session());
-
+/*
+  App
+*/
+import router from "./api/router";
 app.use("/api", router);
 
-// Static files and everything else to react
+/*
+  Static files or send to client
+*/
+import path from "path";
 app.use(express.static(".build"));
-app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, ".build/index.html"));
-});
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, ".build/index.html")));
 
-app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
-});
+/*
+  Listen
+*/
+const { PORT } = process.env;
+app.listen(PORT, () => console.log(`Server listening at http://localhost:${PORT}`));
