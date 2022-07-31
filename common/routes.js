@@ -1,5 +1,8 @@
 const routes = {
-  GAME: "/game/:id",
+  fetchGame: "/api/game/:id",
+  facebookLogin: "/api/auth/login/facebook",
+  facebookCallback: "/api/auth/callbacks/facebook",
+  logout: "/api/auth/logout",
 };
 
 export default routes;

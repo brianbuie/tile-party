@@ -1,10 +1,14 @@
 import dotenv from "dotenv";
-import path from "path";
-import express from "express";
-import router from "./api/router";
-
 // Only load env file if not already defined
 if (!process.env.NODE_ENV) dotenv.config();
+
+import path from "path";
+import express from "express";
+import passport from "passport";
+import session from "express-session";
+import router from "./api/router";
+import { passportInit } from "./api/auth";
+
 const { PORT, NODE_ENV } = process.env;
 
 const app = express();
@@ -18,12 +22,18 @@ app.use((req, res, next) => {
   res.redirect(`https://${req.header("host")}${req.url}`);
 });
 
+// Auth
+passportInit();
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api", router);
 
+// Static files and everything else to react
 app.use(express.static(".build"));
-
 app.get("*", (_req, res) => {
   res.sendFile(path.join(__dirname, ".build/index.html"));
 });
