@@ -11,17 +11,10 @@ import authRouter from "./auth/authRouter";
 router.use(authRouter);
 
 /*
-  Temp game router
+  Game
 */
-import fs from "fs";
-import routes from "../common/routes";
-const route = name => routes[name].replace("/api", "");
-
-router.get(route("fetchGame"), async (req, res) => {
-  const data = JSON.parse(fs.readFileSync(__dirname + "/mock-game.json"));
-  const { user } = req;
-  res.status(200).json({ ...data, user });
-});
+import gameRouter from "./game/gameRouter";
+router.use(gameRouter);
 
 /*
   Error handling

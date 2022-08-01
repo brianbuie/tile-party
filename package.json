@@ -4,23 +4,14 @@
   "version": "0.0.0",
   "scripts": {
     "dev:client": "vite",
-    "dev:server": "nodemon --exec node_modules/.bin/babel-node -r dotenv/config server.js",
+    "dev:server": "nodemon --exec node_modules/.bin/babel-node -r dotenv/config api/server.js",
     "dev": "concurrently yarn:dev:* -p none",
+    "stage": "yarn build && babel-node -r dotenv/config api/server.js dotenv_config_path=.env.prod",
     "build": "vite build --emptyOutDir",
-    "stage": "dotenv_config_path=.env.prod node -r dotenv/config -r esm server.js",
-    "start": "node -r esm server.js"
+    "start": "babel-node api/server.js"
   },
-  "nodemonConfig": {
-    "watch": [
-      "api/",
-      "common/",
-      "server.js"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
+  "engines": {
+    "node": "17.x"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",

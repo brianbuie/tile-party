@@ -1,3 +1,4 @@
+console.log(process.env);
 /*
   Express init
 */
@@ -37,15 +38,15 @@ app.use((req, res, next) => {
 /*
   App
 */
-import router from "./api/router";
+import router from "./router";
 app.use("/api", router);
 
 /*
   Static files or send to client
 */
 import path from "path";
-app.use(express.static(".build"));
-app.get("*", (req, res) => res.sendFile(path.join(__dirname, ".build/index.html")));
+app.use(express.static(path.join(__dirname, "../.build")));
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "../.build/index.html")));
 
 /*
   Listen
