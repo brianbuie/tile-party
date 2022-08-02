@@ -14,7 +14,7 @@ router.use(authRouter);
   Game
 */
 import gameRouter from "./game/gameRouter";
-router.use(gameRouter);
+router.use("/game", gameRouter);
 
 /*
   Error handling

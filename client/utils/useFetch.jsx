@@ -17,7 +17,10 @@ export const useFetch = (routeName, options = {}, deps = []) => {
   const route = routes[routeName] ? new Path(routes[routeName]).build(options) : routeName;
   console.log("fetching " + route);
   const { data, loading, error } = useHttp(route, options, deps);
-  return [data, loading, error];
+  let _data;
+  if (data && !loading && !error) _data = data;
+  const _error = !loading && error && data ? data : error;
+  return [_data, loading, _error];
 };
 
 export { routes };
