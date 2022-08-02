@@ -9,8 +9,8 @@
       "name": "Player 2"
     }
   ],
-  "boardLayout": "WORDSWITHFRIENDS",
-  "gameMode": "WORDSWITHFRIENDS",
+  "boardLayout": "FRIENDLY",
+  "gameMode": "FRIENDLY",
   "playerTiles": ["Q", "W", "H", "A", "T", "J", "Z"],
   "moveHistory": [
     {

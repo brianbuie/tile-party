@@ -3,7 +3,7 @@ import Box from "@/ui/Box";
 import Button from "@/ui/Button";
 import Logo from "@/brand/Logo";
 import { FacebookIcon } from "@/ui/Icons";
-import { routes } from "@/utils/useFetch";
+import { routes, useFetch } from "@/utils/useFetch";
 
 const ProfileImg = styled.img`
   width: 3rem;
@@ -11,11 +11,18 @@ const ProfileImg = styled.img`
   border-radius: 9999px;
 `;
 
-const ProfilePic = ({ user }) => (
-  <Button pad="0" size="2rem" as="a" href={routes.facebookLogin}>
-    {user ? <ProfileImg src={user.image} title="Log Out" /> : <FacebookIcon />}
-  </Button>
-);
+const ProfilePic = () => {
+  const [user] = useFetch("me");
+  return user ? (
+    <Button pad="0" as="a" href={routes.logout}>
+      <ProfileImg src={user.image} title="Log Out" />
+    </Button>
+  ) : (
+    <Button pad="0" size="2rem" as="a" href={routes.facebookLogin}>
+      <FacebookIcon />
+    </Button>
+  );
+};
 
 export default function Nav() {
   return (

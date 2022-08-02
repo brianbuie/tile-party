@@ -9,8 +9,8 @@ const auth = express.Router();
 	Models
 */
 import mongoose from "mongoose";
-import "./User";
-import "./Account";
+import "./UserModel";
+import "./AccountModel";
 const User = mongoose.model("User");
 const Account = mongoose.model("Account");
 
@@ -72,6 +72,7 @@ auth.use(passport.session());
 	Routes
 */
 const route = name => routes[name].replace("/api", "");
+auth.get(route("me"), (req, res) => res.json(req.user));
 auth.get(route("facebookLogin"), passport.authenticate("facebook"));
 auth.get(route("facebookCallback"), passport.authenticate("facebook", { failureRedirect: "/" }), (req, res) => res.redirect("/"));
 auth.get(route("logout"), (req, res, next) => req.logout(err => (err ? next(err) : res.redirect("/"))));

@@ -1,4 +1,3 @@
-console.log(process.env);
 /*
   Express init
 */

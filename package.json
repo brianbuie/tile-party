@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev:client": "vite",
     "dev:server": "nodemon --exec node_modules/.bin/babel-node -r dotenv/config api/server.js",
+    "dev:client": "vite",
     "dev": "concurrently yarn:dev:* -p none",
     "stage": "yarn build && babel-node -r dotenv/config api/server.js dotenv_config_path=.env.prod",
     "build": "vite build --emptyOutDir",

@@ -13,10 +13,11 @@ export const FetchProvider = ({ children }) => <Provider {...providerProps}>{chi
 // if route[routeName] === '/some/:id'
 // and options === { id: 'example' }
 // will fetch '/some/example'
-export const useFetch = (routeName, options, deps) => {
-  const route = new Path(routes[routeName]).build(options);
+export const useFetch = (routeName, options = {}, deps = []) => {
+  const route = routes[routeName] ? new Path(routes[routeName]).build(options) : routeName;
   console.log("fetching " + route);
-  return useHttp(route, options, deps);
+  const { data, loading, error } = useHttp(route, options, deps);
+  return [data, loading, error];
 };
 
 export { routes };
