@@ -9,7 +9,7 @@ const { PORT } = process.env;
 export default defineConfig({
   plugins: [react()],
   root: "./client/",
-  publicDir: "./public",
+  publicDir: "./assets",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Box from "@/ui/Box";
 import Button from "@/ui/Button";
 import Logo from "@/brand/Logo";
-import { FacebookIcon } from "@/ui/Icons";
 import { routes, useFetch } from "@/utils/useFetch";
 
 const ProfileImg = styled.img`
@@ -18,9 +17,7 @@ const ProfilePic = () => {
       <ProfileImg src={user.image} title="Log Out" />
     </Button>
   ) : (
-    <Button pad="0" size="2rem" as="a" href={routes.facebookLogin}>
-      <FacebookIcon />
-    </Button>
+    <Box square="3rem" />
   );
 };
 

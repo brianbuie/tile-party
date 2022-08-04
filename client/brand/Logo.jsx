@@ -19,7 +19,7 @@ export default function Logo() {
   const { getLetterValue } = useGameMode("FRIENDLY");
   return (
     <Box position="relative" width="100%" pad="0 0 45% 0">
-      <Box row position="absolute" absolutePos={[0, 0, "auto", 0]}>
+      <Box row absolute={[0, 0, "auto", 0]}>
         {["T", "I", "L", "E"].map(letter => (
           <SquareOuter size="20%" margin="1px" key={letter}>
             <SquareInner>

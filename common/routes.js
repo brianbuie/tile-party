@@ -9,9 +9,10 @@ const routes = {
   viewGame: "/api/game/:id",
   // auth
   me: "/api/auth/me",
-  facebookLogin: "/api/auth/login/facebook",
-  facebookCallback: "/api/auth/callbacks/facebook",
   logout: "/api/auth/logout",
+  facebookLogin: "/api/auth/facebook/login",
+  facebookCallback: "/api/auth/facebook/callback",
+  mockLogin: "/api/auth/mock/login",
 };
 
 export default routes;

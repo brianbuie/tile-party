@@ -17,6 +17,7 @@ const StyledButton = styled.button`
   font-weight: 600;
   font-size: ${({ size }) => size || "1em"};
   padding: ${({ pad }) => pad || "0.75em 1.5em"};
+  ${({ margin }) => margin && `margin: ${margin};`}
   display: inline-flex;
   justify-content: center;
   align-items: center;

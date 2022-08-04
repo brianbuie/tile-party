@@ -1,32 +1,45 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 const Box = styled.div`
+  /* Layout */
   display: ${({ display }) => display || "flex"};
   flex-direction: ${({ col }) => (col ? "column" : "row")};
   justify-content: ${({ justify }) => justify || "center"};
   align-items: ${({ align }) => align || "center"};
-  height: ${({ height, square }) => height || square || "auto"};
-  width: ${({ width, square }) => width || square || "auto"};
-  max-width: ${({ maxWidth }) => maxWidth || "none"};
-  padding: ${({ pad }) => pad || "0"};
-  margin: ${({ margin }) => margin || "0"};
-  z-index: ${({ z }) => z || "auto"};
-  ${({ cursor }) => (cursor ? `cursor: ${cursor};` : "")}
-  flex-grow: ${({ grow }) => (grow === true ? "1" : grow || "0")};
-  background: ${({ bkg, theme }) => theme.colors[bkg] || bkg || "transparent"};
-  position: ${({ absoluteFill, position }) => (absoluteFill ? "absolute" : position || "relative")};
-  ${({ absoluteFill }) => absoluteFill && `top: 0; right: 0; bottom: 0; left: 0;`}
-  ${({ absolutePos }) =>
-    absolutePos &&
-    `top: ${absolutePos[0]}; right: ${absolutePos[1]}; bottom: ${absolutePos[2]}; left: ${absolutePos[3]};`}
+  ${({ grow }) => grow && `flex-grow: ${grow === true ? 1 : grow};`}
+
+  /* Size */
+  ${({ height }) => height && `height: ${height};`}
+  ${({ minHeight }) => minHeight && `min-height: ${minHeight};`}
+  ${({ width }) => width && `width: ${width};`}
+  ${({ maxWidth }) => maxWidth && `max-width: ${maxWidth};`}
+  ${({ square }) => square && `width: ${square}; height: ${square};`}
+
+  /* Spacing */
+  ${({ pad }) => pad && `padding: ${pad};`}
+  ${({ margin }) => margin && `margin: ${margin};`}
+
+  /* Position */
+  ${({ position }) => position && `position: ${position};`}
+  ${({ absoluteFill }) => absoluteFill && `position: absolute; top: 0; right: 0; bottom: 0; left: 0;`}
+  ${({ absolute }) => absolute && `position: absolute; top: ${absolute[0]}; right: ${absolute[1]}; bottom: ${absolute[2]}; left: ${absolute[3]};`}
+  ${({ fixed }) => fixed && `position: fixed; top: ${fixed[0]}; right: ${fixed[1]}; bottom: ${fixed[2]}; left: ${fixed[3]};`}
+
+  /* Others */
   border-radius: ${({ rounded, theme }) => {
     if (!rounded) return "0";
-    if (Array.isArray(rounded)) return rounded.map((a) => (a ? theme.borderRadius : "0")).join(" ");
+    if (Array.isArray(rounded)) return rounded.map(a => (a ? theme.borderRadius : "0")).join(" ");
     return theme.borderRadius;
   }};
+  ${({ z }) => z && `z-index: ${z};`}
+  ${({ cursor }) => cursor && `cursor: ${cursor};`}
+  ${({ bkg, theme }) => bkg && `background: ${theme.colors[bkg] || bkg};`}
 `;
 
 export default Box;
+
+export const AnimatedBox = motion(Box);
 
 export const SquareOuter = styled(Box)`
   position: relative;

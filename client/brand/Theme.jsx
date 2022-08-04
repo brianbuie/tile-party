@@ -6,7 +6,7 @@ export const theme = {
     navy: "#131c3b",
     facebookBlue: "#3378f2",
     white: "#ffffff",
-    limeGreen: "#59b62d",
+    green: "#1a9a4f",
     cream: "#fdf9c6",
     pink: "#fc90ad",
     aqua: "#58baba",
@@ -36,7 +36,6 @@ const GlobalStyle = createGlobalStyle`
 		font-size: 15px;
 		color: white;
 		font-family: ${theme.fontFamily};
-    height: fill-available;
 	}
 
 	body {
@@ -45,9 +44,9 @@ const GlobalStyle = createGlobalStyle`
 		background: linear-gradient(${theme.colors.purple}, ${theme.colors.navy});
 	}
 
-  body, #root {
-   	min-height: 100vh;
-    min-height: fill-available;
+  html, body, #root {
+    min-height: 100vh;
+   	min-height: fill-available;
   }
 
 	* {
