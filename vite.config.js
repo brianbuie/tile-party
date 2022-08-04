@@ -12,7 +12,7 @@ export default defineConfig({
   publicDir: "./assets",
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./client"),
+      "~": path.resolve(__dirname, "./client"),
       "@common": path.resolve(__dirname, "./common"),
     },
   },

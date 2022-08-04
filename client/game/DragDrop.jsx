@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { debounce } from "lodash";
 import { motion } from "framer-motion";
-import { SquareInner } from "@/ui/Box";
+import { SquareInner } from "~/ui/Box";
 
 const Movable = motion(SquareInner);
 
@@ -47,8 +47,7 @@ export const DropZone = ({ loc, register, children, ...props }) => {
 export const useDragDrop = () => {
   const [dropZones, setDropZones] = useState({});
 
-  const registerDropZone = (loc, xRange, yRange) =>
-    setDropZones((dropZones) => ({ ...dropZones, [loc.join("_")]: { loc, xRange, yRange } }));
+  const registerDropZone = (loc, xRange, yRange) => setDropZones(dropZones => ({ ...dropZones, [loc.join("_")]: { loc, xRange, yRange } }));
 
   const findDropZone = ({ x, y }) => {
     return Object.values(dropZones).find(({ xRange, yRange }) => {

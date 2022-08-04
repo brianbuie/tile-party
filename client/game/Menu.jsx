@@ -1,14 +1,14 @@
-import Box from "@/ui/Box";
-import Button from "@/ui/Button";
-import { BurgerIcon, ShuffleIcon, SwapIcon, PassIcon, RecallIcon } from "@/ui/Icons";
-import { theme } from "@/brand/Theme";
+import Box from "~/ui/Box";
+import Button from "~/ui/Button";
+import { BurgerIcon, ShuffleIcon, SwapIcon, PassIcon, RecallIcon } from "~/ui/Icons";
+import { theme } from "~/ui/Theme";
 
 const IconButton = ({ Icon, title, ...props }) => (
   <Box width="20%">
     <Button size="1rem" pad="0.5em 0" {...props}>
       <Box col>
         <Icon />
-        <div>{title}</div>
+        <span>{title}</span>
       </Box>
     </Button>
   </Box>

@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const StyledButton = styled.button`
+const Button = styled.button.attrs(({ link, as }) => ({
+  as: link ? Link : as || "button",
+}))`
   border: none;
   border-radius: 9999px;
   line-height: 1.2;
@@ -32,9 +35,12 @@ const StyledButton = styled.button`
   .icon {
     font-size: 1.5em;
   }
-  span:nth-child(2) {
-    margin-left: 0.5em;
+  .space-left {
+    margin-left: 0.75em;
+  }
+  .space-top {
+    margin-top: 0.75em;
   }
 `;
 
-export default StyledButton;
+export default Button;

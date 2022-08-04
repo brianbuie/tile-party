@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { IconProvider } from "@/ui/Icons";
-import { FetchProvider } from "@/utils/useFetch";
-import ThemeProvider from "@/brand/Theme";
-import Page from "@/layout/Page";
-import Home from "@/pages/Home";
-import Game from "@/game/Game";
+import { IconProvider } from "~/ui/Icons";
+import { FetchProvider } from "~/utils/useFetch";
+import ThemeProvider from "~/ui/Theme";
+import Page from "~/ui/Page";
+import Home from "~/pages/Home";
+import Game from "~/pages/Game";
 
 const App = () => (
   <ThemeProvider>

@@ -1,11 +1,9 @@
 import styled from "styled-components";
-import Box from "@/ui/Box";
+import Box from "~/ui/Box";
 
 const TileShape = styled(Box)`
   box-shadow: ${({ shadow, highlight, theme }) =>
-    [shadow && "inset 0 -2px 0 " + theme.tile.bottomEdge, highlight && "inset 0 2px 0 " + theme.tile.topEdge]
-      .filter((r) => !!r)
-      .join(", ") || "none"};
+    [shadow && "inset 0 -2px 0 " + theme.tile.bottomEdge, highlight && "inset 0 2px 0 " + theme.tile.topEdge].filter(r => !!r).join(", ") || "none"};
   background-color: ${({ theme, movable }) => (movable ? "rgba(44, 255, 255, 0.8)" : theme.tile.bkg)};
   border-color: rgba(186, 56, 183, 0.7);
   border-style: solid;

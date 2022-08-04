@@ -1,6 +1,8 @@
-import Button from "@/ui/Button";
-import { FacebookIcon } from "@/ui/Icons";
-import { useFetch, routes } from "@/utils/useFetch";
+import Button from "~/ui/Button";
+import { FacebookIcon } from "~/ui/Icons";
+import { useFetch, routes } from "~/utils/useFetch";
+import Box from "~/ui/Box";
+import Logo from "~/ui/Logo";
 
 const RequireAuth = ({ children }) => {
   const [user, loading] = useFetch("me");
@@ -9,11 +11,14 @@ const RequireAuth = ({ children }) => {
     children
   ) : (
     <>
-      <Button color="facebookBlue" size="1rem" as="a" href={routes.facebookLogin}>
+      <Box width="250px" margin="0 0 50px 0">
+        <Logo />
+      </Box>
+      <Button margin="1em 0" color="facebookBlue" size="1rem" as="a" href={routes.facebookLogin}>
         <FacebookIcon />
-        <span>Continue with Facebook</span>
+        <span className="space-left">Continue with Facebook</span>
       </Button>
-      <Button margin="0.5em 0" color="pink" size="1rem" as="a" href={routes.mockLogin}>
+      <Button color="pink" size="1rem" as="a" href={routes.mockLogin}>
         <span>Fake Login</span>
       </Button>
     </>

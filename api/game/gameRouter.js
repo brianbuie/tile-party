@@ -24,7 +24,7 @@ gameRouter.use(requireAuth);
 // Get all player's games
 gameRouter.get(route("viewGames"), async (req, res) => {
   const games = await Game.find({ users: [req.user] });
-  res.status(200).json(games);
+  res.json(games);
 });
 
 // Create Game
@@ -33,7 +33,7 @@ gameRouter.post(route("createGame"), async (req, res) => {
     users: [req.user],
   });
   await game.save();
-  res.status(200).json(game);
+  res.json(game);
 });
 
 // Join Game
@@ -56,9 +56,7 @@ gameRouter.post(route("createGame"), async (req, res) => {
 
 import game from "./mock-game.json";
 gameRouter.get(route("viewGame"), async (req, res) => {
-  const data = game;
-  const { user } = req;
-  res.status(200).json({ ...data, user });
+  res.json(game);
 });
 
 export default gameRouter;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Box, { SquareOuter, SquareInner } from "@/ui/Box";
-import useGameMode from "@/game/config/useGameMode";
-import Tile from "@/game/Tile";
+import Box, { SquareOuter, SquareInner } from "~/ui/Box";
+import useGameMode from "~/game/config/useGameMode";
+import Tile from "~/game/Tile";
 
 const PartySVG = styled(Party)`
   width: 60%;

@@ -1,6 +1,6 @@
-import { useFetch } from "@/utils/useFetch";
-import Box, { AnimatedBox } from "@/ui/Box";
-import Button from "@/ui/Button";
+import { useFetch } from "~/utils/useFetch";
+import Box, { AnimatedBox } from "~/ui/Box";
+import Button from "~/ui/Button";
 
 export default function GamesList() {
   const [games, loading] = useFetch("viewGames");
@@ -14,6 +14,9 @@ export default function GamesList() {
             {game.id}
           </Box>
         ))}
+        <Button link to="/game/mock" color="pink">
+          Mock Game
+        </Button>
         <AnimatedBox fixed={["auto", "1rem", "2rem", "auto"]} initial={{ y: "400%" }} animate={{ y: 0 }}>
           <Button color="green" onClick={() => console.log("create game")}>
             New Game
