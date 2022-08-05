@@ -27,7 +27,7 @@ export const DropZone = ({ loc, register, children, ...props }) => {
   const dropArea = useRef(null);
 
   const registerDropArea = () => {
-    const area = dropArea?.current.getBoundingClientRect();
+    const area = dropArea?.current?.getBoundingClientRect();
     if (!area) console.log("No area for DropZone ", loc);
     register(loc, [area.x, area.x + area.width], [area.y, area.y + area.height]);
   };

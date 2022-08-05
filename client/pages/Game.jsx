@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useFetch } from "~/utils/useFetch";
 import RequireAuth from "~/auth/RequireAuth";
 import { BackArrowIcon } from "~/ui/Icons";
@@ -14,12 +15,12 @@ export default function Game() {
   return (
     <>
       <Nav>
-        <Button link to="/" pad="0">
+        <Button as={Link} to="/" pad="0">
           <BackArrowIcon />
-          <span className="space-left">All Games</span>
+          <span className="space-left">Games</span>
         </Button>
       </Nav>
-      <Box col grow width="100%" pad="0 0.5rem">
+      <Box col grow width="100%" pad="0 1rem">
         <RequireAuth>{!loading && game && <Board {...game} />}</RequireAuth>
       </Box>
     </>

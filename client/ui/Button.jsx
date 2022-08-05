@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
-const Button = styled.button.attrs(({ link, as }) => ({
-  as: link ? Link : as || "button",
-}))`
+const Button = styled.button`
   border: none;
   border-radius: 9999px;
   line-height: 1.2;

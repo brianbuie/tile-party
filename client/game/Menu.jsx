@@ -1,7 +1,7 @@
 import Box from "~/ui/Box";
 import Button from "~/ui/Button";
 import { BurgerIcon, ShuffleIcon, SwapIcon, PassIcon, RecallIcon } from "~/ui/Icons";
-import { theme } from "~/ui/Theme";
+import theme from "~/ui/theme";
 
 const IconButton = ({ Icon, title, ...props }) => (
   <Box width="20%">
