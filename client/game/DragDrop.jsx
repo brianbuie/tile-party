@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { debounce } from "lodash";
 import { motion } from "framer-motion";
-import { SquareInner } from "~/ui/Box";
+import { SquareInner } from "~/ui";
 
 const Movable = motion(SquareInner);
 

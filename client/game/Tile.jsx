@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Box from "~/ui/Box";
+import { Box } from "~/ui";
 
 const TileShape = styled(Box)`
   box-shadow: ${({ shadow, highlight, theme }) =>

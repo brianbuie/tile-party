@@ -1,5 +1,4 @@
-import RequireAuth from "~/auth/RequireAuth";
-import Box from "~/ui/Box";
+import { Box } from "~/ui";
 import Nav from "~/ui/Nav";
 import GamesList from "~/game/GamesList";
 

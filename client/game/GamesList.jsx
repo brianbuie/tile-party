@@ -1,7 +1,5 @@
-import { Link } from "react-router-dom";
 import { useFetch } from "~/utils/useFetch";
-import Box, { AnimatedBox } from "~/ui/Box";
-import Button from "~/ui/Button";
+import { Box, Link, AnimatedBox, Button } from "~/ui";
 
 export default function GamesList() {
   const [games, loading] = useFetch("viewGames");
@@ -15,9 +13,9 @@ export default function GamesList() {
             {game.id}
           </Box>
         ))}
-        <Button as={Link} to="/game/mock" color="pink">
+        <Link to="/game/mock" color="pink">
           Mock Game
-        </Button>
+        </Link>
         <AnimatedBox fixed={["auto", "1rem", "2rem", "auto"]} initial={{ y: "400%" }} animate={{ y: 0 }}>
           <Button color="green" onClick={() => console.log("create game")}>
             New Game

@@ -1,7 +1,5 @@
-import Box from "~/ui/Box";
-import Button from "~/ui/Button";
+import { Box, Button, theme } from "~/ui";
 import { BurgerIcon, ShuffleIcon, SwapIcon, PassIcon, RecallIcon } from "~/ui/Icons";
-import theme from "~/ui/theme";
 
 const IconButton = ({ Icon, title, ...props }) => (
   <Box width="20%">

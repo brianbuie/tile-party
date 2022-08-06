@@ -1,8 +1,6 @@
-import Button from "~/ui/Button";
+import { Button, Box, Logo } from "~/ui";
 import { FacebookIcon } from "~/ui/Icons";
 import { useFetch, routes } from "~/utils/useFetch";
-import Box from "~/ui/Box";
-import Logo from "~/ui/Logo";
 
 const RequireAuth = ({ children }) => {
   const [user, loading] = useFetch("me");

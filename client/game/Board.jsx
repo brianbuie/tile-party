@@ -1,4 +1,4 @@
-import Box, { SquareOuter, SquareInner } from "~/ui/Box";
+import { Box, SquareOuter, SquareInner } from "~/ui";
 import { Draggable, DropZone, useDragDrop } from "./DragDrop";
 import Spot from "./Spot";
 import Tile from "./Tile";

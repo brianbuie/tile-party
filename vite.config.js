@@ -7,7 +7,13 @@ import react from "@vitejs/plugin-react";
 const { PORT } = process.env;
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        plugins: ["babel-plugin-styled-components"],
+      },
+    }),
+  ],
   root: "./client/",
   publicDir: "./assets",
   resolve: {

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link as RouterLink } from "react-router-dom";
 
 const Button = styled.button`
   border: none;
@@ -41,3 +42,7 @@ const Button = styled.button`
 `;
 
 export default Button;
+
+export const Link = styled(Button).attrs({
+  as: RouterLink,
+})``;
