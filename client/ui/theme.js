@@ -10,6 +10,8 @@ const colors = {
   shadow: "rgba(102,57,116,0.6)",
   darkOverlay: "rgba(20, 10, 14, 0.35)",
   lightOverlay: "rgba(228, 160, 240, 0.07)",
+  text: "#ffffff",
+  textMuted: "rgba(201, 211, 253, 0.7)",
 };
 
 const theme = {

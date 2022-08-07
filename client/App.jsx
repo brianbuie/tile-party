@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { IconProvider } from "~/ui/Icons";
 import { FetchProvider } from "~/utils/useFetch";
 import GlobalStyle from "~/core/GlobalStyle";
-import Page from "~/ui/Page";
+import Page from "~/core/Page";
 import Home from "~/pages/Home";
 import Game from "~/pages/Game";
 

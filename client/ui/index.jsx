@@ -1,5 +1,6 @@
-export { default as Box, Square, AnimatedBox } from "./Box";
-export { default as Button, Link } from "./Button";
+export { Box, Square, AnimatedBox } from "./Box";
+export { Button, Link } from "./Button";
+export { Text, Headline } from "./Text";
 export { Face, Faces } from "./Faces";
 export { default as Logo } from "./Logo";
 export { default as theme } from "./theme";

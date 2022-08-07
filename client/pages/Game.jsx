@@ -3,7 +3,7 @@ import { BackArrowIcon } from "~/ui/Icons";
 import { useFetch } from "~/utils/useFetch";
 import RequireAuth from "~/auth/RequireAuth";
 import Nav from "~/ui/Nav";
-import Board from "~/game/Board";
+import Board from "~/board/Board";
 
 export default function Game() {
   const [game, loading, error] = useFetch("viewGame", { id: "mock" });

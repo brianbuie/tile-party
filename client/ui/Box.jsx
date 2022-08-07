@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-const Box = styled.div`
+export const Box = styled.div`
   /* Layout */
   display: ${({ display }) => display || "flex"};
   flex-direction: ${({ col }) => (col ? "column" : "row")};
@@ -30,9 +30,7 @@ const Box = styled.div`
   ${({ bkg, theme }) => bkg && `background: ${theme.colors[bkg] || bkg};`}
   ${({ bkgImage }) => bkgImage && `background-image: url(${bkgImage}); background-size: cover;`}
 
-
   /* Others */
-
   border-radius: ${({ rounded, theme }) => {
     if (!rounded) return "0";
     if (rounded === "full") return "9999px";
@@ -42,8 +40,6 @@ const Box = styled.div`
   ${({ z }) => z && `z-index: ${z};`}
   ${({ cursor }) => cursor && `cursor: ${cursor};`}
 `;
-
-export default Box;
 
 export const AnimatedBox = motion(Box);
 

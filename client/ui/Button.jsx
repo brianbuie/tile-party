@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 
-const Button = styled.button`
+export const Button = styled.button`
   border: none;
   border-radius: 9999px;
   line-height: 1.2;
   white-space: nowrap;
   text-decoration: none;
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
-  color: ${({ textColor }) => textColor || "white"};
+  color: ${({ txtColor }) => txtColor || "white"};
   background-color: ${({ color, theme }) => {
     if (!color) return "transparent";
     return theme.colors[color] || color;
@@ -39,8 +39,6 @@ const Button = styled.button`
     margin-top: 0.75em;
   }
 `;
-
-export default Button;
 
 export const Link = styled(Button).attrs({
   as: RouterLink,

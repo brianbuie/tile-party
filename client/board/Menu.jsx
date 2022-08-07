@@ -22,7 +22,7 @@ export default function Menu({ anyTilesDeployed, recall, shuffle }) {
         <Button
           size="1rem"
           color={canSubmit ? theme.tile.bkg : "rgba(255,255,255,0.1)"}
-          textColor={canSubmit ? theme.tile.textNormal : theme.tile.textActive}
+          txtColor={canSubmit ? theme.tile.textNormal : theme.tile.textActive}
           pad="1em 2em"
           maxWidth="100%"
           disabled={!canSubmit}

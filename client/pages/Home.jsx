@@ -1,6 +1,6 @@
 import { Box } from "~/ui";
 import Nav from "~/ui/Nav";
-import GamesList from "~/game/GamesList";
+import GamesList from "~/board/GamesList";
 
 export default function Home() {
   return (
