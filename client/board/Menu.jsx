@@ -1,5 +1,4 @@
-import { Box, Button, theme } from "~/ui";
-import { BurgerIcon, ShuffleIcon, SwapIcon, PassIcon, RecallIcon } from "~/ui/Icons";
+import { Box, Button, Icon, theme } from "~/ui";
 
 const IconButton = ({ Icon, title, ...props }) => (
   <Box width="20%">
@@ -16,8 +15,8 @@ export default function Menu({ anyTilesDeployed, recall, shuffle }) {
   const canSubmit = anyTilesDeployed;
   return (
     <Box row justify="space-around" width="100%" pad="1rem 0">
-      <IconButton Icon={BurgerIcon} title="MORE" />
-      <IconButton Icon={PassIcon} title="PASS" />
+      <IconButton Icon={Icon.Burger} title="MORE" />
+      <IconButton Icon={Icon.Pass} title="PASS" />
       <Box width="20%">
         <Button
           color={canSubmit ? theme.colors.pink : "rgba(255,255,255,0.1)"}
@@ -28,11 +27,11 @@ export default function Menu({ anyTilesDeployed, recall, shuffle }) {
           SUBMIT
         </Button>
       </Box>
-      <IconButton Icon={SwapIcon} title="SWAP" />
+      <IconButton Icon={Icon.Swap} title="SWAP" />
       {anyTilesDeployed ? (
-        <IconButton Icon={RecallIcon} title="RECALL" onClick={recall} />
+        <IconButton Icon={Icon.Recall} title="RECALL" onClick={recall} />
       ) : (
-        <IconButton Icon={ShuffleIcon} title="SHUFFLE" onClick={shuffle} />
+        <IconButton Icon={Icon.Shuffle} title="SHUFFLE" onClick={shuffle} />
       )}
     </Box>
   );

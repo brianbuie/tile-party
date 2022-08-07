@@ -1,16 +1,16 @@
 export {
-  IoChevronBack as BackArrowIcon,
-  IoChevronForward as ForwardArrowIcon,
-  IoClose as CloseIcon,
-  IoLogoFacebook as FacebookIcon,
-  IoAdd as AddIcon,
-  IoMenu as BurgerIcon,
-  IoShuffle as ShuffleIcon,
-  IoSwapHorizontal as SwapIcon,
+  IoChevronBack as BackArrow,
+  IoChevronForward as ForwardArrow,
+  IoClose as Close,
+  IoLogoFacebook as Facebook,
+  IoAdd as Add,
+  IoMenu as Burger,
+  IoShuffle as Shuffle,
+  IoSwapHorizontal as Swap,
 } from "react-icons/io5";
 
-export { GrRedo as PassIcon } from "react-icons/gr";
-export { MdCallReceived as RecallIcon } from "react-icons/md";
+export { GrRedo as Pass } from "react-icons/gr";
+export { MdCallReceived as Recall } from "react-icons/md";
 
 import { IconContext } from "react-icons";
 

@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { useFetch } from "~/utils/useFetch";
-import { Box, Link, Face, Square, Nav, Headline, Text } from "~/ui";
-import { CloseIcon } from "~/ui/Icons";
+import { Box, Button, Icon, Face, Square, Nav, Headline, Text } from "~/ui";
 import Board from "~/board/Board";
 import GamesList from "./GamesList";
 
@@ -41,9 +40,9 @@ export default function DashboardLayout() {
               </Box>
             </Box>
             <Box row>
-              <Link to="/game" size="1.5rem" pad="0.5rem">
-                <CloseIcon />
-              </Link>
+              <Button to="/game" size="1.5rem" pad="0.5rem">
+                <Icon.Close />
+              </Button>
             </Box>
           </Box>
         </Box>

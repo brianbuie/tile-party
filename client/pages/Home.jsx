@@ -1,4 +1,4 @@
-import { Box, Link } from "~/ui";
+import { Box, Button } from "~/ui";
 import Nav from "~/ui/Nav";
 
 export default function Home() {
@@ -6,9 +6,9 @@ export default function Home() {
     <>
       <Nav />
       <Box col grow width="100%">
-        <Link to="/game/" color="pink">
+        <Button to="/game/" color="pink">
           View Games
-        </Link>
+        </Button>
       </Box>
     </>
   );

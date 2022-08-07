@@ -7,6 +7,7 @@
     "dev:client": "sleep 3 && vite",
     "dev": "concurrently yarn:dev:* -p none",
     "manifest": "babel-node build-manifest.js",
+    "analyze": "react-scanner -c analysis.config.js",
     "stage": "yarn build && babel-node -r dotenv/config api/server.js dotenv_config_path=.env.prod",
     "build": "vite build --emptyOutDir",
     "start": "babel-node api/server.js"
@@ -28,6 +29,7 @@
     "nodemon": "^2.0.13",
     "passport-mock-strategy": "^2.0.0",
     "prop-types": "^15.7.2",
+    "react-scanner": "^1.0.3",
     "rimraf": "^3.0.2",
     "vite": "^2.5.10"
   },

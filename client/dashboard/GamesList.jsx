@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 import { useFetch } from "~/utils/useFetch";
-import { Box, Link, Face, Headline, Text, Button } from "~/ui";
-import { ForwardArrowIcon } from "~/ui/Icons";
+import { Box, Icon, Link, Face, Headline, Text, Button } from "~/ui";
 
 const GameItem = styled(Box).attrs({
   as: RouterLink,
@@ -30,7 +29,7 @@ const GameListing = ({ active }) => (
         <Headline lg>205</Headline>
       </Box>
     </Box>
-    <ForwardArrowIcon size="1rem" />
+    <Icon.ForwardArrow size="1rem" />
   </GameItem>
 );
 
