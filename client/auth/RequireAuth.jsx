@@ -16,7 +16,7 @@ const RequireAuth = ({ children }) => {
         <FacebookIcon />
         <span className="space-left">Continue with Facebook</span>
       </Button>
-      <Button color="pink" size="1rem" as="a" href={routes.mockLogin}>
+      <Button color="pink" as="a" href={routes.mockLogin}>
         <span>Fake Login</span>
       </Button>
     </>

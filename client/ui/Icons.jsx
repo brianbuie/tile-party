@@ -1,5 +1,7 @@
 export {
   IoChevronBack as BackArrowIcon,
+  IoChevronForward as ForwardArrowIcon,
+  IoClose as CloseIcon,
   IoLogoFacebook as FacebookIcon,
   IoAdd as AddIcon,
   IoMenu as BurgerIcon,
@@ -12,6 +14,4 @@ export { MdCallReceived as RecallIcon } from "react-icons/md";
 
 import { IconContext } from "react-icons";
 
-export const IconProvider = ({ children }) => (
-  <IconContext.Provider value={{ className: "icon" }}>{children}</IconContext.Provider>
-);
+export const IconProvider = ({ children }) => <IconContext.Provider value={{ className: "icon", color: "white" }}>{children}</IconContext.Provider>;

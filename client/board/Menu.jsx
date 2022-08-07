@@ -20,10 +20,8 @@ export default function Menu({ anyTilesDeployed, recall, shuffle }) {
       <IconButton Icon={PassIcon} title="PASS" />
       <Box width="20%">
         <Button
-          size="1rem"
-          color={canSubmit ? theme.tile.bkg : "rgba(255,255,255,0.1)"}
+          color={canSubmit ? theme.colors.pink : "rgba(255,255,255,0.1)"}
           txtColor={canSubmit ? theme.tile.textNormal : theme.tile.textActive}
-          pad="1em 2em"
           maxWidth="100%"
           disabled={!canSubmit}
         >

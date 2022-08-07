@@ -4,7 +4,7 @@ import { FetchProvider } from "~/utils/useFetch";
 import GlobalStyle from "~/core/GlobalStyle";
 import Page from "~/core/Page";
 import Home from "~/pages/Home";
-import Game from "~/pages/Game";
+import DashboardLayout, { GameView } from "~/dashboard/DashboardLayout";
 
 const App = () => (
   <GlobalStyle>
@@ -14,7 +14,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Page />}>
               <Route index element={<Home />} />
-              <Route path="/game/:gameId" element={<Game />} />
+              <Route path="game" element={<DashboardLayout />}>
+                <Route path=":id" element={<GameView />} />
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>

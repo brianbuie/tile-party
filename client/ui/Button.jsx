@@ -1,30 +1,39 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 
-export const Button = styled.button`
-  border: none;
-  border-radius: 9999px;
-  line-height: 1.2;
+const BaseButton = styled.button`
+  /* Text */
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${({ txtColor }) => txtColor || "white"};
+  text-transform: uppercase;
   white-space: nowrap;
   text-decoration: none;
+  line-height: 1.33;
+  letter-spacing: 0.025rem;
+  white-space: nowrap;
+
+  /* Shape */
+  border: ${({ border }) => (border === true ? "0.125rem solid white" : border || "none")};
+  border-radius: 9999px;
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
-  color: ${({ txtColor }) => txtColor || "white"};
   background-color: ${({ color, theme }) => {
     if (!color) return "transparent";
     return theme.colors[color] || color;
   }};
-  box-shadow: ${({ shadow, theme }) => (shadow ? "inset 0 -0.2em 0 " + theme.colors.shadow : "none")};
-  font-weight: 600;
-  font-size: ${({ size }) => size || "1em"};
+  opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
+
+  /* Spacing */
   padding: ${({ pad }) => pad || "0.75em 1.5em"};
   ${({ margin }) => margin && `margin: ${margin};`}
+
+  /* Layout */
   display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  white-space: nowrap;
   max-width: ${({ maxWidth }) => maxWidth || "none"};
-  opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
+
   &:focus {
     outline: none;
     box-shadow: none;
@@ -40,6 +49,11 @@ export const Button = styled.button`
   }
 `;
 
-export const Link = styled(Button).attrs({
+export const Button = styled(BaseButton).attrs(props => ({
+  as: props.asLink ? RouterLink : props.as,
+}))``;
+
+// Remove
+export const Link = styled(BaseButton).attrs({
   as: RouterLink,
 })``;

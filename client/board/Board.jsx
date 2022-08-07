@@ -24,7 +24,7 @@ export default function Board({ boardLayout, gameMode, moveHistory, playerTiles 
 
   return (
     <>
-      <Box col width="100%" maxWidth="60vh">
+      <Box col width="100%">
         {rows.map((_, y) => (
           <Box row key={y} width="100%">
             {cols.map((_, x) => {

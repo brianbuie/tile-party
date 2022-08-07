@@ -5,7 +5,7 @@ const colors = {
   white: "#ffffff",
   green: "#1a9a4f",
   cream: "#fdf9c6",
-  pink: "#FF8ECF",
+  pink: "rgba(255, 142, 207, 1)",
   aqua: "#58baba",
   shadow: "rgba(102,57,116,0.6)",
   darkOverlay: "rgba(20, 10, 14, 0.35)",
