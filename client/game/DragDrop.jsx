@@ -1,9 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { debounce } from "lodash";
-import { motion } from "framer-motion";
-import { SquareInner } from "~/ui";
-
-const Movable = motion(SquareInner);
+import { Box, AnimatedBox } from "~/ui";
 
 export const Draggable = ({ children, id, dragScale, dragConstraints, ...props }) => {
   const motionProps = {
@@ -20,7 +17,7 @@ export const Draggable = ({ children, id, dragScale, dragConstraints, ...props }
     z: "30",
     cursor: "pointer",
   };
-  return <Movable {...motionProps}>{children}</Movable>;
+  return <AnimatedBox {...motionProps}>{children}</AnimatedBox>;
 };
 
 export const DropZone = ({ loc, register, children, ...props }) => {
@@ -38,9 +35,9 @@ export const DropZone = ({ loc, register, children, ...props }) => {
   }, []);
 
   return (
-    <SquareInner ref={dropArea} {...props}>
+    <Box ref={dropArea} {...props}>
       {children}
-    </SquareInner>
+    </Box>
   );
 };
 

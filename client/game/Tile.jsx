@@ -15,7 +15,7 @@ const TileShape = styled(Box)`
 
 const TileText = styled.text`
   font-weight: 700;
-  font-family: ${({ theme }) => theme.fontFamily};
+  font-family: ${({ theme }) => theme.tile.font};
   fill: ${({ active, theme }) => (active ? theme.tile.textActive : theme.tile.textNormal)};
   filter: drop-shadow(2px 2px 0 ${({ active, theme }) => (active ? theme.tile.textNormal : theme.tile.topEdge)});
 `;

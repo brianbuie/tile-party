@@ -1,21 +1,12 @@
-import styled from "styled-components";
-import Box from "~/ui/Box";
-import Button from "~/ui/Button";
-import Logo from "~/ui/Logo";
+import { Box, Button, Logo, Face } from "~/ui";
 import { routes, useFetch } from "~/utils/useFetch";
 
-const ProfileImg = styled.img`
-  width: 3rem;
-  height: 3rem;
-  border-radius: 9999px;
-`;
-
-const ProfilePic = () => {
+const Me = () => {
   const [user] = useFetch("me");
   return (
     user && (
       <Button pad="0" as="a" href={routes.logout}>
-        <ProfileImg src={user.image} title="Log Out" />
+        <Face user={user} size="3rem" />
       </Button>
     )
   );
@@ -23,17 +14,17 @@ const ProfilePic = () => {
 
 export default function Nav({ children }) {
   return (
-    <Box row as="nav" pad="1rem" width="100%">
+    <Box row as="nav" pad="1rem" width="100%" bkg="darkOverlay">
       <Box row width="33%" justify="start">
         {children}
       </Box>
       <Box row width="33%">
-        <Box width="150px">
+        <Box width="6rem" height="3rem">
           <Logo />
         </Box>
       </Box>
       <Box row width="33%" justify="end">
-        <ProfilePic />
+        <Me />
       </Box>
     </Box>
   );

@@ -26,35 +26,36 @@ const Box = styled.div`
   ${({ absolute }) => absolute && `position: absolute; top: ${absolute[0]}; right: ${absolute[1]}; bottom: ${absolute[2]}; left: ${absolute[3]};`}
   ${({ fixed }) => fixed && `position: fixed; top: ${fixed[0]}; right: ${fixed[1]}; bottom: ${fixed[2]}; left: ${fixed[3]};`}
 
+  /* Background */
+  ${({ bkg, theme }) => bkg && `background: ${theme.colors[bkg] || bkg};`}
+  ${({ bkgImage }) => bkgImage && `background-image: url(${bkgImage}); background-size: cover;`}
+
+
   /* Others */
+
   border-radius: ${({ rounded, theme }) => {
     if (!rounded) return "0";
+    if (rounded === "full") return "9999px";
     if (Array.isArray(rounded)) return rounded.map(a => (a ? theme.borderRadius : "0")).join(" ");
     return theme.borderRadius;
   }};
   ${({ z }) => z && `z-index: ${z};`}
   ${({ cursor }) => cursor && `cursor: ${cursor};`}
-  ${({ bkg, theme }) => bkg && `background: ${theme.colors[bkg] || bkg};`}
 `;
 
 export default Box;
 
 export const AnimatedBox = motion(Box);
 
-export const SquareOuter = styled(Box)`
+export const Square = styled(Box)`
   position: relative;
   width: ${({ size }) => size || "100%"};
   padding-bottom: ${({ size }) => size || "100%"};
-`;
-
-export const SquareInner = styled(Box)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  align-items: stretch;
   > * {
-    flex-grow: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 `;

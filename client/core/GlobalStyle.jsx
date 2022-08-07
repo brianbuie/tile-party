@@ -1,5 +1,5 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import theme from "./theme";
+import { theme } from "~/ui";
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -9,9 +9,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
 	html {
-		font-size: 15px;
+		font-size: 16px;
 		color: white;
-		font-family: ${theme.fontFamily};
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	}
 
 	body {
@@ -30,11 +30,11 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
-const Theme = ({ children }) => (
-  <>
+const StyleProvider = ({ children }) => (
+  <ThemeProvider theme={theme}>
     <GlobalStyle />
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-  </>
+    {children}
+  </ThemeProvider>
 );
 
-export default Theme;
+export default StyleProvider;

@@ -1,4 +1,4 @@
-import { Box, SquareOuter, SquareInner } from "~/ui";
+import { Box, Square } from "~/ui";
 import { Draggable, DropZone, useDragDrop } from "./DragDrop";
 import Spot from "./Spot";
 import Tile from "./Tile";
@@ -32,16 +32,15 @@ export default function Board({ boardLayout, gameMode, moveHistory, playerTiles 
               const movableTile = getMovableTile([x, y]);
               const spotInfo = getSpot([x, y]);
               return (
-                <SquareOuter key={x} size={boardSpotSize + "%"}>
+                <Square key={x} size={boardSpotSize + "%"}>
                   {staticTile ? (
-                    <SquareInner z="5">
-                      <Tile
-                        surroundingTiles={getSurroundingTiles([x, y])}
-                        letter={staticTile.letter}
-                        value={getLetterValue(staticTile.letter)}
-                        isLastMove={staticTile.isLastMove}
-                      />
-                    </SquareInner>
+                    <Tile
+                      surroundingTiles={getSurroundingTiles([x, y])}
+                      letter={staticTile.letter}
+                      value={getLetterValue(staticTile.letter)}
+                      isLastMove={staticTile.isLastMove}
+                      z="5"
+                    />
                   ) : (
                     <DropZone loc={[x, y]} register={registerDropZone} z="10">
                       {movableTile && (
@@ -58,7 +57,7 @@ export default function Board({ boardLayout, gameMode, moveHistory, playerTiles 
                     </DropZone>
                   )}
                   <Spot type={spotInfo.type} />
-                </SquareOuter>
+                </Square>
               );
             })}
           </Box>
@@ -67,7 +66,7 @@ export default function Board({ boardLayout, gameMode, moveHistory, playerTiles 
           {traySpots.map((_, key) => {
             const movableTile = getMovableTile([key, "TRAY"]);
             return (
-              <SquareOuter key={key} size={traySpotSize + "%"}>
+              <Square key={key} size={traySpotSize + "%"}>
                 <DropZone loc={[key, "TRAY"]} register={registerDropZone} z="10">
                   {movableTile && (
                     <Draggable
@@ -81,7 +80,7 @@ export default function Board({ boardLayout, gameMode, moveHistory, playerTiles 
                     </Draggable>
                   )}
                 </DropZone>
-              </SquareOuter>
+              </Square>
             );
           })}
         </Box>

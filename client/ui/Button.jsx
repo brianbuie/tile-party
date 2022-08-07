@@ -14,7 +14,6 @@ const Button = styled.button`
     return theme.colors[color] || color;
   }};
   box-shadow: ${({ shadow, theme }) => (shadow ? "inset 0 -0.2em 0 " + theme.colors.shadow : "none")};
-  font-family: ${({ theme }) => theme.fontFamily};
   font-weight: 600;
   font-size: ${({ size }) => size || "1em"};
   padding: ${({ pad }) => pad || "0.75em 1.5em"};

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Box, { SquareOuter, SquareInner } from "~/ui/Box";
+import { Box, Square } from "~/ui";
 import useGameMode from "~/game/config/useGameMode";
 import Tile from "~/game/Tile";
 
@@ -21,11 +21,9 @@ export default function Logo() {
     <Box position="relative" width="100%" pad="0 0 45% 0">
       <Box row absolute={[0, 0, "auto", 0]}>
         {["T", "I", "L", "E"].map(letter => (
-          <SquareOuter size="20%" margin="1px" key={letter}>
-            <SquareInner>
-              <Tile letter={letter} value={getLetterValue(letter)} />
-            </SquareInner>
-          </SquareOuter>
+          <Square size="20%" margin="1px" key={letter}>
+            <Tile letter={letter} value={getLetterValue(letter)} />
+          </Square>
         ))}
       </Box>
       <PartySVG />

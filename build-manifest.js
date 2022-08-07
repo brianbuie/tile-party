@@ -40,8 +40,8 @@ import theme from "./client/ui/theme";
     sizes: `${size}x${size}`,
   }));
 
-  manifest.background_color = theme.browser.bkg;
-  manifest.theme_color = theme.browser.bkg;
+  manifest.background_color = theme.colors.purple;
+  manifest.theme_color = theme.colors.purple;
 
   fs.writeFileSync("./client/assets/manifest.json", JSON.stringify(manifest, null, 2));
 })();
