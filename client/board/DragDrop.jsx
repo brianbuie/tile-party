@@ -31,7 +31,7 @@ export const DropZone = ({ loc, register, children, ...props }) => {
 
   useLayoutEffect(() => {
     registerDropArea();
-    window.addEventListener("resize", debounce(registerDropArea, 400));
+    // window.addEventListener("resize", debounce(registerDropArea, 400));
   }, []);
 
   return (

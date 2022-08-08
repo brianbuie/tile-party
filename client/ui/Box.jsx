@@ -22,13 +22,15 @@ export const Box = styled.div`
 
   /* Position */
   ${({ position }) => position && `position: ${position};`}
-  ${({ absoluteFill }) => absoluteFill && `position: absolute; top: 0; right: 0; bottom: 0; left: 0;`}
   ${({ absolute }) => absolute && `position: absolute; top: ${absolute[0]}; right: ${absolute[1]}; bottom: ${absolute[2]}; left: ${absolute[3]};`}
+  ${({ absoluteFill }) => absoluteFill && `position: absolute; top: 0; right: 0; bottom: 0; left: 0;`}
   ${({ fixed }) => fixed && `position: fixed; top: ${fixed[0]}; right: ${fixed[1]}; bottom: ${fixed[2]}; left: ${fixed[3]};`}
+  ${({ fixedFill }) => fixedFill && `position: fixed; top: 0; right: 0; bottom: 0; left: 0;`}
 
   /* Background */
   ${({ bkg, theme }) => bkg && `background: ${theme.colors[bkg] || bkg};`}
   ${({ bkgImage }) => bkgImage && `background-image: url(${bkgImage}); background-size: cover;`}
+  ${({ faded }) => faded && `opacity: 0.5;`}
 
   /* Others */
   border-radius: ${({ rounded, theme }) => {

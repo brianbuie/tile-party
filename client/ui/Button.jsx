@@ -32,7 +32,9 @@ const BaseButton = styled.button`
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
+  ${({ width }) => width && `width: ${width};`}
   max-width: ${({ maxWidth }) => maxWidth || "none"};
+  ${({ grow }) => grow && "flex-grow: 1;"}
 
   &:focus {
     outline: none;
