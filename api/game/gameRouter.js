@@ -22,8 +22,9 @@ import { requireAuth } from "../auth/authHelpers";
 gameRouter.use(requireAuth);
 
 // Get all player's games
+import games from "../.mocks/games.json";
 gameRouter.get(route("viewGames"), async (req, res) => {
-  const games = await Game.find({ users: [req.user] });
+  // const games = await Game.find({ users: [req.user] });
   res.json(games);
 });
 
@@ -54,7 +55,7 @@ gameRouter.post(route("createGame"), async (req, res) => {
   Testing
 */
 
-import game from "./mock-game.json";
+import game from "../.mocks/game.json";
 gameRouter.get(route("viewGame"), async (req, res) => {
   res.json(game);
 });

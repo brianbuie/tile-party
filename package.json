@@ -8,6 +8,7 @@
     "dev": "concurrently yarn:dev:* -p none",
     "manifest": "babel-node build-manifest.js",
     "analyze": "react-scanner -c analysis.config.js",
+    "mock": "babel-node api/game/_mock.js",
     "stage": "yarn build && babel-node -r dotenv/config api/server.js dotenv_config_path=.env.prod",
     "build": "vite build --emptyOutDir",
     "start": "babel-node api/server.js"
@@ -20,6 +21,7 @@
     "@babel/core": "^7.15.7",
     "@babel/node": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
+    "@faker-js/faker": "^7.3.0",
     "@vitejs/plugin-react": "^1.0.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
@@ -36,6 +38,7 @@
   "dependencies": {
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
+    "date-fns": "^2.29.1",
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "express": "^4.18.1",
@@ -49,6 +52,7 @@
     "passport-facebook": "^3.0.0",
     "path-parser": "^6.1.0",
     "react": "18.2.0",
+    "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",

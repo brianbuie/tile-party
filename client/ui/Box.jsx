@@ -35,7 +35,8 @@ export const Box = styled.div`
     if (!rounded) return "0";
     if (rounded === "full") return "9999px";
     if (Array.isArray(rounded)) return rounded.map(a => (a ? theme.borderRadius : "0")).join(" ");
-    return theme.borderRadius;
+    if (rounded === true) return theme.borderRadius;
+    return rounded;
   }};
   ${({ z }) => z && `z-index: ${z};`}
   ${({ cursor }) => cursor && `cursor: ${cursor};`}

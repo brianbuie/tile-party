@@ -1,4 +1,6 @@
 import { Outlet } from "react-router-dom";
+import styled from "styled-components";
+import { Scrollbars } from "react-custom-scrollbars-2";
 import { useFetch } from "~/utils/useFetch";
 import { Box, Button, Icon, Face, Square, Nav, Headline, Text } from "~/ui";
 import Board from "~/board/Board";
@@ -16,14 +18,18 @@ export const GameView = () => {
   );
 };
 
+const Scroll = styled(Scrollbars)`
+  height: calc(100vh - 5rem);
+`;
+
 export default function DashboardLayout() {
   return (
     <Box row grow width="100%" align="stretch">
       <Box col width="33%" maxWidth="25rem">
         <Nav />
-        <Box col grow justify="start" align="start" width="100%" pad="2.5rem 1rem 0 1rem">
+        <Scroll autoHide>
           <GamesList />
-        </Box>
+        </Scroll>
       </Box>
       <Box col grow align="stretch">
         <Box row height="5rem" bkg="darkOverlay" pad="0 1rem">

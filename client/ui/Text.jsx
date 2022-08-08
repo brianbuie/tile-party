@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Text = styled.span`
+const TextBase = styled.span`
   font-size: ${({ xs, sm, lg, xl, size }) => {
     if (xs) return "0.75rem";
     if (sm) return "0.875rem";
@@ -22,8 +22,16 @@ export const Text = styled.span`
   padding: 0;
 `;
 
+export const Text = styled(TextBase).attrs(props => {
+  if (props.muted) return { color: "textMuted" };
+})``;
+
 export const Headline = styled(Text).attrs(props => {
   if (props.md) return { as: "h4" };
   if (props.xl) return { as: "h2" };
   return { as: "h3" };
 })``;
+
+export const Score = styled(Headline)`
+  font-family: "Rubik", ui-rounded, sans-serif;
+`;

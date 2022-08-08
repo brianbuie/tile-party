@@ -8,6 +8,11 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 200 900;
   }
 
+	@font-face {
+		font-family: 'Rubik';
+		src: url("/Rubik-SemiBold.ttf") format("truetype");
+	}
+
 	html {
 		font-size: 16px;
 		color: white;
