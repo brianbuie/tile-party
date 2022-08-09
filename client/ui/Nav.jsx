@@ -39,7 +39,7 @@ export default function Nav({ children }) {
   return (
     <Box row as="nav" pad="1rem" width="100%" bkg="darkOverlay">
       <Box row width="33%" justify="start">
-        {children}
+        <Me />
       </Box>
       <Box row width="33%">
         <Box width="6rem" height="3rem">
@@ -47,7 +47,7 @@ export default function Nav({ children }) {
         </Box>
       </Box>
       <Box row width="33%" justify="end">
-        <Me />
+        {children}
       </Box>
     </Box>
   );

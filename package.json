@@ -8,7 +8,7 @@
     "dev": "concurrently yarn:dev:* -p none",
     "manifest": "babel-node build-manifest.js",
     "analyze": "react-scanner -c analysis.config.js",
-    "mock": "babel-node api/game/_mock.js",
+    "mock": "babel-node api/mock-data.js",
     "stage": "yarn build && babel-node -r dotenv/config api/server.js dotenv_config_path=.env.prod",
     "build": "vite build --emptyOutDir",
     "start": "babel-node api/server.js"
@@ -56,6 +56,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
+    "react-swipeable": "^7.0.0",
     "styled-components": "^5.3.5",
     "use-http": "^1.0.26"
   }

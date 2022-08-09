@@ -27,9 +27,11 @@ export const Text = styled(TextBase).attrs(props => {
 })``;
 
 export const Headline = styled(Text).attrs(props => {
-  if (props.md) return { as: "h4" };
-  if (props.xl) return { as: "h2" };
-  return { as: "h3" };
+  const newProps = { bold: true };
+  if (props.md) newProps.as = "h4";
+  if (props.xl) newProps.as = "h2";
+  newProps.as = "h3";
+  return newProps;
 })``;
 
 export const Score = styled(Headline)`

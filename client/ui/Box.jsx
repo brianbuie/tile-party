@@ -42,6 +42,7 @@ export const Box = styled.div`
   }};
   ${({ z }) => z && `z-index: ${z};`}
   ${({ cursor }) => cursor && `cursor: ${cursor};`}
+  ${({ hide, theme }) => hide && `@media ${theme.screen[hide]} { display: none; }`}
 `;
 
 export const AnimatedBox = motion(Box);

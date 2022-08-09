@@ -1,101 +1,89 @@
 import React from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
-import { useFetch } from "~/utils/useFetch";
-import { Box, Icon, Faces, Headline, Text, Score } from "~/ui";
+import { Box, Icon, Faces, Headline, Text, Score, theme } from "~/ui";
 
 const BoxLink = styled(Box).attrs({ as: RouterLink })`
   width: 100%;
   text-decoration: none;
 `;
 
-const GameItem = styled(Box)`
+const HoverBackground = styled(Box)`
   &:hover {
     background: ${({ theme }) => theme.colors.lightOverlay};
   }
 `;
 
-const GameListing = ({ active, muted, id, opponents, otherScore, playerScore, timeSinceLastMove }) => {
+const GameListing = ({ active, id, opponents, otherScore, myScore, myTurn, lastMove }) => {
   return (
     <BoxLink to={`/game/${id}`}>
-      <GameItem row rounded="1rem" bkg={active && "lightOverlay"} pad="0.75rem" width="100%">
-        <Box faded={muted}>
+      <HoverBackground row rounded="1rem" bkg={active && "lightOverlay"} pad="0.75rem" width="100%">
+        <Box faded={!myTurn}>
           <Faces size="3rem" users={opponents} />
         </Box>
         <Box grow col pad="0 0 0 0.75rem" align="start">
-          <Headline md muted={muted}>
+          <Headline md muted={!myTurn}>
             {opponents
               .slice(0, 2)
               .map(p => p.name)
               .join(", ")}
           </Headline>
           <Text xs thin italic muted>
-            {timeSinceLastMove}
+            {lastMove?.humanTimeSince}
           </Text>
         </Box>
         <Box row>
           <Box col pad="0.5rem">
-            <Score md muted={muted}>
+            <Score md muted={!myTurn}>
               {otherScore}
             </Score>
           </Box>
           <Box col pad="0.5rem">
-            <Score md muted={muted}>
-              {playerScore}
+            <Score md muted={!myTurn}>
+              {myScore}
             </Score>
           </Box>
         </Box>
-        <Icon.ForwardArrow size="1rem" />
-      </GameItem>
+        <Icon.ForwardArrow size="1rem" color={!myTurn ? theme.colors.textMuted : "white"} />
+      </HoverBackground>
     </BoxLink>
   );
 };
 
-const titles = {
-  available: "Your Turn",
-  waiting: "Their Turn",
-  finised: "Finished",
-};
-
 const lists = [
   {
-    key: "available",
     title: "Your Turn",
+    filter: g => g.myTurn,
   },
   {
-    key: "waiting",
     title: "Their Turn",
-    muted: true,
+    filter: g => !g.gameFinished && !g.myTurn,
   },
   {
-    key: "finished",
     title: "Finished",
-    muted: true,
+    filter: g => g.gameFinished,
   },
 ];
 
-export default function GamesList() {
-  const [games, loading] = useFetch("viewGames");
-  const { gameId } = useParams();
-
+export default function GamesList({ games, activeGameId }) {
   return (
-    !loading &&
-    games && (
+    games?.length && (
       <Box col grow width="100%" justify="stretch" align="start" pad="0 1rem">
-        {lists.map(
-          ({ key, title, muted }) =>
-            games[key]?.length && (
-              <React.Fragment key={key}>
+        {lists.map(({ title, filter }) => {
+          const _games = games.filter(filter);
+          return (
+            _games.length && (
+              <React.Fragment key={title}>
                 <Box pad="2.5rem 0 1rem 0">
                   <Headline xl>{title}</Headline>
                 </Box>
-                {games[key].map(game => (
-                  <GameListing key={game.id} active={gameId === game.id} muted={muted} {...game} />
+                {_games.map(game => (
+                  <GameListing key={game.id} active={activeGameId === game.id} {...game} />
                 ))}
               </React.Fragment>
             )
-        )}
+          );
+        })}
       </Box>
     )
   );

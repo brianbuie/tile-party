@@ -3,9 +3,9 @@ import { Link as RouterLink } from "react-router-dom";
 
 const BaseButton = styled.button`
   /* Text */
-  font-size: 1rem;
+  font-size: ${({ size }) => size || "1rem"};
   font-weight: 600;
-  color: ${({ txtColor }) => txtColor || "white"};
+  color: ${({ $txtColor, theme }) => theme.colors[$txtColor] || $txtColor || "white"};
   text-transform: uppercase;
   white-space: nowrap;
   text-decoration: none;
@@ -42,6 +42,7 @@ const BaseButton = styled.button`
   }
   .icon {
     font-size: 1.5em;
+    color: ${({ $txtColor, theme }) => theme.colors[$txtColor] || $txtColor || "white"};
   }
   .space-left {
     margin-left: 0.75em;

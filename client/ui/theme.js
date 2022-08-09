@@ -26,8 +26,12 @@ const theme = {
     textActive: "rgba(255, 255, 255, 0.8)",
     textActiveEdge: "rgba(250, 164, 230, 0.7)",
   },
-
+  browserTheme: "#3a1b4f",
   borderRadius: `${100 / 6.4}%`,
+  screen: {
+    mobile: "(max-width: 767px)",
+    desktop: "(min-width: 768px)",
+  },
 };
 
 export default theme;

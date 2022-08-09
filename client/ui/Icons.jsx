@@ -1,3 +1,5 @@
+import { createGlobalStyle } from "styled-components";
+
 export {
   IoChevronBack as BackArrow,
   IoChevronForward as ForwardArrow,
@@ -14,4 +16,13 @@ export { MdCallReceived as Recall } from "react-icons/md";
 
 import { IconContext } from "react-icons";
 
-export const IconProvider = ({ children }) => <IconContext.Provider value={{ className: "icon", color: "white" }}>{children}</IconContext.Provider>;
+const IconColorStyle = createGlobalStyle`
+  .icon { color: white; }
+`;
+
+export const IconProvider = ({ children }) => (
+  <IconContext.Provider value={{ className: "icon" }}>
+    <IconColorStyle />
+    {children}
+  </IconContext.Provider>
+);

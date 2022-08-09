@@ -41,7 +41,7 @@ import theme from "./client/ui/theme";
   }));
 
   manifest.background_color = theme.colors.purple;
-  manifest.theme_color = theme.colors.purple;
+  manifest.theme_color = theme.browserTheme;
 
   fs.writeFileSync("./client/assets/manifest.json", JSON.stringify(manifest, null, 2));
 })();
