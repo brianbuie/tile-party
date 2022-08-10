@@ -8,11 +8,11 @@ import useGameMode from "./config/useGameMode";
 import useMoveHistory from "./useMoveHistory";
 import useCurrentMove from "./useCurrentMove";
 
-export default function Board({ boardLayout, gameMode, moveHistory, playerTiles }) {
-  const { cols, rows, boardSpotSize, trayLayout, getSpot } = useBoardLayout(boardLayout);
-  const { getLetterValue, tilesPerTurn } = useGameMode(gameMode);
-  const { getStaticTile, getSurroundingTiles } = useMoveHistory(moveHistory);
-  const { getMovableTile, anyTilesDeployed, recallTiles, shuffleTiles, moveTile } = useCurrentMove(playerTiles);
+export default function Board({ game }) {
+  const { cols, rows, boardSpotSize, trayLayout, getSpot } = useBoardLayout(game.settings.boardLayout);
+  const { getLetterValue, tilesPerTurn } = useGameMode(game.settings.gameMode);
+  const { getStaticTile, getSurroundingTiles } = useMoveHistory(game.moveHistory);
+  const { getMovableTile, anyTilesDeployed, recallTiles, shuffleTiles, moveTile } = useCurrentMove(game.myTiles);
   const { traySpots, traySpotSize } = trayLayout(tilesPerTurn);
   const avgTileSize = (traySpotSize + boardSpotSize) / 2;
 

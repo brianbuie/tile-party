@@ -1,11 +1,14 @@
+import React, { useContext } from "react";
 import { Button, Box, Icon, Logo } from "~/ui";
 import { useFetch, routes } from "~/utils/useFetch";
 
-const RequireAuth = ({ children }) => {
-  const [user, loading] = useFetch("me");
+const MeContext = React.createContext();
+
+export default function RequireAuth({ children }) {
+  const [me, loading] = useFetch("me");
   if (loading) return null;
-  return user ? (
-    children
+  return me ? (
+    <MeContext.Provider value={{ me }}>{children}</MeContext.Provider>
   ) : (
     <>
       <Box width="250px" margin="0 0 50px 0">
@@ -20,6 +23,9 @@ const RequireAuth = ({ children }) => {
       </Button>
     </>
   );
-};
+}
 
-export default RequireAuth;
+export const useMe = () => {
+  const { me } = useContext(MeContext);
+  return me;
+};

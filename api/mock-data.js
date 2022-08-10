@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
+import { shuffle } from "lodash";
 import { faker } from "@faker-js/faker";
-import { formatDistanceToNow } from "date-fns";
+import gameV1 from "./.mocks/game.json";
 
-const fakeUser = {
+const me = {
   id: "62eb2d9542270058254d553a",
-  name: "Cute Cat",
+  name: "Brian",
   image: "https://cataas.com/cat?width=50&height=50",
 };
 
@@ -17,27 +18,36 @@ const mockGame = () => {
       image: faker.image.avatar(50, 50),
     }))
   );
-  const gameFinished = faker.datatype.boolean();
-  const myTurn = faker.datatype.boolean();
-  const playerUp = myTurn ? fakeUser : faker.helpers.arrayElement(opponents);
+
+  const players = shuffle([...opponents, me]);
+
   return {
     id: faker.random.alpha(10),
-    opponents,
-    lastMove: {
-      user: opponents[0],
-      humanTimeSince: formatDistanceToNow(faker.date.recent(14)) + " ago",
-      description: `played ${faker.word.noun(5).toUpperCase()} for ${faker.datatype.number(45)} points`,
+    name: null,
+    complete: faker.datatype.boolean(),
+    settings: {
+      boardLayout: "FRIENDLY",
+      gameMode: "FRIENDLY",
     },
-    myScore: faker.datatype.number(300),
-    otherScore: faker.datatype.number(300),
-    gameFinished,
-    myTurn: !gameFinished && myTurn,
-    playerUp: !gameFinished ? playerUp : null,
+    players: players.map((player, key) => ({
+      id: player.id,
+      name: player.name,
+      image: player.image,
+      order: key + 1,
+      score: faker.datatype.number(300),
+    })),
+    moveHistory: gameV1.moveHistory.map((m, key) => ({
+      id: faker.random.alpha(10),
+      playerId: players[key].id,
+      created: faker.date.recent(14),
+      word: faker.word.noun(5).toUpperCase(),
+      points: faker.datatype.number(45),
+      tiles: m.tiles,
+    })),
+    myTiles: ["Q", "W", "H", "A", "T", "J", "Z"],
   };
 };
 
-const mockGroup = amount => [...Array(amount)].map(mockGame);
-
-const games = mockGroup(15);
+const games = [...Array(15)].map(mockGame);
 
 fs.writeFileSync(path.resolve(__dirname, "./.mocks/games.json"), JSON.stringify(games, null, 2));

@@ -1,25 +1,23 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { IconProvider } from "~/ui/Icons";
 import { FetchProvider } from "~/utils/useFetch";
 import GlobalStyle from "~/core/GlobalStyle";
 import Page from "~/core/Page";
-import Home from "~/pages/Home";
-import DashboardLayout, { GameView } from "~/dashboard/DashboardLayout";
+import Home from "~/core/Home";
+import DashboardLayout from "~/core/DashboardLayout";
 
 const App = () => (
   <GlobalStyle>
     <IconProvider>
       <FetchProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Page />}>
-              <Route index element={<Home />} />
-              <Route path="game" element={<DashboardLayout />}>
-                <Route path=":gameId" element={<GameView />} />
-              </Route>
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <Page>
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/game/:gameId?" component={DashboardLayout} />
+            </Switch>
+          </BrowserRouter>
+        </Page>
       </FetchProvider>
     </IconProvider>
   </GlobalStyle>

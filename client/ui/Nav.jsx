@@ -1,5 +1,5 @@
 import { Box, Button, Headline, Logo, Face, useModal, ModalHeader } from "~/ui";
-import { routes, useFetch } from "~/utils/useFetch";
+import { useMe } from "~/auth/RequireAuth";
 
 const MeModal = () => {
   const { closeModal } = useModal();
@@ -24,12 +24,12 @@ const MeModal = () => {
 };
 
 const Me = () => {
-  const [user] = useFetch("me");
+  const me = useMe();
   const { openModal } = useModal();
   return (
-    user && (
+    me && (
       <Button pad="0" as="a" onClick={() => openModal(<MeModal />)}>
-        <Face user={user} size="3rem" />
+        <Face user={me} size="3rem" />
       </Button>
     )
   );
