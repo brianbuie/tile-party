@@ -4,7 +4,7 @@ import { useMe } from "~/auth/RequireAuth";
 const MeModal = () => {
   const { closeModal } = useModal();
   return (
-    <Box col align="stretch">
+    <Box col stretch>
       <ModalHeader closeModal={closeModal}>
         <Headline xl>Your Profile</Headline>
       </ModalHeader>
@@ -37,7 +37,7 @@ const Me = () => {
 
 export default function Nav({ children }) {
   return (
-    <Box row as="nav" pad="1rem" width="100%" bkg="darkOverlay">
+    <Box row as="nav" pad="1rem" bkg="darkOverlay">
       <Box row width="33%" justify="start">
         <Me />
       </Box>

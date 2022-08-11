@@ -50,12 +50,12 @@ export default function DashboardLayout() {
 
   return (
     <OverflowHide col align="start">
-      <DashboardContainer row grow align="stretch" isViewingGame={!!gameId}>
-        <DashboardLeft col>
+      <DashboardContainer row grow stretch isViewingGame={!!gameId}>
+        <DashboardLeft col stretch>
           <Nav />
           <Scroll autoHide>{!gamesLoading && games && <GamesList games={games} activeGameId={gameId} me={me} />}</Scroll>
         </DashboardLeft>
-        <Box col grow align="stretch" {...swipeHandlers}>
+        <Box col grow stretch {...swipeHandlers}>
           <GamePage game={activeGame} me={me} />
         </Box>
       </DashboardContainer>

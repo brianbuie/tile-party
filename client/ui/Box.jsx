@@ -2,11 +2,14 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 export const Box = styled.div`
-  /* Layout */
+  /* Align Children */
   display: ${({ display }) => display || "flex"};
   flex-direction: ${({ col }) => (col ? "column" : "row")};
   justify-content: ${({ justify }) => justify || "center"};
   align-items: ${({ align }) => align || "center"};
+  ${({ stretch }) => stretch && "align-items: stretch;"}
+
+  /* Align Self */
   ${({ grow }) => grow && `flex-grow: ${grow === true ? 1 : grow};`}
 
   /* Size */
@@ -27,12 +30,9 @@ export const Box = styled.div`
   ${({ fixed }) => fixed && `position: fixed; top: ${fixed[0]}; right: ${fixed[1]}; bottom: ${fixed[2]}; left: ${fixed[3]};`}
   ${({ fixedFill }) => fixedFill && `position: fixed; top: 0; right: 0; bottom: 0; left: 0;`}
 
-  /* Background */
+  /* Cosmetics 💅 */
   ${({ bkg, theme }) => bkg && `background: ${theme.colors[bkg] || bkg};`}
   ${({ bkgImage }) => bkgImage && `background-image: url(${bkgImage}); background-size: cover;`}
-  ${({ faded }) => faded && `opacity: 0.5;`}
-
-  /* Others */
   border-radius: ${({ rounded, theme }) => {
     if (!rounded) return "0";
     if (rounded === "full") return "9999px";
@@ -40,8 +40,10 @@ export const Box = styled.div`
     if (rounded === true) return theme.borderRadius;
     return rounded;
   }};
+
+  /* Visibility 👀 */
+  ${({ faded }) => faded && `opacity: 0.5;`}
   ${({ z }) => z && `z-index: ${z};`}
-  ${({ cursor }) => cursor && `cursor: ${cursor};`}
   ${({ hide, theme }) => hide && `@media ${theme.screen[hide]} { display: none; }`}
 `;
 
@@ -58,4 +60,21 @@ export const Square = styled(Box)`
     bottom: 0;
     left: 0;
   }
+`;
+
+// Maybe soon?
+const Col = styled.div`
+  ${({ top }) => ""}
+  ${({ bottom }) => ""}
+  ${({ right }) => ""}
+  ${({ left }) => ""}
+
+  ${({ h_Fill }) => ""}
+  ${({ w_Fill }) => ""}
+
+  ${({ h_Center }) => ""}
+  ${({ w_Center }) => ""}
+
+  ${({ h_Between }) => ""}
+  ${({ w_Between }) => ""}
 `;

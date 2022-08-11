@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 import { Box, Faces, Headline, Text, Score } from "~/ui";
-import { getOpponents, getGameName, getTimeSinceLastMove, getTopOpponentScore, getPlayerScore, isPlayerTurn } from "~/game/gameUtils";
+import { getOpponents, getGameName, getTimeSinceLastMove, getTopOpponentScore, getPlayerScore, isPlayerTurn } from "~/game/gameHelpers";
 
 const BoxLink = styled(Box).attrs({ as: RouterLink })`
   width: 100%;
@@ -17,7 +17,7 @@ const HoverBackground = styled(Box)`
 
 const GameListing = ({ active, game, muted, me }) => (
   <BoxLink to={`/game/${game.id}`}>
-    <HoverBackground row rounded="1rem" bkg={active && "lightOverlay"} pad="0.75rem" width="100%" align="stretch">
+    <HoverBackground row stretch rounded="1rem" bkg={active && "lightOverlay"} pad="0.75rem" width="100%">
       <Box faded={muted}>
         <Faces size="3rem" users={getOpponents(game, me.id)} />
       </Box>
@@ -65,7 +65,7 @@ export default function GamesList({ games, activeGameId, me }) {
 
   return (
     games?.length && (
-      <Box col grow width="100%" justify="stretch" align="start" pad="0 1rem">
+      <Box col grow width="100%" align="start" pad="0 1rem">
         {lists.map(({ title, filter, muted }) => {
           const matchingGames = games.filter(g => filter(g, me));
           return (

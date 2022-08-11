@@ -1,6 +1,26 @@
+import { AnimatePresence } from "framer-motion";
 import { Box, AnimatedBox, Button, Icon, Face, Headline, Text } from "~/ui";
-import { getGameName, getLastMove, getLastMovePlayer, getLastMoveDescription } from "~/game/gameUtils";
+import { getGameName, getLastMove, getLastMovePlayer, getLastMoveDescription } from "~/game/gameHelpers";
 import Board from "~/board/Board";
+
+const gameNameAnimation = {
+  initial: {
+    x: 50,
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: {
+    x: -50,
+    opacity: 0,
+  },
+  transition: {
+    ease: "easeInOut",
+    duration: 0.1,
+  },
+};
 
 const lastMoveAnimation = {
   initial: {
@@ -13,27 +33,41 @@ const lastMoveAnimation = {
     y: 0,
     rotateX: 0,
     opacity: 1,
+    transition: {
+      delay: 0.15,
+      ease: "backOut",
+      duration: 0.15,
+    },
   },
-  transition: {
-    ease: "backOut",
-    duration: 0.15,
-    delay: 0.3,
+  exit: {
+    y: 20,
+    rotateX: -60,
+    transformPerspective: 200,
+    opacity: 0,
+    transition: {
+      ease: "backOut",
+      duration: 0.15,
+    },
   },
 };
 
 const GameNav = ({ game, me }) => (
   <>
-    <Headline md>{getGameName(game, me.id)}</Headline>
-    {getLastMove(game) && (
-      <AnimatedBox row pad="0.25rem 0 0" key={game.id} {...lastMoveAnimation}>
-        <Box pad="0 0.5rem 0 0">
-          <Face size="1.5rem" user={getLastMovePlayer(game)} />
-        </Box>
-        <Text xs thin italic color="textMuted">
-          {getLastMoveDescription(game)}
-        </Text>
+    <AnimatePresence exitBeforeEnter>
+      <AnimatedBox key={`name-${game.id}`} {...gameNameAnimation}>
+        <Headline md>{getGameName(game, me.id)}</Headline>
       </AnimatedBox>
-    )}
+      {getLastMove(game) && (
+        <AnimatedBox row pad="0.25rem 0 0" key={`lastMove-${game.id}`} {...lastMoveAnimation}>
+          <Box pad="0 0.5rem 0 0">
+            <Face size="1.5rem" user={getLastMovePlayer(game)} />
+          </Box>
+          <Text xs thin italic color="textMuted">
+            {getLastMoveDescription(game)}
+          </Text>
+        </AnimatedBox>
+      )}
+    </AnimatePresence>
   </>
 );
 

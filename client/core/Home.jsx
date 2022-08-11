@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <Box col grow width="100%">
+      <Box col grow>
         <Button to="/game/" color="pink">
           View Games
         </Button>
