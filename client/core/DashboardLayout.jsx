@@ -6,7 +6,9 @@ import { useFetch } from "~/utils/useFetch";
 import { useMe } from "~/auth/RequireAuth";
 import { Box, Nav } from "~/ui";
 import GamesList from "~/game/GamesList";
-import GamePage from "~/game/GamePage";
+import ScoreBoard from "~/game/ScoreBoard";
+import GameNav from "~/game/GameNav";
+import Board from "~/board/Board";
 
 const Scroll = styled(Scrollbars)`
   height: calc(100vh - 5rem);
@@ -41,7 +43,7 @@ const DashboardLeft = styled(Box)`
 export default function DashboardLayout() {
   const [games, gamesLoading] = useFetch("viewGames");
   const { gameId } = useParams();
-  const activeGame = games && games.find(game => game.id === gameId);
+  const game = games && games.find(game => game.id === gameId);
 
   const me = useMe();
 
@@ -56,7 +58,15 @@ export default function DashboardLayout() {
           <Scroll autoHide>{!gamesLoading && games && <GamesList games={games} activeGameId={gameId} me={me} />}</Scroll>
         </DashboardLeft>
         <Box col grow stretch {...swipeHandlers}>
-          <GamePage game={activeGame} me={me} />
+          <GameNav game={game} me={me} />
+          <Box row grow stretch justify="center">
+            {game && (
+              <Box col grow stretch maxWidth="35rem" pad="0 1rem">
+                <ScoreBoard game={game} me={me} />
+                <Board game={game} />
+              </Box>
+            )}
+          </Box>
         </Box>
       </DashboardContainer>
     </OverflowHide>

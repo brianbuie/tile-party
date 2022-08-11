@@ -24,9 +24,9 @@ export default function Board({ game }) {
 
   return (
     <>
-      <Box col width="100%">
+      <Box col stretch>
         {rows.map((_, y) => (
-          <Box row key={y} width="100%">
+          <Box row key={y}>
             {cols.map((_, x) => {
               const staticTile = getStaticTile([x, y]);
               const movableTile = getMovableTile([x, y]);
@@ -62,7 +62,7 @@ export default function Board({ game }) {
             })}
           </Box>
         ))}
-        <Box row justify="space-around" width="100%" pad="1rem 0 0">
+        <Box row justify="space-around" pad="1rem 0 0">
           {traySpots.map((_, key) => {
             const movableTile = getMovableTile([key, "TRAY"]);
             return (
@@ -85,7 +85,7 @@ export default function Board({ game }) {
           })}
         </Box>
       </Box>
-      <Box col width="100%" maxWidth="60vh">
+      <Box col grow stretch justify="center">
         <Menu anyTilesDeployed={anyTilesDeployed} recall={recallTiles} shuffle={shuffleTiles} />
       </Box>
     </>

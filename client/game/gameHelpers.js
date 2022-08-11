@@ -32,6 +32,8 @@ export const getPlayerScore = (game, playerId) => game.players.find(p => p.id ==
 
 export const getTopOpponentScore = (game, meId) => getOpponents(game, meId).sort((a, z) => z.score - a.score)[0].score;
 
+export const getWinningPlayerId = game => [...game.players].sort((a, z) => z.score - a.score)[0].id;
+
 export const getLastMove = game => game.moveHistory[game.moveHistory.length - 1];
 
 export const getLastMovePlayer = game => {
@@ -47,4 +49,12 @@ export const getLastMoveDescription = game => {
 export const getTimeSinceLastMove = game => {
   const lastMove = getLastMove(game);
   return formatDistanceToNow(parseISO(lastMove.created)) + " ago";
+};
+
+export const getPlayersMeLast = (game, meId) => {
+  const players = getPlayers(game);
+  const myKey = players.findIndex(p => p.id === meId);
+  const beforeMe = players.filter((_, key) => key < myKey);
+  const afterMe = players.filter((_, key) => key > myKey);
+  return [...afterMe, ...beforeMe, players[myKey]];
 };

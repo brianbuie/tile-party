@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Faces, Headline, Text, Score } from "~/ui";
+import { Box, Faces, Headline, Icon, Text, Score } from "~/ui";
 import { getOpponents, getGameName, getTimeSinceLastMove, getTopOpponentScore, getPlayerScore, isPlayerTurn } from "~/game/gameHelpers";
 
 const BoxLink = styled(Box).attrs({ as: RouterLink })`
@@ -15,35 +15,41 @@ const HoverBackground = styled(Box)`
   }
 `;
 
-const GameListing = ({ active, game, muted, me }) => (
-  <BoxLink to={`/game/${game.id}`}>
-    <HoverBackground row stretch rounded="1rem" bkg={active && "lightOverlay"} pad="0.75rem" width="100%">
-      <Box faded={muted}>
-        <Faces size="3rem" users={getOpponents(game, me.id)} />
-      </Box>
-      <Box grow col pad="0.25rem 0.75rem" align="start" justify="space-between">
-        <Headline md muted={muted}>
-          {getGameName(game, me.id, 2)}
-        </Headline>
-        <Text xs thin italic muted>
-          {getTimeSinceLastMove(game)}
-        </Text>
-      </Box>
-      <Box row pad="0.25rem 0" align="end" justify="space-between" width="25%">
-        <Box col width="50%">
-          <Score md muted={muted}>
-            {getTopOpponentScore(game, me.id)}
-          </Score>
+const GameListing = ({ active, game, muted, me }) => {
+  const myScore = getPlayerScore(game, me.id);
+  const opponentScore = getTopOpponentScore(game, me.id);
+  return (
+    <BoxLink to={`/game/${game.id}`}>
+      <HoverBackground row stretch rounded="1rem" bkg={active && "lightOverlay"} pad="0.75rem" width="100%">
+        <Box faded={muted}>
+          <Faces size="3rem" users={getOpponents(game, me.id)} />
         </Box>
-        <Box col width="50%">
-          <Score md muted={muted}>
-            {getPlayerScore(game, me.id)}
-          </Score>
+        <Box grow col pad="0.25rem 0.75rem" align="start" justify="space-between">
+          <Headline md muted={muted}>
+            {getGameName(game, me.id, 2)}
+          </Headline>
+          <Text xs thin italic muted>
+            {getTimeSinceLastMove(game)}
+          </Text>
         </Box>
-      </Box>
-    </HoverBackground>
-  </BoxLink>
-);
+        <Box row pad="0.25rem 0" align="end" justify="space-between" width="25%">
+          <Box col width="50%">
+            {opponentScore > myScore && <Icon.Crown color={muted ? "textMuted" : "gold"} height="0.6rem" />}
+            <Score md muted={muted}>
+              {opponentScore}
+            </Score>
+          </Box>
+          <Box col width="50%">
+            {opponentScore < myScore && <Icon.Crown color={muted ? "textMuted" : "gold"} height="0.6rem" />}
+            <Score md muted={muted}>
+              {myScore}
+            </Score>
+          </Box>
+        </Box>
+      </HoverBackground>
+    </BoxLink>
+  );
+};
 
 export default function GamesList({ games, activeGameId, me }) {
   const lists = [
