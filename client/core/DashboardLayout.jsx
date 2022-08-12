@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { useFetch } from "~/utils/useFetch";
 import { useMe } from "~/auth/RequireAuth";
-import { Box, Nav } from "~/ui";
+import { Nav, Row, Col } from "~/ui";
 import GamesList from "~/game/GamesList";
 import ScoreBoard from "~/game/ScoreBoard";
 import GameNav from "~/game/GameNav";
@@ -17,13 +17,13 @@ const Scroll = styled(Scrollbars)`
   }
 `;
 
-const OverflowHide = styled(Box)`
+const OverflowHide = styled(Col)`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 `;
 
-const DashboardContainer = styled(Box)`
+const DashboardContainer = styled(Row)`
   width: 100vw;
   @media ${({ theme }) => theme.screen.mobile} {
     width: 200vw;
@@ -32,11 +32,18 @@ const DashboardContainer = styled(Box)`
   }
 `;
 
-const DashboardLeft = styled(Box)`
+const DashboardLeft = styled(Col)`
   width: 100vw;
   @media ${({ theme }) => theme.screen.desktop} {
     width: 40vw;
     max-width: 25rem;
+  }
+`;
+
+const DashboardRight = styled(Col)`
+  width: 100vw;
+  @media ${({ theme }) => theme.screen.desktop} {
+    width: 60vw;
   }
 `;
 
@@ -51,23 +58,23 @@ export default function DashboardLayout() {
   const swipeHandlers = useSwipeable({ onSwipedRight: () => history.push("/game") });
 
   return (
-    <OverflowHide col align="start">
-      <DashboardContainer row grow stretch isViewingGame={!!gameId}>
-        <DashboardLeft col stretch>
-          <Nav />
-          <Scroll autoHide>{!gamesLoading && games && <GamesList games={games} activeGameId={gameId} me={me} />}</Scroll>
+    <OverflowHide>
+      <DashboardContainer isViewingGame={!!gameId}>
+        <DashboardLeft v_top>
+          <Nav me={me} />
+          <Scroll autoHide>{!gamesLoading && games && me && <GamesList games={games} activeGameId={gameId} me={me} />}</Scroll>
         </DashboardLeft>
-        <Box col grow stretch {...swipeHandlers}>
+        <DashboardRight v_top {...swipeHandlers}>
           <GameNav game={game} me={me} />
-          <Box row grow stretch justify="center">
+          <Row h_center grow>
             {game && (
-              <Box col grow stretch maxWidth="35rem" pad="0 1rem">
+              <Col grow maxWidth="35rem" pad="0 1rem">
                 <ScoreBoard game={game} me={me} />
                 <Board game={game} />
-              </Box>
+              </Col>
             )}
-          </Box>
-        </Box>
+          </Row>
+        </DashboardRight>
       </DashboardContainer>
     </OverflowHide>
   );

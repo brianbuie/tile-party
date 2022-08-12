@@ -1,13 +1,13 @@
 import { ModalProvider } from "~/ui/Modal";
 import RequireAuth from "~/auth/RequireAuth";
-import { Box } from "~/ui/Box";
+import { Col } from "~/ui";
 
 export default function Page({ children }) {
   return (
     <ModalProvider>
-      <Box col stretch minHeight="100vh">
+      <Col v_fill h_fill minHeight="100vh">
         <RequireAuth>{children}</RequireAuth>
-      </Box>
+      </Col>
     </ModalProvider>
   );
 }

@@ -53,6 +53,7 @@ const BaseButton = styled.button`
 `;
 
 // RouterLink if "to" prop is present
-export const Button = styled(BaseButton).attrs(props => ({
-  as: props.to ? RouterLink : props.as,
-}))``;
+export const Button = styled(BaseButton).attrs(props => {
+  if (props.to) return { as: RouterLink };
+  if (props.href) return { as: "a" };
+})``;

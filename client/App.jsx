@@ -10,14 +10,14 @@ const App = () => (
   <GlobalStyle>
     <IconProvider>
       <FetchProvider>
-        <Page>
-          <BrowserRouter>
+        <BrowserRouter>
+          <Page>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/game/:gameId?" component={DashboardLayout} />
             </Switch>
-          </BrowserRouter>
-        </Page>
+          </Page>
+        </BrowserRouter>
       </FetchProvider>
     </IconProvider>
   </GlobalStyle>

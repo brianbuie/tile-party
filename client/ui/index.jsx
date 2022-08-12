@@ -2,6 +2,7 @@ export { Box, Square, AnimatedBox } from "./Box";
 export { Button } from "./Button";
 export { Face, Faces } from "./Faces";
 export * as Icon from "./Icons";
+export { Col, Row } from "./Layout";
 export { default as Logo } from "./Logo";
 export { useModal, ModalHeader } from "./Modal";
 export { default as Nav } from "./Nav";
