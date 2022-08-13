@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Box, Square } from "~/ui";
+import { Box } from "~/ui";
 import useGameMode from "~/board/config/useGameMode";
 import Tile from "~/board/Tile";
 
@@ -18,12 +18,12 @@ const PartySVG = styled(Party)`
 export default function Logo() {
   const { getLetterValue } = useGameMode("FRIENDLY");
   return (
-    <Box position="relative" width="100%" pad="0 0 45% 0">
+    <Box position="relative" width="100%" pad="0 0 50% 0">
       <Box row absolute={[0, 0, "auto", 0]}>
         {["T", "I", "L", "E"].map(letter => (
-          <Square size="20%" margin="1px" key={letter}>
+          <Box.Square size="24%" margin="0 1px" key={letter}>
             <Tile letter={letter} value={getLetterValue(letter)} />
-          </Square>
+          </Box.Square>
         ))}
       </Box>
       <PartySVG />

@@ -1,15 +1,13 @@
-import { Col, Button } from "~/ui";
+import { Box, Button } from "~/ui";
 import Nav from "~/ui/Nav";
 
 export default function Home() {
   return (
-    <Col v_top>
+    <Box col v_top>
       <Nav />
-      <Col h_center v_center grow>
-        <Button to="/game/" color="pink">
-          View Games
-        </Button>
-      </Col>
-    </Col>
+      <Box col h_center v_center grow>
+        <Button.Primary to="/game/">View Games</Button.Primary>
+      </Box>
+    </Box>
   );
 }

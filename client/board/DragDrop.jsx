@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { debounce } from "lodash";
-import { Box, AnimatedBox } from "~/ui";
+import { Box } from "~/ui";
 
 export const Draggable = ({ children, id, dragScale, dragConstraints, ...props }) => {
   const motionProps = {
@@ -17,7 +17,7 @@ export const Draggable = ({ children, id, dragScale, dragConstraints, ...props }
     z: "30",
     cursor: "pointer",
   };
-  return <AnimatedBox {...motionProps}>{children}</AnimatedBox>;
+  return <Box.Animated {...motionProps}>{children}</Box.Animated>;
 };
 
 export const DropZone = ({ loc, register, children, ...props }) => {

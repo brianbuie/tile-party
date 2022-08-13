@@ -17,7 +17,7 @@ export { MdCallReceived as Recall } from "react-icons/md";
 import { IconContext } from "react-icons";
 
 const IconColorStyle = createGlobalStyle`
-  .icon { color: white; }
+  .icon { color: ${({ theme }) => theme.colors.text}; }
 `;
 
 export const IconProvider = ({ children }) => (
@@ -33,7 +33,7 @@ const CustomIcon = styled.div`
     ${({ width }) => width && `width: ${widtht};`}
   }
   path {
-    fill: ${({ color, theme }) => theme.colors[color] || color || "white"};
+    fill: ${({ color, theme }) => theme.colors[color] || color || theme.colors.text};
   }
 `;
 

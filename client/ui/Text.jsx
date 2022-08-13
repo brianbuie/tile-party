@@ -1,39 +1,62 @@
 import styled from "styled-components";
+import { flag, spacingMixin, textColorMixin } from "~/ui/styleHelpers";
 
-const TextBase = styled.span`
-  font-size: ${({ xs, sm, lg, xl, size }) => {
-    if (xs) return "0.75rem";
-    if (sm) return "0.875rem";
-    if (lg) return "1.125rem";
-    if (xl) return "1.5rem";
-    return size || "1rem";
-  }};
-  font-weight: ${({ weight, bold, thin }) => {
-    if (bold) return "700";
-    if (thin) return "300";
-    return weight || "500";
-  }};
-  color: ${({ color, theme }) => theme.colors[color] || theme.colors.text};
+export const Text = styled.span`
+  font-size: ${props =>
+    flag(props, {
+      sm: "0.8rem",
+      default: "1rem",
+      lg: "1.25rem",
+      xl: "1.5rem",
+      xxl: "2.5rem",
+    })};
+  font-weight: ${props =>
+    flag(props, {
+      thin: 300,
+      default: 500,
+      bold: 700,
+      heavy: 900,
+    })};
+  ${textColorMixin}
   font-style: ${({ italic }) => (italic ? "italic" : "normal")};
   line-height: 1.33;
 
   /* Spacing */
-  margin: 0;
   padding: 0;
+  margin: 0;
+  ${spacingMixin}
 `;
 
-export const Text = styled(TextBase).attrs(props => {
-  if (props.muted) return { color: "textMuted" };
+Text.Em = styled(Text).attrs({
+  as: "em",
+  thin: true,
+  italic: true,
+  sm: true,
 })``;
 
-export const Headline = styled(Text).attrs(props => {
-  const newProps = { bold: true };
-  if (props.md) newProps.as = "h4";
-  if (props.xl) newProps.as = "h2";
-  newProps.as = "h3";
-  return newProps;
+Text.Strong = styled(Text).attrs({
+  as: "strong",
+  bold: true,
 })``;
 
-export const Score = styled(Headline)`
-  font-family: "Rubik", ui-rounded, sans-serif;
-`;
+Text.H3 = styled(Text).attrs({
+  as: "h3",
+  bold: true,
+  lg: true,
+})``;
+
+Text.H2 = styled(Text).attrs({
+  as: "h2",
+  heavy: true,
+  xl: true,
+})``;
+
+Text.H1 = styled(Text).attrs({
+  as: "h1",
+  heavy: true,
+  xxl: true,
+})``;
+
+Text.Score = styled(Text).attrs({
+  heavy: true,
+})``;

@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { Box, AnimatedBox, Button, Icon, Face, Headline, Text } from "~/ui";
+import { Box, Button, Icon, Face, Text } from "~/ui";
 import { getGameName, getLastMove, getLastMovePlayer, getLastMoveDescription } from "~/game/gameHelpers";
 
 const gameNameAnimation = {
@@ -57,44 +57,38 @@ const lastMoveAnimation = {
 
 const NavTitle = ({ game, me }) => (
   <AnimatePresence exitBeforeEnter>
-    <AnimatedBox key={`name-${game.id}`} {...gameNameAnimation}>
-      <Headline md>{getGameName(game, me.id)}</Headline>
-    </AnimatedBox>
+    <Box.Animated key={`name-${game.id}`} {...gameNameAnimation}>
+      <Text.Strong>{getGameName(game, me.id)}</Text.Strong>
+    </Box.Animated>
     {getLastMove(game) && (
-      <AnimatedBox row pad="0.25rem 0 0" key={`lastMove-${game.id}`} {...lastMoveAnimation}>
+      <Box.Animated row pad="0.25rem 0 0" key={`lastMove-${game.id}`} {...lastMoveAnimation}>
         <Box pad="0 0.5rem 0 0">
           <Face size="1.5rem" user={getLastMovePlayer(game)} />
         </Box>
-        <Text xs thin italic color="textMuted">
-          {getLastMoveDescription(game)}
-        </Text>
-      </AnimatedBox>
+        <Text.Em muted>{getLastMoveDescription(game)}</Text.Em>
+      </Box.Animated>
     )}
   </AnimatePresence>
 );
 
 export default function GameNav({ game, me }) {
   return (
-    <>
-      <Box row height="5rem" bkg="darkOverlay" pad="0 1rem">
-        {game && (
-          <Box row grow width="67%" maxWidth="35rem">
-            <Box row hide="desktop">
-              <Button to="/game" size="1.5rem" pad="0.5rem 0.5rem 0.5rem 0">
-                <Icon.BackArrow />
-              </Button>
-            </Box>
-            <Box col grow align="start">
-              <NavTitle game={game} me={me} />
-            </Box>
-            <Box row hide="mobile">
-              <Button to="/game" size="1.5rem" pad="0.5rem 0 0.5rem 1rem">
-                <Icon.Close />
-              </Button>
-            </Box>
-          </Box>
-        )}
-      </Box>
-    </>
+    game && (
+      <>
+        <Box row shrink hide="desktop">
+          <Button to="/game" size="1.5rem" pad="0.5rem 0.5rem 0.5rem 0">
+            <Icon.BackArrow />
+          </Button>
+        </Box>
+        <Box col h_left grow>
+          <NavTitle game={game} me={me} />
+        </Box>
+        <Box row shrink hide="mobile">
+          <Button to="/game" size="1.5rem" pad="0.5rem 0 0.5rem 1rem">
+            <Icon.Close />
+          </Button>
+        </Box>
+      </>
+    )
   );
 }

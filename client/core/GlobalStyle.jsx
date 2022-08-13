@@ -8,21 +8,16 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 200 900;
   }
 
-	@font-face {
-		font-family: 'Rubik';
-		src: url("/Rubik-SemiBold.ttf") format("truetype");
-	}
-
 	html {
 		font-size: 16px;
 		color: white;
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
 	}
 
 	body {
 		padding: 0;
 		margin: 0;
-		background: linear-gradient(${theme.colors.purple}, ${theme.colors.navy});
+		background: linear-gradient(#502674, #131c3b);
 	}
 
   html, body, #root {

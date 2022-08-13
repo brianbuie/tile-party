@@ -29,7 +29,7 @@ const SpotBkg = styled(Box)`
 `;
 
 const SpotLabel = styled.text`
-  font-family: ${({ theme }) => theme.tile.font};
+  font-family: ${({ theme }) => theme.tileFontFamily};
   fill: white;
   font-size: 45px;
   text-anchor: middle;

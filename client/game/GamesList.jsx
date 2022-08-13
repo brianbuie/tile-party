@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Faces, Headline, Icon, Text, Score } from "~/ui";
+import { Box, Faces, Icon, Text } from "~/ui";
 import { getOpponents, getGameName, getTimeSinceLastMove, getTopOpponentScore, getPlayerScore, isPlayerTurn } from "~/game/gameHelpers";
 
 const BoxLink = styled(Box).attrs({ as: RouterLink })`
@@ -11,7 +11,7 @@ const BoxLink = styled(Box).attrs({ as: RouterLink })`
 
 const HoverBackground = styled(Box)`
   &:hover {
-    background: ${({ theme }) => theme.colors.lightOverlay};
+    background: ${({ theme }) => theme.colors.overlayLight};
   }
 `;
 
@@ -20,30 +20,22 @@ const GameListing = ({ active, game, muted, me }) => {
   const opponentScore = getTopOpponentScore(game, me.id);
   return (
     <BoxLink to={`/game/${game.id}`}>
-      <HoverBackground row stretch rounded="1rem" bkg={active && "lightOverlay"} pad="0.75rem" width="100%">
+      <HoverBackground row h_left rounded="1rem" bkg={active && "overlayLight"} pad="0.75rem">
         <Box faded={muted}>
           <Faces size="3rem" users={getOpponents(game, me.id)} />
         </Box>
-        <Box grow col pad="0.25rem 0.75rem" align="start" justify="space-between">
-          <Headline md muted={muted}>
-            {getGameName(game, me.id, 2)}
-          </Headline>
-          <Text xs thin italic muted>
-            {getTimeSinceLastMove(game)}
-          </Text>
+        <Box col h_left v_between grow pad="0.25rem 0.75rem">
+          <Text.Strong muted={muted}>{getGameName(game, me.id, 2)}</Text.Strong>
+          <Text.Em muted>{getTimeSinceLastMove(game)}</Text.Em>
         </Box>
-        <Box row pad="0.25rem 0" align="end" justify="space-between" width="25%">
-          <Box col width="50%">
-            {opponentScore > myScore && <Icon.Crown color={muted ? "textMuted" : "gold"} height="0.6rem" />}
-            <Score md muted={muted}>
-              {opponentScore}
-            </Score>
+        <Box row v_bottom h_between pad="0.25rem 0" width="25%">
+          <Box col h_center width="50%">
+            {opponentScore > myScore && <Icon.Crown color={muted ? "textMuted" : "crownGold"} height="0.6rem" />}
+            <Text.Score muted={muted}>{opponentScore}</Text.Score>
           </Box>
-          <Box col width="50%">
-            {opponentScore < myScore && <Icon.Crown color={muted ? "textMuted" : "gold"} height="0.6rem" />}
-            <Score md muted={muted}>
-              {myScore}
-            </Score>
+          <Box col h_center width="50%">
+            {opponentScore < myScore && <Icon.Crown color={muted ? "textMuted" : "crownGold"} height="0.6rem" />}
+            <Text.Score muted={muted}>{myScore}</Text.Score>
           </Box>
         </Box>
       </HoverBackground>
@@ -71,14 +63,14 @@ export default function GamesList({ games, activeGameId, me }) {
 
   return (
     games?.length && (
-      <Box col grow width="100%" align="start" pad="0 1rem">
+      <Box col h_left grow width="100%" pad="0 1rem">
         {lists.map(({ title, filter, muted }) => {
           const matchingGames = games.filter(g => filter(g, me));
           return (
             matchingGames.length && (
               <React.Fragment key={title}>
                 <Box pad="2.5rem 0 1rem 0">
-                  <Headline xl>{title}</Headline>
+                  <Text.H2>{title}</Text.H2>
                 </Box>
                 {matchingGames.map(game => (
                   <GameListing key={game.id} active={activeGameId === game.id} game={game} muted={muted} me={me} />

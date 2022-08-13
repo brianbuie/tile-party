@@ -1,37 +1,39 @@
-import { Box, Button, Icon, theme } from "~/ui";
+import styled from "styled-components";
+import { Box, Button, Icon } from "~/ui";
 
-const IconButton = ({ Icon, title, ...props }) => (
-  <Box width="20%">
-    <Button size="1rem" pad="0.5em 0" {...props}>
-      <Box col>
-        <Icon />
-        <span>{title}</span>
-      </Box>
-    </Button>
-  </Box>
-);
+const MenuButton = styled(Button).attrs({
+  vertical: true,
+  pad: "0",
+  width: "15%",
+})``;
 
 export default function Menu({ anyTilesDeployed, recall, shuffle }) {
   const canSubmit = anyTilesDeployed;
   return (
-    <Box row justify="space-around" width="100%" pad="1rem 0">
-      <IconButton Icon={Icon.Burger} title="MORE" />
-      <IconButton Icon={Icon.Pass} title="PASS" />
-      <Box width="20%">
-        <Button
-          color={canSubmit ? theme.colors.pink : "rgba(255,255,255,0.1)"}
-          txtColor={canSubmit ? theme.tile.textNormal : theme.tile.textActive}
-          maxWidth="100%"
-          disabled={!canSubmit}
-        >
-          SUBMIT
-        </Button>
-      </Box>
-      <IconButton Icon={Icon.Swap} title="SWAP" />
+    <Box row h_around pad="1rem 0">
+      <MenuButton>
+        <Icon.Burger />
+        <span>More</span>
+      </MenuButton>
+      <MenuButton>
+        <Icon.Pass />
+        <span>Pass</span>
+      </MenuButton>
+      <Button.Primary disabled={!canSubmit}>Submit</Button.Primary>
+      <MenuButton>
+        <Icon.Swap />
+        <span>Swap</span>
+      </MenuButton>
       {anyTilesDeployed ? (
-        <IconButton Icon={Icon.Recall} title="RECALL" onClick={recall} />
+        <MenuButton onClick={recall}>
+          <Icon.Recall />
+          <span>Recall</span>
+        </MenuButton>
       ) : (
-        <IconButton Icon={Icon.Shuffle} title="SHUFFLE" onClick={shuffle} />
+        <MenuButton onClick={shuffle}>
+          <Icon.Shuffle />
+          <span>Shuffle</span>
+        </MenuButton>
       )}
     </Box>
   );

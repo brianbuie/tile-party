@@ -1,4 +1,4 @@
-import { Box, Square } from "~/ui";
+import { Box } from "~/ui";
 import { Draggable, DropZone, useDragDrop } from "./DragDrop";
 import Spot from "./Spot";
 import Tile from "./Tile";
@@ -24,7 +24,7 @@ export default function Board({ game }) {
 
   return (
     <>
-      <Box col stretch>
+      <Box col v_center>
         {rows.map((_, y) => (
           <Box row key={y}>
             {cols.map((_, x) => {
@@ -32,7 +32,7 @@ export default function Board({ game }) {
               const movableTile = getMovableTile([x, y]);
               const spotInfo = getSpot([x, y]);
               return (
-                <Square key={x} size={boardSpotSize + "%"}>
+                <Box.Square key={x} size={boardSpotSize + "%"}>
                   {staticTile ? (
                     <Tile
                       surroundingTiles={getSurroundingTiles([x, y])}
@@ -57,16 +57,16 @@ export default function Board({ game }) {
                     </DropZone>
                   )}
                   <Spot type={spotInfo.type} />
-                </Square>
+                </Box.Square>
               );
             })}
           </Box>
         ))}
-        <Box row justify="space-around" pad="1rem 0 0">
+        <Box row h_around pad="1rem 0 0">
           {traySpots.map((_, key) => {
             const movableTile = getMovableTile([key, "TRAY"]);
             return (
-              <Square key={key} size={traySpotSize + "%"}>
+              <Box.Square key={key} size={traySpotSize + "%"}>
                 <DropZone loc={[key, "TRAY"]} register={registerDropZone} z="10">
                   {movableTile && (
                     <Draggable
@@ -80,12 +80,12 @@ export default function Board({ game }) {
                     </Draggable>
                   )}
                 </DropZone>
-              </Square>
+              </Box.Square>
             );
           })}
         </Box>
       </Box>
-      <Box col grow stretch justify="center">
+      <Box col v_center>
         <Menu anyTilesDeployed={anyTilesDeployed} recall={recallTiles} shuffle={shuffleTiles} />
       </Box>
     </>
