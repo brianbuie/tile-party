@@ -14,7 +14,7 @@ export default function GameMenu() {
   if (!game) return null;
   const { anyTilesDeployed, recallTiles, shuffleTiles } = useCurrentMove(game.myTiles);
   return (
-    <Box row h_around pad="1rem 0">
+    <Box row h_around pad='1rem 0'>
       <MenuButton>
         <Icon.Burger />
         <span>More</span>

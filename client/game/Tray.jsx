@@ -14,7 +14,7 @@ export default function Tray() {
   const { getMovableTile, moveTile } = useCurrentMove(game.myTiles);
 
   return (
-    <Box row h_around pad="1rem 0 0">
+    <Box row h_around pad='1rem 0 0'>
       {traySpots.map((_, key) => {
         const movableTile = getMovableTile([key, 'TRAY']);
         return movableTile ? (

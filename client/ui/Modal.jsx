@@ -54,9 +54,9 @@ const ModalContainer = () => {
   return ReactDOM.createPortal(
     <AnimatePresence>
       {isOpen && (
-        <Blur col v_center h_center fixedFill z="100">
-          <Gradient fixedFill z="101" />
-          <ModalContent col z="102">
+        <Blur col v_center h_center fixedFill z='100'>
+          <Gradient fixedFill z='101' />
+          <ModalContent col z='102'>
             {Content}
           </ModalContent>
         </Blur>
@@ -91,12 +91,12 @@ export const useModal = () => {
 };
 
 export const ModalHeader = ({ children, closeModal }) => (
-  <Box row v_center pad="0 1.5rem" height="5rem" bkg="var(--modal-header-bkg)">
+  <Box row v_center pad='0 1.5rem' height='5rem' bkg='var(--modal-header-bkg)'>
     <Box col h_left v_center grow>
       {children}
     </Box>
     <Box shrink>
-      <Button onClick={closeModal} pad="0">
+      <Button onClick={closeModal} pad='0'>
         <Icon.Close />
       </Button>
     </Box>

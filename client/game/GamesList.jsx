@@ -27,21 +27,21 @@ const GameListing = ({ active, game, muted, me }) => {
   const opponentScore = getTopOpponentScore(game, me.id);
   return (
     <BoxLink to={`/game/${game.id}`}>
-      <HoverBackground row h_left rounded="1rem" bkg={active && 'overlayLight'} pad="0.75rem">
+      <HoverBackground row h_left rounded='1rem' bkg={active && 'overlayLight'} pad='0.75rem'>
         <Box faded={muted}>
-          <Faces size="3rem" users={getOpponents(game, me.id)} />
+          <Faces size='3rem' users={getOpponents(game, me.id)} />
         </Box>
-        <Box col h_left v_between grow pad="0.25rem 0.75rem">
+        <Box col h_left v_between grow pad='0.25rem 0.75rem'>
           <Text.Strong muted={muted}>{getGameName(game, me.id, 2)}</Text.Strong>
           <Text.Em muted>{getTimeSinceLastMove(game)}</Text.Em>
         </Box>
-        <Box row v_bottom h_between pad="0.25rem 0" width="25%">
-          <Box col h_center width="50%">
-            {opponentScore > myScore && <Icon.Crown color={muted ? 'textMuted' : 'crownGold'} height="0.6rem" />}
+        <Box row v_bottom h_between pad='0.25rem 0' width='25%'>
+          <Box col h_center width='50%'>
+            {opponentScore > myScore && <Icon.Crown color={muted ? 'textMuted' : 'crownGold'} height='0.6rem' />}
             <Text.Score muted={muted}>{opponentScore}</Text.Score>
           </Box>
-          <Box col h_center width="50%">
-            {opponentScore < myScore && <Icon.Crown color={muted ? 'textMuted' : 'crownGold'} height="0.6rem" />}
+          <Box col h_center width='50%'>
+            {opponentScore < myScore && <Icon.Crown color={muted ? 'textMuted' : 'crownGold'} height='0.6rem' />}
             <Text.Score muted={muted}>{myScore}</Text.Score>
           </Box>
         </Box>
@@ -70,13 +70,13 @@ export default function GamesList({ games, activeGameId, me }) {
 
   return (
     games?.length && (
-      <Box col h_left grow width="100%" pad="0 1rem">
+      <Box col h_left grow width='100%' pad='0 1rem'>
         {lists.map(({ title, filter, muted }) => {
           const matchingGames = games.filter(g => filter(g, me));
           return (
             matchingGames.length && (
               <React.Fragment key={title}>
-                <Box pad="2.5rem 0 1rem 0">
+                <Box pad='2.5rem 0 1rem 0'>
                   <Text.H2>{title}</Text.H2>
                 </Box>
                 {matchingGames.map(game => (

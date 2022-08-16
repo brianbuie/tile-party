@@ -18,14 +18,14 @@ export default function ScoreBoard() {
   return (
     <Box row v_center h_around>
       {getPlayersMeLast(game, me.id).map(player => (
-        <Box col rounded="1.5rem" key={player.id} pad="1rem 2rem" bkg={isPlayerTurn(game, player.id) && 'overlayLight'}>
-          <Box col h_center height="1.5rem">
-            {getWinningPlayerId(game) === player.id && <Icon.Crown height="1rem" color="crownGold" />}
+        <Box col rounded='1.5rem' key={player.id} pad='1rem 2rem' bkg={isPlayerTurn(game, player.id) && 'overlayLight'}>
+          <Box col h_center height='1.5rem'>
+            {getWinningPlayerId(game) === player.id && <Icon.Crown height='1rem' color='crownGold' />}
           </Box>
-          <Highlighted rounded="full" active={isPlayerTurn(game, player.id)}>
-            <Face size="3rem" user={player} />
+          <Highlighted rounded='full' active={isPlayerTurn(game, player.id)}>
+            <Face size='3rem' user={player} />
           </Highlighted>
-          <Box col h_center margin="0.75rem 0 0 0">
+          <Box col h_center margin='0.75rem 0 0 0'>
             <Text.Score xl>{getPlayerScore(game, player.id)}</Text.Score>
           </Box>
         </Box>

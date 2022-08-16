@@ -61,9 +61,9 @@ const NavTitle = ({ game, me }) => (
       <Text.Strong>{getGameName(game, me.id)}</Text.Strong>
     </Box.Animated>
     {getLastMove(game) && (
-      <Box.Animated row pad="0.25rem 0 0" key={`lastMove-${game.id}`} {...lastMoveAnimation}>
-        <Box pad="0 0.5rem 0 0">
-          <Face size="1.5rem" user={getLastMovePlayer(game)} />
+      <Box.Animated row pad='0.25rem 0 0' key={`lastMove-${game.id}`} {...lastMoveAnimation}>
+        <Box pad='0 0.5rem 0 0'>
+          <Face size='1.5rem' user={getLastMovePlayer(game)} />
         </Box>
         <Text.Em muted>{getLastMoveDescription(game)}</Text.Em>
       </Box.Animated>
@@ -75,16 +75,16 @@ export default function GameNav({ game, me }) {
   if (!game || !me) return null;
   return (
     <>
-      <Box row shrink hide="desktop">
-        <Button to="/game" size="1.5rem" pad="0.5rem 0.5rem 0.5rem 0">
+      <Box row shrink hide='desktop'>
+        <Button to='/game' size='1.5rem' pad='0.5rem 0.5rem 0.5rem 0'>
           <Icon.BackArrow />
         </Button>
       </Box>
       <Box col h_left grow>
         <NavTitle game={game} me={me} />
       </Box>
-      <Box row shrink hide="mobile">
-        <Button to="/game" size="1.5rem" pad="0.5rem 0 0.5rem 1rem">
+      <Box row shrink hide='mobile'>
+        <Button to='/game' size='1.5rem' pad='0.5rem 0 0.5rem 1rem'>
           <Icon.Close />
         </Button>
       </Box>

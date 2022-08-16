@@ -47,9 +47,9 @@ export default function BoardSpots() {
         const type = getSpotType([x, y]);
         return (
           <Box.Square size={spotSize + '%'} key={x} bkg={spotColors[type]} rounded>
-            <SpotInner absolute={Array(4).fill(theme.responsiveBorder)} bkg="#39225F" rounded>
-              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <SpotLabel x="50%" y="50%" dominantBaseline="central" color={spotColors[type]}>
+            <SpotInner absolute={Array(4).fill(theme.responsiveBorder)} bkg='#39225F' rounded>
+              <svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
+                <SpotLabel x='50%' y='50%' dominantBaseline='central' color={spotColors[type]}>
                   {spotLabels[type]}
                 </SpotLabel>
               </svg>

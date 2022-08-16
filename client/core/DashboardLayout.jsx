@@ -71,13 +71,13 @@ export default function DashboardLayout() {
           </Scroll>
         </DashboardLeft>
         <DashboardRight col v_top {...swipeHandlers}>
-          <Box row h_center height="5rem" bkg="var(--nav-bkg)">
-            <Box row v_center grow maxWidth="35rem" pad="0 1rem">
+          <Box row h_center height='5rem' bkg='var(--nav-bkg)'>
+            <Box row v_center grow maxWidth='35rem' pad='0 1rem'>
               <GameNav game={game} me={me} />
             </Box>
           </Box>
           <Box row h_center grow>
-            <Box col v_around grow maxWidth="35rem" pad="0 1rem">
+            <Box col v_around grow maxWidth='35rem' pad='0 1rem'>
               <ActiveGame game={game}>
                 <ScoreBoard />
 
