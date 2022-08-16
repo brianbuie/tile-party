@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { Box, Button, Icon } from "~/ui";
-import { useActiveGame } from "~/game/ActiveGame";
-import useCurrentMove from "~/board/useCurrentMove";
+import styled from 'styled-components';
+import { Box, Button, Icon } from '~/ui';
+import { useActiveGame } from '~/game/ActiveGame';
+import useCurrentMove from '~/board/useCurrentMove';
 
 const MenuButton = styled(Button).attrs({
   vertical: true,
-  pad: "0",
-  width: "15%",
+  pad: '0',
+  width: '15%',
 })``;
 
 export default function GameMenu() {

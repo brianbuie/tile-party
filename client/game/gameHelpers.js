@@ -1,4 +1,4 @@
-import { formatDistanceToNow, parseISO } from "date-fns";
+import { formatDistanceToNow, parseISO } from 'date-fns';
 
 export const getPlayers = game => [...game.players].sort((a, z) => a.sort - z.sort);
 
@@ -22,9 +22,9 @@ export const getGameName = (game, meId, nameLimit = 3) => {
   const name = opponents
     .slice(0, nameLimit)
     .map(p => p.name)
-    .join(", ");
+    .join(', ');
   const remaining = opponents.length - nameLimit;
-  const plusAmt = remaining > 0 ? ` + ${remaining}` : "";
+  const plusAmt = remaining > 0 ? ` + ${remaining}` : '';
   return name + plusAmt;
 };
 
@@ -48,7 +48,7 @@ export const getLastMoveDescription = game => {
 
 export const getTimeSinceLastMove = game => {
   const lastMove = getLastMove(game);
-  return formatDistanceToNow(parseISO(lastMove.created)) + " ago";
+  return formatDistanceToNow(parseISO(lastMove.created)) + ' ago';
 };
 
 export const getPlayersMeLast = (game, meId) => {

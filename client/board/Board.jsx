@@ -1,12 +1,12 @@
-import { Box } from "~/ui";
-import { Draggable, DropZone, useDragDrop } from "./DragDrop";
-import BoardSpots from "~/board/BoardSpots";
-import StaticTiles from "~/board/StaticTiles";
-import Tray from "~/game/Tray";
-import useBoardLayout from "./config/useBoardLayout";
-import useGameMode from "./config/useGameMode";
-import useMoveHistory from "./useMoveHistory";
-import useCurrentMove from "./useCurrentMove";
+import { Box } from '~/ui';
+import { Draggable, DropZone, useDragDrop } from './DragDrop';
+import BoardSpots from '~/board/BoardSpots';
+import StaticTiles from '~/board/StaticTiles';
+import Tray from '~/game/Tray';
+import useBoardLayout from './config/useBoardLayout';
+import useGameMode from './config/useGameMode';
+import useMoveHistory from './useMoveHistory';
+import useCurrentMove from './useCurrentMove';
 
 export default function Board() {
   return (
@@ -50,7 +50,7 @@ function Boardv1({ game }) {
               const movableTile = getMovableTile([x, y]);
               const spotInfo = getSpot([x, y]);
               return (
-                <Box.Square key={x} size={boardSpotSize + "%"}>
+                <Box.Square key={x} size={boardSpotSize + '%'}>
                   {staticTile ? (
                     <Tile
                       surroundingTiles={getSurroundingTiles([x, y])}
@@ -82,10 +82,10 @@ function Boardv1({ game }) {
         ))}
         <Box row h_around pad="1rem 0 0">
           {traySpots.map((_, key) => {
-            const movableTile = getMovableTile([key, "TRAY"]);
+            const movableTile = getMovableTile([key, 'TRAY']);
             return (
-              <Box.Square key={key} size={traySpotSize + "%"}>
-                <DropZone loc={[key, "TRAY"]} register={registerDropZone} z="10">
+              <Box.Square key={key} size={traySpotSize + '%'}>
+                <DropZone loc={[key, 'TRAY']} register={registerDropZone} z="10">
                   {movableTile && (
                     <Draggable
                       id={movableTile.id}

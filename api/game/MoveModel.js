@@ -1,14 +1,14 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 const MoveSchema = new Schema({
   game: {
     type: Schema.Types.ObjectId,
-    ref: "Game",
+    ref: 'Game',
     required: true,
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   created: {
@@ -18,11 +18,11 @@ const MoveSchema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ["WORDS", "SWAP", "PASS", "RESIGN"],
+    enum: ['WORDS', 'SWAP', 'PASS', 'RESIGN'],
   },
   score: Number,
   words: [String],
   tiles: [Schema.Types.Mixed],
 });
 
-export default model("Move", MoveSchema);
+export default model('Move', MoveSchema);

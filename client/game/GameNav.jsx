@@ -1,6 +1,6 @@
-import { AnimatePresence } from "framer-motion";
-import { Box, Button, Icon, Face, Text } from "~/ui";
-import { getGameName, getLastMove, getLastMovePlayer, getLastMoveDescription } from "~/game/gameHelpers";
+import { AnimatePresence } from 'framer-motion';
+import { Box, Button, Icon, Face, Text } from '~/ui';
+import { getGameName, getLastMove, getLastMovePlayer, getLastMoveDescription } from '~/game/gameHelpers';
 
 const gameNameAnimation = {
   initial: {
@@ -11,7 +11,7 @@ const gameNameAnimation = {
     x: 0,
     opacity: 1,
     transition: {
-      ease: "easeInOut",
+      ease: 'easeInOut',
       delay: 0.1,
       duration: 0.1,
     },
@@ -20,7 +20,7 @@ const gameNameAnimation = {
     x: -50,
     opacity: 0,
     transition: {
-      ease: "easeInOut",
+      ease: 'easeInOut',
       duration: 0.1,
     },
   },
@@ -39,7 +39,7 @@ const lastMoveAnimation = {
     opacity: 1,
     transition: {
       delay: 0.25,
-      ease: "backOut",
+      ease: 'backOut',
       duration: 0.15,
     },
   },
@@ -49,7 +49,7 @@ const lastMoveAnimation = {
     transformPerspective: 200,
     opacity: 0,
     transition: {
-      ease: "backOut",
+      ease: 'backOut',
       duration: 0.15,
     },
   },

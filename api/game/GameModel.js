@@ -1,10 +1,10 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 const GameSchema = new Schema({
   users: [
     {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
   ],
@@ -16,19 +16,19 @@ const GameSchema = new Schema({
   finished: Date,
   boardLayout: {
     type: String,
-    enum: ["FRIENDLY"],
-    default: "FRIENDLY",
+    enum: ['FRIENDLY'],
+    default: 'FRIENDLY',
   },
   gameMode: {
     type: String,
-    enum: ["FRIENDLY"],
-    default: "FRIENDLY",
+    enum: ['FRIENDLY'],
+    default: 'FRIENDLY',
   },
   racks: [
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
       },
       tiles: [String],
     },
@@ -36,9 +36,9 @@ const GameSchema = new Schema({
   moves: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Move",
+      ref: 'Move',
     },
   ],
 });
 
-export default model("Game", GameSchema);
+export default model('Game', GameSchema);

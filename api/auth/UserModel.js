@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 const UserSchema = new Schema({
   name: {
@@ -19,7 +19,7 @@ const conversionOptions = {
   },
 };
 
-UserSchema.set("toObject", conversionOptions);
-UserSchema.set("toJSON", conversionOptions);
+UserSchema.set('toObject', conversionOptions);
+UserSchema.set('toJSON', conversionOptions);
 
-export default model("User", UserSchema);
+export default model('User', UserSchema);

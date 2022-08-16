@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
 /*
   Utility for translating flags to various styles
@@ -12,7 +12,7 @@ import { css } from "styled-components";
     ...
     <Element lg />
 */
-export const flag = (props, vals) => vals[Object.keys(vals).find(k => !!props[k]) || "default"];
+export const flag = (props, vals) => vals[Object.keys(vals).find(k => !!props[k]) || 'default'];
 
 export const sizeMixin = css`
   ${({ height }) => height && `height: ${height};`}
@@ -20,7 +20,7 @@ export const sizeMixin = css`
   ${({ width }) => width && `width: ${width};`}
   ${({ maxWidth }) => maxWidth && `max-width: ${maxWidth};`}
   ${({ grow }) => grow && `flex-grow: ${grow === true ? 1 : grow};`}
-  ${({ shrink }) => shrink && "flex: none;"}
+  ${({ shrink }) => shrink && 'flex: none;'}
 `;
 
 export const spacingMixin = css`
@@ -29,13 +29,13 @@ export const spacingMixin = css`
 `;
 
 export const visibilityMixin = css`
-  ${({ faded, disabled }) => (faded || disabled ? `opacity: 0.35;` : "")}
+  ${({ faded, disabled }) => (faded || disabled ? `opacity: 0.35;` : '')}
   ${({ z }) => z && `z-index: ${z};`}
   ${({ hide, theme }) => hide && `@media ${theme.screen[hide]} { display: none; }`}
 `;
 
 export const bkgMixin = css`
-  background-color: ${({ bkg, theme }) => (bkg ? theme.colors[bkg] || bkg : "transparent")};
+  background-color: ${({ bkg, theme }) => (bkg ? theme.colors[bkg] || bkg : 'transparent')};
   ${({ bkgImage }) => bkgImage && `background-image: url(${bkgImage}); background-size: cover;`}
 `;
 
@@ -50,9 +50,9 @@ export const textColorMixin = css`
 
 export const roundedMixin = css`
   border-radius: ${({ rounded, theme }) => {
-    if (!rounded) return "0";
-    if (rounded === "full") return "9999px";
-    if (Array.isArray(rounded)) return rounded.map(a => (a ? theme.borderRadius : "0")).join(" ");
+    if (!rounded) return '0';
+    if (rounded === 'full') return '9999px';
+    if (Array.isArray(rounded)) return rounded.map(a => (a ? theme.borderRadius : '0')).join(' ');
     if (rounded === true) return theme.borderRadius;
     return rounded;
   }};
@@ -60,8 +60,11 @@ export const roundedMixin = css`
 
 export const positionMixin = css`
   ${({ position }) => position && `position: ${position};`}
-  ${({ absolute }) => absolute && `position: absolute; top: ${absolute[0]}; right: ${absolute[1]}; bottom: ${absolute[2]}; left: ${absolute[3]};`}
+  ${({ absolute }) =>
+    absolute &&
+    `position: absolute; top: ${absolute[0]}; right: ${absolute[1]}; bottom: ${absolute[2]}; left: ${absolute[3]};`}
   ${({ absoluteFill }) => absoluteFill && `position: absolute; top: 0; right: 0; bottom: 0; left: 0;`}
-  ${({ fixed }) => fixed && `position: fixed; top: ${fixed[0]}; right: ${fixed[1]}; bottom: ${fixed[2]}; left: ${fixed[3]};`}
+  ${({ fixed }) =>
+    fixed && `position: fixed; top: ${fixed[0]}; right: ${fixed[1]}; bottom: ${fixed[2]}; left: ${fixed[3]};`}
   ${({ fixedFill }) => fixedFill && `position: fixed; top: 0; right: 0; bottom: 0; left: 0;`}
 `;

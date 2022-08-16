@@ -1,13 +1,13 @@
-import fs from "fs";
-import path from "path";
-import { shuffle } from "lodash";
-import { faker } from "@faker-js/faker";
-import gameV1 from "./.mocks/game.json";
+import fs from 'fs';
+import path from 'path';
+import { shuffle } from 'lodash';
+import { faker } from '@faker-js/faker';
+import gameV1 from './.mocks/game.json';
 
 const me = {
-  id: "62eb2d9542270058254d553a",
-  name: "Brian",
-  image: "https://cataas.com/cat?width=50&height=50",
+  id: '62eb2d9542270058254d553a',
+  name: 'Brian',
+  image: 'https://cataas.com/cat?width=50&height=50',
 };
 
 const mockGame = () => {
@@ -26,8 +26,8 @@ const mockGame = () => {
     name: null,
     complete: faker.datatype.boolean(),
     settings: {
-      boardLayout: "FRIENDLY",
-      gameMode: "FRIENDLY",
+      boardLayout: 'FRIENDLY',
+      gameMode: 'FRIENDLY',
     },
     players: players.map((player, key) => ({
       id: player.id,
@@ -44,10 +44,10 @@ const mockGame = () => {
       points: faker.datatype.number(45),
       tiles: m.tiles,
     })),
-    myTiles: ["Q", "W", "H", "A", "T", "J", "Z"],
+    myTiles: ['Q', 'W', 'H', 'A', 'T', 'J', 'Z'],
   };
 };
 
 const games = [...Array(15)].map(mockGame);
 
-fs.writeFileSync(path.resolve(__dirname, "./.mocks/games.json"), JSON.stringify(games, null, 2));
+fs.writeFileSync(path.resolve(__dirname, './.mocks/games.json'), JSON.stringify(games, null, 2));

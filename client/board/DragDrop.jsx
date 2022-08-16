@@ -1,6 +1,6 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { debounce } from "lodash";
-import { Box } from "~/ui";
+import { useLayoutEffect, useRef, useState } from 'react';
+import { debounce } from 'lodash';
+import { Box } from '~/ui';
 
 export const Draggable = ({ children, id, dragScale, dragConstraints, ...props }) => {
   const motionProps = {
@@ -14,8 +14,8 @@ export const Draggable = ({ children, id, dragScale, dragConstraints, ...props }
     dragMomentum: false,
     key: id,
     layoutId: id,
-    z: "30",
-    cursor: "pointer",
+    z: '30',
+    cursor: 'pointer',
   };
   return <Box.Animated {...motionProps}>{children}</Box.Animated>;
 };
@@ -25,7 +25,7 @@ export const DropZone = ({ loc, register, children, ...props }) => {
 
   const registerDropArea = () => {
     const area = dropArea?.current?.getBoundingClientRect();
-    if (!area) console.log("No area for DropZone ", loc);
+    if (!area) console.log('No area for DropZone ', loc);
     register(loc, [area.x, area.x + area.width], [area.y, area.y + area.height]);
   };
 
@@ -44,7 +44,11 @@ export const DropZone = ({ loc, register, children, ...props }) => {
 export const useDragDrop = () => {
   const [dropZones, setDropZones] = useState({});
 
-  const registerDropZone = (loc, xRange, yRange) => setDropZones(dropZones => ({ ...dropZones, [loc.join("_")]: { loc, xRange, yRange } }));
+  const registerDropZone = (loc, xRange, yRange) =>
+    setDropZones(dropZones => ({
+      ...dropZones,
+      [loc.join('_')]: { loc, xRange, yRange },
+    }));
 
   const findDropZone = ({ x, y }) => {
     return Object.values(dropZones).find(({ xRange, yRange }) => {

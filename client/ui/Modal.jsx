@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { AnimatePresence } from "framer-motion";
-import styled from "styled-components";
-import { Box, Button, Icon } from "~/ui";
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { AnimatePresence } from 'framer-motion';
+import styled from 'styled-components';
+import { Box, Button, Icon } from '~/ui';
 
 const ModalContext = React.createContext();
 
@@ -12,7 +12,7 @@ const Blur = styled(Box.Animated).attrs({
   exit: { opacity: 0 },
   transition: {
     duration: 0.2,
-    ease: "easeInOut",
+    ease: 'easeInOut',
   },
 })`
   backdrop-filter: blur(20px);
@@ -24,19 +24,19 @@ const Gradient = styled(Box.Animated).attrs({
   exit: { opacity: 0 },
   transition: {
     duration: 0.2,
-    ease: "easeInOut",
+    ease: 'easeInOut',
   },
 })`
   background: linear-gradient(var(--modal-overlay-bkg-gradient));
 `;
 
 const ModalContent = styled(Box.Animated).attrs({
-  initial: { y: "25vh", opacity: 0 },
+  initial: { y: '25vh', opacity: 0 },
   animate: { y: 0, opacity: 1 },
-  exit: { y: "25vh", opacity: 0 },
+  exit: { y: '25vh', opacity: 0 },
   transition: {
     duration: 0.2,
-    type: "spring",
+    type: 'spring',
     damping: 25,
     stiffness: 500,
   },
@@ -62,7 +62,7 @@ const ModalContainer = () => {
         </Blur>
       )}
     </AnimatePresence>,
-    document.querySelector("#modal-root")
+    document.querySelector('#modal-root')
   );
 };
 

@@ -1,6 +1,14 @@
-import styled from "styled-components";
-import { motion } from "framer-motion";
-import { visibilityMixin, bkgMixin, sizeMixin, roundedMixin, spacingMixin, positionMixin, flag } from "~/ui/styleHelpers";
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import {
+  visibilityMixin,
+  bkgMixin,
+  sizeMixin,
+  roundedMixin,
+  spacingMixin,
+  positionMixin,
+  flag,
+} from '~/ui/styleHelpers';
 
 export const Box = styled.div`
   ${sizeMixin}
@@ -10,47 +18,47 @@ export const Box = styled.div`
   ${visibilityMixin}
   ${positionMixin}
 
-  /* display: ${({ display }) => display || "flex"}; */
+  /* display: ${({ display }) => display || 'flex'}; */
   ${props =>
     flag(props, {
-      col: "display: flex;",
-      row: "display: flex;",
+      col: 'display: flex;',
+      row: 'display: flex;',
       display: `display: ${props.display};`,
-      default: "",
+      default: '',
     })}
-  flex-direction: ${({ col }) => (col ? "column" : "row")};
+  flex-direction: ${({ col }) => (col ? 'column' : 'row')};
 
   justify-content: ${props =>
     props.col
       ? flag(props, {
-          default: "stretch; >*{ flex: auto; }",
-          v_center: "center",
-          v_between: "space-between",
-          v_around: "space-around",
-          v_top: "start",
-          v_bottom: "end",
+          default: 'stretch; >*{ flex: auto; }',
+          v_center: 'center',
+          v_between: 'space-between',
+          v_around: 'space-around',
+          v_top: 'start',
+          v_bottom: 'end',
         })
       : flag(props, {
-          default: "stretch; >*{ flex: auto; }",
-          h_center: "center",
-          h_between: "space-between",
-          h_around: "space-around",
-          h_left: "start",
-          h_right: "end",
+          default: 'stretch; >*{ flex: auto; }',
+          h_center: 'center',
+          h_between: 'space-between',
+          h_around: 'space-around',
+          h_left: 'start',
+          h_right: 'end',
         })};
   align-items: ${props =>
     props.col
       ? flag(props, {
-          default: "stretch",
-          h_center: "center",
-          h_left: "start",
-          h_right: "end",
+          default: 'stretch',
+          h_center: 'center',
+          h_left: 'start',
+          h_right: 'end',
         })
       : flag(props, {
-          default: "stretch",
-          v_center: "center",
-          v_top: "start",
-          v_bottom: "end",
+          default: 'stretch',
+          v_center: 'center',
+          v_top: 'start',
+          v_bottom: 'end',
         })};
 `;
 
@@ -58,6 +66,6 @@ Box.Animated = motion(Box);
 
 Box.Square = styled(Box)`
   position: relative;
-  width: ${({ size }) => size || "100%"};
-  padding-bottom: ${({ size }) => size || "100%"};
+  width: ${({ size }) => size || '100%'};
+  padding-bottom: ${({ size }) => size || '100%'};
 `;

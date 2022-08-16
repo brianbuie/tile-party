@@ -1,6 +1,6 @@
-import { ModalProvider } from "~/ui/Modal";
-import RequireAuth from "~/auth/RequireAuth";
-import { Box } from "~/ui";
+import { ModalProvider } from '~/ui/Modal';
+import RequireAuth from '~/auth/RequireAuth';
+import { Box } from '~/ui';
 
 export default function Page({ children }) {
   return (

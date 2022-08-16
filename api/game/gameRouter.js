@@ -1,28 +1,28 @@
 /*
 	Init
 */
-import express from "express";
-import routes from "../../common/routes";
+import express from 'express';
+import routes from '../../common/routes';
 const gameRouter = express.Router();
-const route = name => routes[name].replace("/api/game", "");
+const route = name => routes[name].replace('/api/game', '');
 
 /*
 	Models
 */
-import mongoose from "mongoose";
-import "./GameModel";
-import "./MoveModel";
-const Game = mongoose.model("Game");
-const Move = mongoose.model("Move");
+import mongoose from 'mongoose';
+import './GameModel';
+import './MoveModel';
+const Game = mongoose.model('Game');
+const Move = mongoose.model('Move');
 
 /*
   Require Auth
 */
-import { requireAuth } from "../auth/authHelpers";
+import { requireAuth } from '../auth/authHelpers';
 gameRouter.use(requireAuth);
 
 // Create Game
-gameRouter.post(route("createGame"), async (req, res) => {
+gameRouter.post(route('createGame'), async (req, res) => {
   const game = new Game({
     users: [req.user],
   });
@@ -48,14 +48,14 @@ gameRouter.post(route("createGame"), async (req, res) => {
   Testing
 */
 // Get all player's games
-import games from "../.mocks/games.json";
-gameRouter.get(route("viewGames"), async (req, res) => {
+import games from '../.mocks/games.json';
+gameRouter.get(route('viewGames'), async (req, res) => {
   // const games = await Game.find({ users: [req.user] });
   res.json(games);
 });
 
-import game from "../.mocks/game.json";
-gameRouter.get(route("viewGame"), async (req, res) => {
+import game from '../.mocks/game.json';
+gameRouter.get(route('viewGame'), async (req, res) => {
   res.json(game);
 });
 

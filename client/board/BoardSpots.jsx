@@ -1,24 +1,24 @@
-import styled from "styled-components";
-import { Box, theme } from "~/ui";
-import { useActiveGame } from "~/game/ActiveGame";
-import useBoardLayout from "~/board/config/useBoardLayout";
+import styled from 'styled-components';
+import { Box, theme } from '~/ui';
+import { useActiveGame } from '~/game/ActiveGame';
+import useBoardLayout from '~/board/config/useBoardLayout';
 
 const spotColors = {
-  BLANK: "var(--spot-outline)",
-  CENTER: "var(--spot-outline)",
-  DL: "var(--spot-outline-dl)",
-  DW: "var(--spot-outline-dw)",
-  TL: "var(--spot-outline-tl)",
-  TW: "var(--spot-outline-tw)",
+  BLANK: 'var(--spot-outline)',
+  CENTER: 'var(--spot-outline)',
+  DL: 'var(--spot-outline-dl)',
+  DW: 'var(--spot-outline-dw)',
+  TL: 'var(--spot-outline-tl)',
+  TW: 'var(--spot-outline-tw)',
 };
 
 const spotLabels = {
-  BLANK: " ",
-  CENTER: "C",
-  DL: "DL",
-  DW: "DW",
-  TL: "TL",
-  TW: "TW",
+  BLANK: ' ',
+  CENTER: 'C',
+  DL: 'DL',
+  DW: 'DW',
+  TL: 'TL',
+  TW: 'TW',
 };
 
 const SpotInner = styled(Box)`
@@ -46,7 +46,7 @@ export default function BoardSpots() {
       {cols.map((_, x) => {
         const type = getSpotType([x, y]);
         return (
-          <Box.Square size={spotSize + "%"} key={x} bkg={spotColors[type]} rounded>
+          <Box.Square size={spotSize + '%'} key={x} bkg={spotColors[type]} rounded>
             <SpotInner absolute={Array(4).fill(theme.responsiveBorder)} bkg="#39225F" rounded>
               <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <SpotLabel x="50%" y="50%" dominantBaseline="central" color={spotColors[type]}>

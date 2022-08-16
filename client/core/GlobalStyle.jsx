@@ -1,5 +1,5 @@
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { theme } from "~/ui";
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { theme } from '~/ui';
 
 const GlobalStyle = createGlobalStyle`
   :root {

@@ -1,5 +1,5 @@
-import { Box, Button } from "~/ui";
-import Nav from "~/ui/Nav";
+import { Box, Button } from '~/ui';
+import Nav from '~/ui/Nav';
 
 export default function Home() {
   return (

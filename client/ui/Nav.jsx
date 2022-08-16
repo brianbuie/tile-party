@@ -1,5 +1,5 @@
-import { Box, Button, Text, Icon, Face, useModal, ModalHeader } from "~/ui";
-import { routes } from "~/utils/useFetch";
+import { Box, Button, Text, Icon, Face, useModal, ModalHeader } from '~/ui';
+import { routes } from '~/utils/useFetch';
 
 const MeModal = () => {
   const { closeModal } = useModal();

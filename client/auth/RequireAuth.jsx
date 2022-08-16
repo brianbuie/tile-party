@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { Button, Box, Icon, Text } from "~/ui";
-import { useFetch, routes } from "~/utils/useFetch";
+import React, { useContext } from 'react';
+import { Button, Box, Icon, Text } from '~/ui';
+import { useFetch, routes } from '~/utils/useFetch';
 
 const MeContext = React.createContext();
 
 export default function RequireAuth({ children }) {
-  const [me, loading] = useFetch("me");
+  const [me, loading] = useFetch('me');
   if (loading) return null;
   return (
     <MeContext.Provider value={me}>

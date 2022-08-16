@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Box, theme } from "~/ui";
+import styled from 'styled-components';
+import { Box, theme } from '~/ui';
 
 const TileBorder = styled(Box.Square)`
   background-color: var(--tile-outline);
@@ -8,7 +8,7 @@ const TileBorder = styled(Box.Square)`
 const TileText = styled.text`
   font-weight: 700;
   font-family: ${({ theme }) => theme.tileFontFamily};
-  fill: ${({ isLastMove }) => (isLastMove ? "var(--text)" : "var(--tile-text)")};
+  fill: ${({ isLastMove }) => (isLastMove ? 'var(--text)' : 'var(--tile-text)')};
 `;
 
 const Value = styled(TileText)`
@@ -24,8 +24,8 @@ const Letter = styled(TileText)`
 export default function Tile({ surroundingTiles, letter, value, isLastMove, ...props }) {
   const [t, r, b, l] = surroundingTiles || [];
   const rounded = [!t && !l, !t && !r, !r && !b, !b && !l];
-  const borders = [!t, !r, !b, !l].map(condition => (condition ? theme.responsiveBorder : "0"));
-  const pad = [t, r, b, l].map(condition => (condition ? theme.responsiveBorder : "0")).join(" ");
+  const borders = [!t, !r, !b, !l].map(condition => (condition ? theme.responsiveBorder : '0'));
+  const pad = [t, r, b, l].map(condition => (condition ? theme.responsiveBorder : '0')).join(' ');
   return (
     <TileBorder rounded={rounded} isLastMove={isLastMove} {...props}>
       <Box absolute={borders} bkg="var(--spot-outline)" rounded={rounded} pad={pad}>

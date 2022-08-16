@@ -1,9 +1,9 @@
-import { Box } from "~/ui";
-import { useActiveGame } from "~/game/ActiveGame";
-import useBoardLayout from "~/board/config/useBoardLayout";
-import useMoveHistory from "~/board/useMoveHistory";
-import useGameMode from "~/board/config/useGameMode";
-import Tile from "~/board/Tile";
+import { Box } from '~/ui';
+import { useActiveGame } from '~/game/ActiveGame';
+import useBoardLayout from '~/board/config/useBoardLayout';
+import useMoveHistory from '~/board/useMoveHistory';
+import useGameMode from '~/board/config/useGameMode';
+import Tile from '~/board/Tile';
 
 export default function StaticTiles() {
   const game = useActiveGame();
@@ -22,11 +22,11 @@ export default function StaticTiles() {
             letter={staticTile.letter}
             value={getLetterValue(staticTile.letter)}
             isLastMove={staticTile.isLastMove}
-            size={spotSize + "%"}
+            size={spotSize + '%'}
             key={x}
           />
         ) : (
-          <Box.Square size={spotSize + "%"} key={x} />
+          <Box.Square size={spotSize + '%'} key={x} />
         );
       })}
     </Box>

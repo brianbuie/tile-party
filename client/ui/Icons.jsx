@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components';
 
 export {
   IoChevronBack as BackArrow,
@@ -9,19 +9,19 @@ export {
   IoMenu as Burger,
   IoShuffle as Shuffle,
   IoSwapHorizontal as Swap,
-} from "react-icons/io5";
+} from 'react-icons/io5';
 
-export { GrRedo as Pass } from "react-icons/gr";
-export { MdCallReceived as Recall } from "react-icons/md";
+export { GrRedo as Pass } from 'react-icons/gr';
+export { MdCallReceived as Recall } from 'react-icons/md';
 
-import { IconContext } from "react-icons";
+import { IconContext } from 'react-icons';
 
 const IconColorStyle = createGlobalStyle`
   .icon { color: ${({ theme }) => theme.colors.text}; }
 `;
 
 export const IconProvider = ({ children }) => (
-  <IconContext.Provider value={{ className: "icon" }}>
+  <IconContext.Provider value={{ className: 'icon' }}>
     <IconColorStyle />
     {children}
   </IconContext.Provider>
@@ -50,7 +50,7 @@ export const Crown = props => (
 );
 
 export const Logo = styled.img.attrs({
-  src: "/icon.svg",
+  src: '/icon.svg',
 })`
-  width: ${({ width }) => width || "1rem"};
+  width: ${({ width }) => width || '1rem'};
 `;

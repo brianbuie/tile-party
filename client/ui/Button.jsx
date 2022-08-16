@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { Link as RouterLink } from "react-router-dom";
-import { flag, bkgMixin, textColorMixin, visibilityMixin } from "~/ui/styleHelpers";
+import styled from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
+import { flag, bkgMixin, textColorMixin, visibilityMixin } from '~/ui/styleHelpers';
 
 const ButtonBase = styled.button`
   /* Base Size */
-  font-size: ${({ size }) => size || "1rem"};
+  font-size: ${({ size }) => size || '1rem'};
   .icon {
     font-size: 1.5em;
   }
@@ -22,18 +22,18 @@ const ButtonBase = styled.button`
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  flex-direction: ${({ vertical }) => (vertical ? "column" : "row")};
+  flex-direction: ${({ vertical }) => (vertical ? 'column' : 'row')};
   > span {
-    ${({ vertical }) => (vertical ? "margin-top: 0.3em;" : "margin-left: 0.75em;")}
+    ${({ vertical }) => (vertical ? 'margin-top: 0.3em;' : 'margin-left: 0.75em;')}
   }
 
   /* Size */
   ${({ width }) => width && `width: ${width};`}
-  max-width: ${({ maxWidth }) => maxWidth || "none"};
-  ${({ grow }) => grow && "flex-grow: 1;"}
+  max-width: ${({ maxWidth }) => maxWidth || 'none'};
+  ${({ grow }) => grow && 'flex-grow: 1;'}
 
   /* Spacing */
-  padding: ${({ pad }) => pad || "0.75em 1.5em"};
+  padding: ${({ pad }) => pad || '0.75em 1.5em'};
   ${({ margin }) => margin && `margin: ${margin};`}
 
   /* Shape & Border */
@@ -52,14 +52,14 @@ const ButtonBase = styled.button`
   }
 
   /* Disabled */
-  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   ${visibilityMixin}
 `;
 
 export const Button = styled(ButtonBase).attrs(props => ({
   as: flag(props, {
     to: RouterLink,
-    href: "a",
+    href: 'a',
     default: props.as,
   }),
 }))``;
