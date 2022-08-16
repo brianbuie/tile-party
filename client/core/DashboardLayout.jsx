@@ -6,14 +6,16 @@ import { useFetch } from "~/utils/useFetch";
 import { useMe } from "~/auth/RequireAuth";
 import { Nav, Box } from "~/ui";
 import GamesList from "~/game/GamesList";
-import ScoreBoard from "~/game/ScoreBoard";
 import GameNav from "~/game/GameNav";
+import ActiveGame from "~/game/ActiveGame";
 import Board from "~/board/Board";
+import ScoreBoard from "~/game/ScoreBoard";
+import GameMenu from "~/game/GameMenu";
 
 const Scroll = styled(Scrollbars)`
   height: calc(100vh - 5rem);
   @media ${({ theme }) => theme.screen.desktop} {
-    background: rgba(20, 10, 14, 0.1);
+    background: var(--dashboard-left-overlay-bkg);
   }
 `;
 
@@ -41,6 +43,7 @@ const DashboardLeft = styled(Box)`
 `;
 
 const DashboardRight = styled(Box)`
+  height: 100vh;
   width: 100vw;
   @media ${({ theme }) => theme.screen.desktop} {
     width: 60vw;
@@ -48,11 +51,10 @@ const DashboardRight = styled(Box)`
 `;
 
 export default function DashboardLayout() {
+  const me = useMe();
   const [games, gamesLoading] = useFetch("viewGames");
   const { gameId } = useParams();
-  const game = games && games.find(game => game.id === gameId);
-
-  const me = useMe();
+  const game = games?.find(game => game.id === gameId);
 
   const history = useHistory();
   const swipeHandlers = useSwipeable({ onSwipedRight: () => history.push("/game") });
@@ -65,18 +67,21 @@ export default function DashboardLayout() {
           <Scroll autoHide>{!gamesLoading && games && me && <GamesList games={games} activeGameId={gameId} me={me} />}</Scroll>
         </DashboardLeft>
         <DashboardRight col v_top {...swipeHandlers}>
-          <Box row h_center height="5rem" bkg="overlayDark">
+          <Box row h_center height="5rem" bkg="var(--nav-bkg)">
             <Box row v_center grow maxWidth="35rem" pad="0 1rem">
               <GameNav game={game} me={me} />
             </Box>
           </Box>
           <Box row h_center grow>
-            {game && (
-              <Box col grow maxWidth="35rem" pad="0 1rem">
-                <ScoreBoard game={game} me={me} />
-                <Board game={game} />
-              </Box>
-            )}
+            <Box col v_around grow maxWidth="35rem" pad="0 1rem">
+              <ActiveGame game={game}>
+                <ScoreBoard />
+
+                <Board />
+
+                <GameMenu />
+              </ActiveGame>
+            </Box>
           </Box>
         </DashboardRight>
       </DashboardContainer>

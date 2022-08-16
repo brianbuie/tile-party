@@ -12,7 +12,8 @@ const theme = {
   colors,
   tileFontFamily: '"Source Code Pro", sans-serif',
   browserTheme: "#3a1b4f",
-  borderRadius: `${100 / 6.4}%`,
+  borderRadius: "22%",
+  responsiveBorder: "6.6%",
   screen: {
     mobile: "(max-width: 767px)",
     desktop: "(min-width: 768px)",

@@ -27,7 +27,7 @@ const Gradient = styled(Box.Animated).attrs({
     ease: "easeInOut",
   },
 })`
-  background: linear-gradient(rgba(0, 0, 0, 1) 50%, rgba(114, 51, 88, 0.8));
+  background: linear-gradient(var(--modal-overlay-bkg-gradient));
 `;
 
 const ModalContent = styled(Box.Animated).attrs({
@@ -43,7 +43,7 @@ const ModalContent = styled(Box.Animated).attrs({
 })`
   width: 20rem;
   max-width: 90vw;
-  background: linear-gradient(rgba(97, 55, 145, 1), rgba(80, 80, 147, 1));
+  background: linear-gradient(var(--modal-body-bkg-gradient));
   border-radius: 1rem;
   overflow: hidden;
 `;
@@ -91,7 +91,7 @@ export const useModal = () => {
 };
 
 export const ModalHeader = ({ children, closeModal }) => (
-  <Box row pad="0 1.5rem" height="5rem" bkg="overlayDark">
+  <Box row v_center pad="0 1.5rem" height="5rem" bkg="var(--modal-header-bkg)">
     <Box col h_left v_center grow>
       {children}
     </Box>

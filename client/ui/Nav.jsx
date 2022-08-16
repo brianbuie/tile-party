@@ -1,4 +1,4 @@
-import { Box, Button, Text, Logo, Face, useModal, ModalHeader } from "~/ui";
+import { Box, Button, Text, Icon, Face, useModal, ModalHeader } from "~/ui";
 import { routes } from "~/utils/useFetch";
 
 const MeModal = () => {
@@ -23,7 +23,7 @@ const MeModal = () => {
 export default function Nav({ children, me }) {
   const { openModal } = useModal();
   return (
-    <Box row as="nav" pad="1rem" bkg="overlayDark">
+    <Box row as="nav" pad="1rem" bkg="var(--nav-bkg)">
       <Box col h_left width="33%">
         {me && (
           <Button pad="0" onClick={() => openModal(<MeModal />)}>
@@ -32,8 +32,8 @@ export default function Nav({ children, me }) {
         )}
       </Box>
       <Box col h_center width="33%">
-        <Box col width="6rem" height="3rem">
-          <Logo />
+        <Box col h_center width="6rem" height="3rem">
+          <Icon.Logo width="2rem" />
         </Box>
       </Box>
       <Box col h_right width="33%">

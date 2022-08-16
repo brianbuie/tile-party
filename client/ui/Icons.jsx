@@ -48,3 +48,9 @@ export const Crown = props => (
     </svg>
   </CustomIcon>
 );
+
+export const Logo = styled.img.attrs({
+  src: "/icon.svg",
+})`
+  width: ${({ width }) => width || "1rem"};
+`;

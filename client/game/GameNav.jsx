@@ -72,23 +72,22 @@ const NavTitle = ({ game, me }) => (
 );
 
 export default function GameNav({ game, me }) {
+  if (!game || !me) return null;
   return (
-    game && (
-      <>
-        <Box row shrink hide="desktop">
-          <Button to="/game" size="1.5rem" pad="0.5rem 0.5rem 0.5rem 0">
-            <Icon.BackArrow />
-          </Button>
-        </Box>
-        <Box col h_left grow>
-          <NavTitle game={game} me={me} />
-        </Box>
-        <Box row shrink hide="mobile">
-          <Button to="/game" size="1.5rem" pad="0.5rem 0 0.5rem 1rem">
-            <Icon.Close />
-          </Button>
-        </Box>
-      </>
-    )
+    <>
+      <Box row shrink hide="desktop">
+        <Button to="/game" size="1.5rem" pad="0.5rem 0.5rem 0.5rem 0">
+          <Icon.BackArrow />
+        </Button>
+      </Box>
+      <Box col h_left grow>
+        <NavTitle game={game} me={me} />
+      </Box>
+      <Box row shrink hide="mobile">
+        <Button to="/game" size="1.5rem" pad="0.5rem 0 0.5rem 1rem">
+          <Icon.Close />
+        </Button>
+      </Box>
+    </>
   );
 }

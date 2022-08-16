@@ -1,14 +1,32 @@
 import { Box } from "~/ui";
 import { Draggable, DropZone, useDragDrop } from "./DragDrop";
-import Spot from "./Spot";
-import Tile from "./Tile";
-import Menu from "./Menu";
+import BoardSpots from "~/board/BoardSpots";
+import StaticTiles from "~/board/StaticTiles";
+import Tray from "~/game/Tray";
 import useBoardLayout from "./config/useBoardLayout";
 import useGameMode from "./config/useGameMode";
 import useMoveHistory from "./useMoveHistory";
 import useCurrentMove from "./useCurrentMove";
 
-export default function Board({ game }) {
+export default function Board() {
+  return (
+    <Box col v_center>
+      <Box col bkg="var(--spot-outline)" pad="0.25rem" rounded="1.5%">
+        <Box.Square size="100%">
+          <Box z="10" absoluteFill>
+            <BoardSpots />
+          </Box>
+          <Box z="20" absoluteFill>
+            <StaticTiles />
+          </Box>
+        </Box.Square>
+      </Box>
+      <Tray />
+    </Box>
+  );
+}
+
+function Boardv1({ game }) {
   const { cols, rows, boardSpotSize, trayLayout, getSpot } = useBoardLayout(game.settings.boardLayout);
   const { getLetterValue, tilesPerTurn } = useGameMode(game.settings.gameMode);
   const { getStaticTile, getSurroundingTiles } = useMoveHistory(game.moveHistory);

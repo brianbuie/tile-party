@@ -10,7 +10,14 @@ export const Box = styled.div`
   ${visibilityMixin}
   ${positionMixin}
 
-  display: ${({ display }) => display || "flex"};
+  /* display: ${({ display }) => display || "flex"}; */
+  ${props =>
+    flag(props, {
+      col: "display: flex;",
+      row: "display: flex;",
+      display: `display: ${props.display};`,
+      default: "",
+    })}
   flex-direction: ${({ col }) => (col ? "column" : "row")};
 
   justify-content: ${props =>
@@ -53,11 +60,4 @@ Box.Square = styled(Box)`
   position: relative;
   width: ${({ size }) => size || "100%"};
   padding-bottom: ${({ size }) => size || "100%"};
-  > * {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
 `;

@@ -64,9 +64,9 @@ export const Button = styled(ButtonBase).attrs(props => ({
   }),
 }))``;
 
-Button.Primary = styled(Button).attrs(props => ({
-  bkg: !props.disabled ? "primary" : "primaryDisabled",
-}))``;
+Button.Primary = styled(Button)`
+  background: linear-gradient(to right, var(--primary-gradient));
+`;
 
 Button.Secondary = styled(Button)`
   border: 0.125em solid white;
