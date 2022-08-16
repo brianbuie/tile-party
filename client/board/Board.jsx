@@ -13,10 +13,10 @@ export default function Board() {
     <Box col v_center>
       <Box col bkg='var(--spot-outline)' pad='0.25rem' rounded='1.5%'>
         <Box.Square size='100%'>
-          <Box z='10' absoluteFill>
+          <Box z='10' absolute='0'>
             <BoardSpots />
           </Box>
-          <Box z='20' absoluteFill>
+          <Box z='20' absolute='0'>
             <StaticTiles />
           </Box>
         </Box.Square>

@@ -1,4 +1,4 @@
-import { useParams, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import styled from 'styled-components';
 import { Scrollbars } from 'react-custom-scrollbars-2';
@@ -53,12 +53,14 @@ const DashboardRight = styled(Box)`
 export default function DashboardLayout() {
   const me = useMe();
   const [games, gamesLoading] = useFetch('viewGames');
-  const { gameId } = useParams();
+
+  const match = useRouteMatch('/game/:gameId');
+  const { gameId } = match?.params || {};
   const game = games?.find(game => game.id === gameId);
 
   const history = useHistory();
   const swipeHandlers = useSwipeable({
-    onSwipedRight: () => history.push('/game'),
+    onSwipedRight: () => history.push('/'),
   });
 
   return (

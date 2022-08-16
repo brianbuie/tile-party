@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     --modal-header-bkg: #563b7b;
     --modal-overlay-bkg-gradient: #251753 0%, #2f0a43 50%, #131946 100%;
     --nav-bkg: #261741;
+    --overlay-light: rgba(235, 184, 244, 0.07);
     --page-bkg-gradient: #502674 0%, #131c3b 100%;
     --primary-gradient: #ff4db3 0%, #f08d58 100%;
     --primary-pink: #ff4eb3;
@@ -20,11 +21,15 @@ const GlobalStyle = createGlobalStyle`
     --spot-outline-tl: #baab37;
     --spot-outline-tw: #d54b56;
     --text: #fff;
-    --text-disabled: rgba(201, 211, 253, 0.66);
+    --text-muted: rgba(201, 211, 253, 0.66);
     --tile-bkg: #583c78;
     --tile-outline: #af64e6;
     --tile-text: #ffc1f7;
     /* Export End */
+
+		/* Gradient Implementations */
+		--primary-linear-gradient: linear-gradient(to right, var(--primary-gradient));
+		--page-linear-gradient: linear-gradient(var(--page-bkg-gradient));
   }
 
   @font-face {
@@ -35,19 +40,19 @@ const GlobalStyle = createGlobalStyle`
 
 	html {
 		font-size: 16px;
-		color: white;
+		color: var(--text);
 		font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
 	}
 
 	body {
 		padding: 0;
 		margin: 0;
-		background: linear-gradient(#502674, #131c3b);
+		background: var(--page-linear-gradient);
 	}
 
   html, body, #root {
-    min-height: 100vh;
-   	min-height: fill-available;
+    height: 100vh;
+   	/* height: fill-available; */
   }
 
 	* {

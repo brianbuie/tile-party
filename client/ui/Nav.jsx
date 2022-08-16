@@ -33,7 +33,9 @@ export default function Nav({ children, me }) {
       </Box>
       <Box col h_center width='33%'>
         <Box col h_center width='6rem' height='3rem'>
-          <Icon.Logo width='2rem' />
+          <Button pad='0' to='/'>
+            <Icon.Logo width='2rem' />
+          </Button>
         </Box>
       </Box>
       <Box col h_right width='33%'>

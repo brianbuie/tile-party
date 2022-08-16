@@ -12,7 +12,7 @@ export default function RequireAuth({ children }) {
       {me ? (
         children
       ) : (
-        <Box col v_center h_center>
+        <Box col v_center h_center height='100vh'>
           <Icon.Logo width='6rem' />
           <Text.H1 margin='1rem 0 4rem 0'>Tile Party</Text.H1>
           <Button bkg='#3378f2' href={routes.facebookLogin}>

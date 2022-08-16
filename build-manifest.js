@@ -1,11 +1,17 @@
 /*
-	Generate icons and populate manifest with theme values
+	Generate icons and populate manifest
 */
 
 import iconGen from 'icon-gen';
 import fs from 'fs';
-import manifest from './client/assets/manifest';
-import theme from './client/ui/theme';
+
+const manifest = {
+  short_name: 'Tile Party',
+  theme_color: '#261741',
+  background_color: '#261741',
+  start_url: '/',
+  display: 'fullscreen',
+};
 
 (async () => {
   const srcIcon = './client/assets/icon.svg';
@@ -34,14 +40,11 @@ import theme from './client/ui/theme';
 
   fs.copyFileSync(`${outDir}/apple-touch-icon-180.png`, './client/assets/apple-touch-icon.png');
 
-  manifest.icons = manifestSizes.map((size) => ({
+  manifest.icons = manifestSizes.map(size => ({
     src: `/icons/favicon-${size}.png`,
     type: `image/png`,
     sizes: `${size}x${size}`,
   }));
-
-  manifest.background_color = theme.colors.purple;
-  manifest.theme_color = theme.browserTheme;
 
   fs.writeFileSync('./client/assets/manifest.json', JSON.stringify(manifest, null, 2));
 })();

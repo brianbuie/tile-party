@@ -28,7 +28,7 @@ export default function Tile({ surroundingTiles, letter, value, isLastMove, ...p
   const pad = [t, r, b, l].map(condition => (condition ? theme.responsiveBorder : '0')).join(' ');
   return (
     <TileBorder rounded={rounded} isLastMove={isLastMove} {...props}>
-      <Box absolute={borders} bkg='var(--spot-outline)' rounded={rounded} pad={pad}>
+      <Box absolute={borders} bkg='var(--tile-bkg)' rounded={rounded} pad={pad}>
         <svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
           <Value isLastMove={isLastMove} x='15' y='30'>
             {value ?? 1}

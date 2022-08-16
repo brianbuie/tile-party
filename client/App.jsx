@@ -1,9 +1,9 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { IconProvider } from '~/ui/Icons';
 import { FetchProvider } from '~/utils/useFetch';
+import { ModalProvider } from '~/ui/Modal';
 import GlobalStyle from '~/core/GlobalStyle';
-import Page from '~/core/Page';
-import Home from '~/core/Home';
+import RequireAuth from '~/auth/RequireAuth';
 import DashboardLayout from '~/core/DashboardLayout';
 
 const App = () => (
@@ -11,12 +11,11 @@ const App = () => (
     <IconProvider>
       <FetchProvider>
         <BrowserRouter>
-          <Page>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/game/:gameId?' component={DashboardLayout} />
-            </Switch>
-          </Page>
+          <ModalProvider>
+            <RequireAuth>
+              <Route path='/' component={DashboardLayout} />
+            </RequireAuth>
+          </ModalProvider>
         </BrowserRouter>
       </FetchProvider>
     </IconProvider>

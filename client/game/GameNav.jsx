@@ -76,7 +76,7 @@ export default function GameNav({ game, me }) {
   return (
     <>
       <Box row shrink hide='desktop'>
-        <Button to='/game' size='1.5rem' pad='0.5rem 0.5rem 0.5rem 0'>
+        <Button to='/' size='1.5rem' pad='0.5rem 0.5rem 0.5rem 0'>
           <Icon.BackArrow />
         </Button>
       </Box>
@@ -84,7 +84,7 @@ export default function GameNav({ game, me }) {
         <NavTitle game={game} me={me} />
       </Box>
       <Box row shrink hide='mobile'>
-        <Button to='/game' size='1.5rem' pad='0.5rem 0 0.5rem 1rem'>
+        <Button to='/' size='1.5rem' pad='0.5rem 0 0.5rem 1rem'>
           <Icon.Close />
         </Button>
       </Box>
