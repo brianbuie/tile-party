@@ -1,5 +1,9 @@
 {
   "short_name": "Tile Party",
+  "theme_color": "#261741",
+  "background_color": "#261741",
+  "start_url": "/",
+  "display": "fullscreen",
   "icons": [
     {
       "src": "/icons/favicon-64.png",
@@ -26,9 +30,5 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ],
-  "theme_color": "#261741",
-  "background_color": "#261741",
-  "start_url": "/",
-  "display": "fullscreen"
+  ]
 }

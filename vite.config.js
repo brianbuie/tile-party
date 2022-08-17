@@ -15,7 +15,7 @@ export default defineConfig({
     }),
   ],
   root: './client/',
-  publicDir: './assets',
+  publicDir: '../public',
   resolve: {
     alias: {
       '~': path.resolve(__dirname, './client'),
