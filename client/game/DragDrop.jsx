@@ -2,25 +2,28 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { debounce } from 'lodash';
 import { Box } from '~/ui';
 
-export const Draggable = ({ children, id, dragScale, dragConstraints, ...props }) => {
+export const Draggable = ({ id, dragScale, ...props }) => {
   const motionProps = {
-    ...props,
     layout: true,
     drag: true,
     transition: {
       duration: 0.25,
     },
-    whileDrag: { scale: dragScale, transition: 0.1 },
+    whileDrag: {
+      scale: dragScale || 1,
+      transition: 0.1,
+    },
     dragMomentum: false,
+    dragSnapToOrigin: true,
     key: id,
     layoutId: id,
-    z: '30',
     cursor: 'pointer',
+    z: 30
   };
-  return <Box.Animated {...motionProps}>{children}</Box.Animated>;
-};
+  return <Box.Animated {...motionProps} {...props} />;
+}
 
-export const DropZone = ({ loc, register, children, ...props }) => {
+export const DropZone = ({ loc, register, ...props }) => {
   const dropArea = useRef(null);
 
   const registerDropArea = () => {
@@ -34,11 +37,7 @@ export const DropZone = ({ loc, register, children, ...props }) => {
     // window.addEventListener("resize", debounce(registerDropArea, 400));
   }, []);
 
-  return (
-    <Box ref={dropArea} {...props}>
-      {children}
-    </Box>
-  );
+  return <Box ref={dropArea} {...props} />
 };
 
 export const useDragDrop = () => {

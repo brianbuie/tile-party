@@ -5,12 +5,11 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useFetch } from '~/utils/useFetch';
 import { useMe } from '~/auth/RequireAuth';
 import { Nav, Box } from '~/ui';
-import GamesList from '~/game/GamesList';
-import GameNav from '~/game/GameNav';
-import ActiveGame from '~/game/ActiveGame';
-import Board from '~/board/Board';
+import GamesList from '~/dashboard/GamesList';
+import GameNav from '~/dashboard/GameNav';
+import ActiveGameProvider from '~/game/ActiveGame';
+import Board from '~/game/Board';
 import ScoreBoard from '~/game/ScoreBoard';
-import GameMenu from '~/game/GameMenu';
 
 const Scroll = styled(Scrollbars)`
   height: calc(100vh - 5rem);
@@ -74,19 +73,16 @@ export default function DashboardLayout() {
         </DashboardLeft>
         <DashboardRight col v_top {...swipeHandlers}>
           <Box row h_center height='5rem' bkg='var(--nav-bkg)'>
-            <Box row v_center grow maxWidth='35rem' pad='0 1rem'>
+            <Box row v_center grow maxWidth='60vh' pad='0 1rem'>
               <GameNav game={game} me={me} />
             </Box>
           </Box>
           <Box row h_center grow>
-            <Box col v_around grow maxWidth='35rem' pad='0 1rem'>
-              <ActiveGame game={game}>
+            <Box col v_around grow maxWidth='60vh' pad='0 1rem'>
+              <ActiveGameProvider game={game}>
                 <ScoreBoard />
-
                 <Board />
-
-                <GameMenu />
-              </ActiveGame>
+              </ActiveGameProvider>
             </Box>
           </Box>
         </DashboardRight>

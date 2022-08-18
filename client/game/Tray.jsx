@@ -1,31 +1,37 @@
 import { Box } from '~/ui';
-import Tile from '~/board/Tile';
+import Tile from '~/game/Tile';
+import { Draggable } from '~/game/BoardActive';
 import { useActiveGame } from '~/game/ActiveGame';
-import useBoardLayout from '~/board/config/useBoardLayout';
-import useGameMode from '~/board/config/useGameMode';
-import useCurrentMove from '~/board/useCurrentMove';
+import useBoardLayout from '~/game/utils/useBoardLayout';
+import useGameMode from '~/game/utils/useGameMode';
+import { useCurrentMove } from '~/game/CurrentMove';
 
 export default function Tray() {
   const game = useActiveGame();
   if (!game) return null;
-  const { trayLayout } = useBoardLayout(game.settings.boardLayout);
+  const { getMovableTile, moveTile } = useCurrentMove();
+  const { trayLayout, boardSpotSize } = useBoardLayout(game.settings.boardLayout);
   const { tilesPerTurn, getLetterValue } = useGameMode(game.settings.gameMode);
   const { traySpots, traySpotSize } = trayLayout(tilesPerTurn);
-  const { getMovableTile, moveTile } = useCurrentMove(game.myTiles);
+  const avgTileSize = (traySpotSize + boardSpotSize) / 2;
+  const dragScale = avgTileSize / traySpotSize;
 
   return (
     <Box row h_around pad='1rem 0 0'>
       {traySpots.map((_, key) => {
         const movableTile = getMovableTile([key, 'TRAY']);
-        return movableTile ? (
-          <Tile
-            letter={movableTile.letter}
-            value={getLetterValue(movableTile.letter)}
-            key={key}
-            size={traySpotSize + '%'}
-          />
-        ) : (
-          <Box.Square key={key} size={traySpotSize + '%'} />
+        return (
+          <Box.Square key={key} size={traySpotSize + '%'}>
+            {movableTile && (
+              <Draggable row absolute='0' id={movableTile.id} dragScale={dragScale} z='20'>
+                <Tile
+                  letter={movableTile.letter}
+                  value={getLetterValue(movableTile.letter)}
+                  size={traySpotSize + '%'}
+                />
+              </Draggable>
+            )}
+          </Box.Square>
         );
       })}
     </Box>

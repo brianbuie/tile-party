@@ -1,5 +1,5 @@
 import { Box, Face, Icon, Text } from '~/ui';
-import { getPlayersMeLast, getPlayerScore, isPlayerTurn, getWinningPlayerId } from '~/game/gameHelpers';
+import { getPlayersMeLast, getPlayerScore, isPlayerTurn, getWinningPlayerId } from '~/game/utils/gameHelpers';
 import { useActiveGame } from '~/game/ActiveGame';
 import { useMe } from '~/auth/RequireAuth';
 

@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 
 const ActiveGameContext = React.createContext({});
 
-export default function ActiveGame({ game, children }) {
+export default function ActiveGameProvider({ game, ...props }) {
   if (!game) return null;
-  return <ActiveGameContext.Provider value={game}>{children}</ActiveGameContext.Provider>;
+  return (
+    <ActiveGameContext.Provider value={game} {...props} />
+  );
 }
 
 export const useActiveGame = () => {

@@ -9,7 +9,7 @@ import {
   getTopOpponentScore,
   getPlayerScore,
   isPlayerTurn,
-} from '~/game/gameHelpers';
+} from '~/game/utils/gameHelpers';
 
 const BoxLink = styled(Box).attrs({ as: RouterLink })`
   width: 100%;

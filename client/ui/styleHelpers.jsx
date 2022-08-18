@@ -44,7 +44,7 @@ export const textColorMixin = css`
     flag(props, {
       color: props.color,
       muted: 'var(--text-muted)',
-      default: 'var(--text)',
+      default: 'var(--text-default)',
     })};
 `;
 
@@ -52,7 +52,8 @@ export const roundedMixin = css`
   ${({ circle }) => circle && 'border-radius: 9999px;'}
   ${({ rounded, theme }) => {
     if (!rounded) return;
-    if (Array.isArray(rounded)) return `border-radius: ${rounded.map(a => (a ? theme.borderRadius : '0')).join(' ')};`;
+    if (Array.isArray(rounded))
+      return `border-radius: ${rounded.map(a => (a === true ? theme.borderRadius : a || '0')).join(' ')};`;
     return `border-radius: ${rounded === true ? theme.borderRadius : rounded};`;
   }}
 `;

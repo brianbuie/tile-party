@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import { Box, Button, Icon, Face, Text } from '~/ui';
-import { getGameName, getLastMove, getLastMovePlayer, getLastMoveDescription } from '~/game/gameHelpers';
+import { getGameName, getLastMove, getLastMovePlayer, getLastMoveDescription } from '~/game/utils/gameHelpers';
 
 const gameNameAnimation = {
   initial: {

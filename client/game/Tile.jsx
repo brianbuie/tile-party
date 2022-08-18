@@ -8,7 +8,7 @@ const TileBorder = styled(Box.Square)`
 const TileText = styled.text`
   font-weight: 700;
   font-family: ${({ theme }) => theme.tileFontFamily};
-  fill: ${({ isLastMove }) => (isLastMove ? 'var(--text)' : 'var(--tile-text)')};
+  fill: ${({ isLastMove }) => (isLastMove ? 'var(--text-default)' : 'var(--tile-text)')};
 `;
 
 const Value = styled(TileText)`
@@ -21,14 +21,22 @@ const Letter = styled(TileText)`
   font-size: 80px;
 `;
 
+// Hack for disconnected borders at T intersections
+function round(side1, side2) {
+  if (!side1 && !side2) return true;
+  if (side1 && side2) return '13%';
+  return false;
+}
+
 export default function Tile({ surroundingTiles, letter, value, isLastMove, ...props }) {
   const [t, r, b, l] = surroundingTiles || [];
-  const rounded = [!t && !l, !t && !r, !r && !b, !b && !l];
+  const outerRounded = [!t && !l, !t && !r, !r && !b, !b && !l];
+  const innerRounded = [round(t, l), round(t, r), round(r, b), round(b, l)];
   const borders = [!t, !r, !b, !l].map(condition => (condition ? theme.responsiveBorder : '0'));
   const pad = [t, r, b, l].map(condition => (condition ? theme.responsiveBorder : '0')).join(' ');
   return (
-    <TileBorder rounded={rounded} isLastMove={isLastMove} {...props}>
-      <Box absolute={borders} bkg='var(--tile-bkg)' rounded={rounded} pad={pad}>
+    <TileBorder rounded={outerRounded} isLastMove={isLastMove} {...props}>
+      <Box absolute={borders} bkg='var(--tile-bkg)' rounded={innerRounded} pad={pad}>
         <svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
           <Value isLastMove={isLastMove} x='15' y='30'>
             {value ?? 1}
