@@ -2,8 +2,7 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import styled from 'styled-components';
 import { Scrollbars } from 'react-custom-scrollbars-2';
-import { useFetch } from '~/utils/useFetch';
-import { useMe } from '~/auth/RequireAuth';
+import { useGames, useMe } from '~/utils/useQuery';
 import { Nav, Box } from '~/ui';
 import GamesList from '~/dashboard/GamesList';
 import GameNav from '~/dashboard/GameNav';
@@ -50,12 +49,12 @@ const DashboardRight = styled(Box)`
 `;
 
 export default function DashboardLayout() {
-  const me = useMe();
-  const [games, gamesLoading] = useFetch('viewGames');
+  const [me] = useMe();
+  const [games] = useGames();
 
   const match = useRouteMatch('/game/:gameId');
   const { gameId } = match?.params || {};
-  const game = games?.find(game => game.id === gameId);
+  const game = games?.find?.(game => game.id === gameId);
 
   const history = useHistory();
   const swipeHandlers = useSwipeable({
@@ -67,9 +66,7 @@ export default function DashboardLayout() {
       <DashboardContainer row isViewingGame={!!gameId}>
         <DashboardLeft col v_top>
           <Nav me={me} />
-          <Scroll autoHide>
-            {!gamesLoading && games && me && <GamesList games={games} activeGameId={gameId} me={me} />}
-          </Scroll>
+          <Scroll autoHide>{games && me && <GamesList games={games} activeGameId={gameId} me={me} />}</Scroll>
         </DashboardLeft>
         <DashboardRight col v_top {...swipeHandlers}>
           <Box row h_center height='5rem' bkg='var(--nav-bkg)'>

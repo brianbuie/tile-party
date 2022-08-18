@@ -17,7 +17,7 @@ export default function Board() {
   const { getStaticTile, getSurroundingTiles } = useMoveHistory(game.moveHistory);
   const { getMovableTile, anyTilesDeployed, recallTiles, shuffleTiles, moveTile } = useCurrentMove(game.myTiles);
   const { traySpots, traySpotSize } = trayLayout(tilesPerTurn);
-  const avgTileSize = (traySpotSize + boardSpotSize) / 2
+  const avgTileSize = (traySpotSize + boardSpotSize) / 2;
 
   const { registerDropZone, findDropZone } = useDragDrop();
   const onDragEnd = (id, point) => {
@@ -35,17 +35,19 @@ export default function Board() {
                 const staticTile = getStaticTile([x, y]);
                 const movableTile = getMovableTile([x, y]);
                 return (
-                  <BoardSpot key={x} type={getSpotType([x, y])} size={boardSpotSize + '%'}>
+                  <Box.Square key={x} size={boardSpotSize + '%'}>
+                    <BoardSpot type={getSpotType([x, y])} absolute='0' z='4' />
                     {staticTile ? (
-                      <Tile
-                        surroundingTiles={getSurroundingTiles([x, y])}
-                        letter={staticTile.letter}
-                        value={getLetterValue(staticTile.letter)}
-                        isLastMove={staticTile.isLastMove}
-                        absolute="0"
-                      />
+                      <Box absolute='0' z='5'>
+                        <Tile
+                          surroundingTiles={getSurroundingTiles([x, y])}
+                          letter={staticTile.letter}
+                          value={getLetterValue(staticTile.letter)}
+                          isLastMove={staticTile.isLastMove}
+                        />
+                      </Box>
                     ) : (
-                      <DropZone loc={[x, y]} register={registerDropZone} z='20' absolute="0">
+                      <DropZone loc={[x, y]} register={registerDropZone} absolute='0' z='6'>
                         {movableTile && (
                           <Draggable
                             id={movableTile.id}
@@ -53,12 +55,12 @@ export default function Board() {
                             onDragEnd={(e, { point }) => onDragEnd(movableTile.id, point)}
                             z='20'
                           >
-                            <Tile letter={movableTile.letter} value={getLetterValue(movableTile.letter)} z="50" />
+                            <Tile letter={movableTile.letter} value={getLetterValue(movableTile.letter)} />
                           </Draggable>
                         )}
                       </DropZone>
                     )}
-                  </BoardSpot>
+                  </Box.Square>
                 );
               })}
             </Box>
@@ -69,15 +71,15 @@ export default function Board() {
             const movableTile = getMovableTile([key, 'TRAY']);
             return (
               <Box.Square key={key} size={traySpotSize + '%'}>
-                <DropZone loc={[key, 'TRAY']} register={registerDropZone} z='20' absolute="0">
+                <DropZone loc={[key, 'TRAY']} register={registerDropZone} absolute='0' z='10'>
                   {movableTile && (
                     <Draggable
                       id={movableTile.id}
                       dragScale={avgTileSize / traySpotSize}
                       onDragEnd={(e, { point }) => onDragEnd(movableTile.id, point)}
-                      z='20'
+                      z='50'
                     >
-                      <Tile letter={movableTile.letter} value={getLetterValue(movableTile.letter)} z='50' />
+                      <Tile letter={movableTile.letter} value={getLetterValue(movableTile.letter)} />
                     </Draggable>
                   )}
                 </DropZone>

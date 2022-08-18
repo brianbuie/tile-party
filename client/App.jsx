@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { IconProvider } from '~/ui/Icons';
-import { FetchProvider } from '~/utils/useFetch';
+import { QueryProvider } from '~/utils/useQuery';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ModalProvider } from '~/ui/Modal';
 import GlobalStyle from '~/ui/GlobalStyle';
 import RequireAuth from '~/auth/RequireAuth';
@@ -9,7 +10,7 @@ import DashboardLayout from '~/dashboard/DashboardLayout';
 const App = () => (
   <GlobalStyle>
     <IconProvider>
-      <FetchProvider>
+      <QueryProvider>
         <BrowserRouter>
           <ModalProvider>
             <RequireAuth>
@@ -17,7 +18,8 @@ const App = () => (
             </RequireAuth>
           </ModalProvider>
         </BrowserRouter>
-      </FetchProvider>
+        <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+      </QueryProvider>
     </IconProvider>
   </GlobalStyle>
 );

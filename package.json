@@ -23,6 +23,7 @@
     "@babel/node": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "@faker-js/faker": "^7.3.0",
+    "@tanstack/react-query-devtools": "^4.2.1",
     "@vitejs/plugin-react": "^1.0.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
@@ -37,6 +38,8 @@
     "vite": "^2.5.10"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.2.1",
+    "axios": "^0.27.2",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "date-fns": "^2.29.1",
@@ -51,14 +54,12 @@
     "mongoose": "^6.5.0",
     "passport": "0.5",
     "passport-facebook": "^3.0.0",
-    "path-parser": "^6.1.0",
     "react": "18.2.0",
     "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "5.3.3",
     "react-swipeable": "^7.0.0",
-    "styled-components": "^5.3.5",
-    "use-http": "^1.0.26"
+    "styled-components": "^5.3.5"
   }
 }

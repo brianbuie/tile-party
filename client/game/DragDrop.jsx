@@ -12,16 +12,16 @@ export const Draggable = ({ id, dragScale, ...props }) => {
     whileDrag: {
       scale: dragScale || 1,
       transition: 0.1,
+      zIndex: 70,
     },
     dragMomentum: false,
     dragSnapToOrigin: true,
     key: id,
     layoutId: id,
     cursor: 'pointer',
-    z: 30
   };
   return <Box.Animated {...motionProps} {...props} />;
-}
+};
 
 export const DropZone = ({ loc, register, ...props }) => {
   const dropArea = useRef(null);
@@ -37,7 +37,7 @@ export const DropZone = ({ loc, register, ...props }) => {
     // window.addEventListener("resize", debounce(registerDropArea, 400));
   }, []);
 
-  return <Box ref={dropArea} {...props} />
+  return <Box ref={dropArea} {...props} />;
 };
 
 export const useDragDrop = () => {

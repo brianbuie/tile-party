@@ -1,11 +1,11 @@
 import { Box, Face, Icon, Text } from '~/ui';
 import { getPlayersMeLast, getPlayerScore, isPlayerTurn, getWinningPlayerId } from '~/game/utils/gameHelpers';
 import { useActiveGame } from '~/game/ActiveGame';
-import { useMe } from '~/auth/RequireAuth';
+import { useMe } from '~/utils/useQuery';
 
 export default function ScoreBoard() {
   const game = useActiveGame();
-  const me = useMe();
+  const [me] = useMe();
   if (!game || !me) return null;
   return (
     <Box row v_center h_around>
