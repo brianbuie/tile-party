@@ -37,14 +37,16 @@ export default function Tile({ surroundingTiles, letter, value, isLastMove, ...p
   return (
     <TileBorder rounded={outerRounded} isLastMove={isLastMove} {...props}>
       <Box absolute={borders} bkg='var(--tile-bkg)' rounded={innerRounded} pad={pad}>
-        <svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
-          <Value isLastMove={isLastMove} x='15' y='30'>
-            {value ?? 1}
-          </Value>
-          <Letter isLastMove={isLastMove} x='25' y='80'>
-            {letter}
-          </Letter>
-        </svg>
+        {letter !== 'BLANK' && (
+          <svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
+            <Value isLastMove={isLastMove} x='15' y='30'>
+              {value ?? 1}
+            </Value>
+            <Letter isLastMove={isLastMove} x='25' y='80'>
+              {letter}
+            </Letter>
+          </svg>
+        )}
       </Box>
     </TileBorder>
   );

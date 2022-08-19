@@ -49,13 +49,10 @@ export const useDragDrop = () => {
       [loc.join('_')]: { loc, xRange, yRange },
     }));
 
-  const findDropZone = ({ x, y }) => {
-    return Object.values(dropZones).find(({ xRange, yRange }) => {
-      if (!x || x < xRange[0] || x > xRange[1]) return false;
-      if (!y || y < yRange[0] || y > yRange[1]) return false;
-      return true;
-    });
-  };
+  const findDropZone = ({ x, y }) =>
+    Object.values(dropZones).find(
+      ({ xRange, yRange }) => x > xRange[0] && x < xRange[1] && y > yRange[0] && y < yRange[1]
+    );
 
   return { registerDropZone, findDropZone };
 };

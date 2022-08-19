@@ -34,13 +34,13 @@ const SpotLabel = styled.text`
   text-anchor: middle;
 `;
 
-export default function BoardSpot({ type, ...props }) {
+export default function BoardSpot({ spotType, ...props }) {
   return (
-    <Box bkg={spotColors[type]} {...props} rounded>
+    <Box bkg={spotColors[spotType]} {...props} rounded>
       <SpotInner absolute={theme.responsiveBorder} bkg='var(--spot-bkg)' rounded>
         <svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
-          <SpotLabel x='50%' y='50%' dominantBaseline='central' color={spotColors[type]}>
-            {spotLabels[type]}
+          <SpotLabel x='50%' y='50%' dominantBaseline='central' color={spotColors[spotType]}>
+            {spotLabels[spotType]}
           </SpotLabel>
         </svg>
       </SpotInner>

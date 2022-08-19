@@ -1,11 +1,11 @@
-export default function useMoveHistory(moves) {
+export default function useStaticTiles(moveHistory) {
   const getStaticTile = ([x, y]) => {
     const tileAtLoc = ({ loc }) => x === loc[0] && y === loc[1];
-    const moveKey = moves.findIndex(({ tiles }) => tiles.find(tileAtLoc));
+    const moveKey = moveHistory.findIndex(({ tiles }) => tiles.find(tileAtLoc));
     if (moveKey < 0) return null;
-    const isLastMove = moveKey === moves.length - 1;
-    const { letter } = moves[moveKey].tiles.find(tileAtLoc);
-    return { letter, isLastMove };
+    const isLastMove = moveKey === moveHistory.length - 1;
+    const tile = moveHistory[moveKey].tiles.find(tileAtLoc);
+    return { ...tile, isLastMove };
   };
 
   const getSurroundingTiles = ([x, y]) => {

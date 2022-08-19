@@ -9,7 +9,7 @@
     "manifest": "babel-node scripts/build-manifest.js",
     "analyze": "react-scanner -c scanner.config.js",
     "clean": "rm -rf .analysis && rm -rf .build",
-    "mock": "babel-node api/mock-data.js",
+    "mock": "babel-node scripts/mock-data.js",
     "stage": "yarn build && babel-node -r dotenv/config api/server.js dotenv_config_path=.env.prod",
     "build": "vite build --emptyOutDir",
     "start": "babel-node api/server.js"

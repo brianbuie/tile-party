@@ -7,7 +7,10 @@ import { Nav, Box } from '~/ui';
 import GamesList from '~/dashboard/GamesList';
 import GameNav from '~/dashboard/GameNav';
 import ActiveGameProvider from '~/game/ActiveGame';
+import GameMenu from '~/game/GameMenu';
+import CurrentMoveProvider from '~/game/CurrentMove';
 import Board from '~/game/Board';
+import Tray from '~/game/Tray';
 import ScoreBoard from '~/game/ScoreBoard';
 
 const Scroll = styled(Scrollbars)`
@@ -78,7 +81,11 @@ export default function DashboardLayout() {
             <Box col v_around grow maxWidth='60vh' pad='0 1rem'>
               <ActiveGameProvider game={game}>
                 <ScoreBoard />
-                <Board />
+                <CurrentMoveProvider>
+                  <Board />
+                  <Tray />
+                  <GameMenu />
+                </CurrentMoveProvider>
               </ActiveGameProvider>
             </Box>
           </Box>
