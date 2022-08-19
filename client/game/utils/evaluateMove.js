@@ -1,4 +1,4 @@
-import { getTile, getAdjacentTile, hasAnyAdjacentTiles } from '~/game/utils/tileLocationHelpers';
+import { getItem, getAdjacentItem, hasAnyAdjacentItems } from '~/game/utils/locHelpers';
 
 const allEqual = arr => arr.every(val => val === arr[0]);
 
@@ -11,17 +11,17 @@ const getWordInDirection = (tiles, loc, directionKey) => {
   toEnd[directionKey] = 1;
 
   let startLoc = loc;
-  let nextTile = getAdjacentTile(tiles, startLoc, toStart);
+  let nextTile = getAdjacentItem(tiles, startLoc, toStart);
   while (nextTile) {
     startLoc = nextTile.loc;
-    nextTile = getAdjacentTile(tiles, startLoc, toStart);
+    nextTile = getAdjacentItem(tiles, startLoc, toStart);
   }
 
-  let activeTile = getTile(tiles, startLoc);
+  let activeTile = getItem(tiles, startLoc);
   let inWord = [];
   while (activeTile) {
     inWord = [...inWord, { ...activeTile }];
-    activeTile = getAdjacentTile(tiles, activeTile.loc, toEnd);
+    activeTile = getAdjacentItem(tiles, activeTile.loc, toEnd);
   }
 
   const start = inWord[0].loc;
@@ -60,10 +60,10 @@ export default function evaluateMove(oldTiles, newTiles) {
   const allTiles = [...oldTiles, ...newTiles];
 
   // All new tiles are next to other tiles
-  if (!newTiles.every(tile => hasAnyAdjacentTiles(allTiles, tile.loc))) return null;
+  if (!newTiles.every(tile => hasAnyAdjacentItems(allTiles, tile.loc))) return null;
 
   // At least one new tile should be touching an old tile
-  if (!newTiles.some(tile => hasAnyAdjacentTiles(oldTiles, tile.loc))) return null;
+  if (!newTiles.some(tile => hasAnyAdjacentItems(oldTiles, tile.loc))) return null;
 
   // Get all words being played
   const words = getWordsBeingPlayed(oldTiles, newTiles);

@@ -7,7 +7,7 @@ import tileAmounts from '../common/config/tileAmounts';
 const me = {
   id: '62eb2d9542270058254d553a',
   name: 'Brian',
-  image: 'https://cataas.com/cat?width=50&height=50',
+  image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/716.jpg',
 };
 
 const mockGame = () => {

@@ -1,26 +1,30 @@
 import boardLayoutsConfig from '@common/config/boardLayouts';
 import tileAmountsConfig from '@common/config/tileAmounts';
 import tileValuesConfig from '@common/config/tileValues';
+import { getItem } from '~/game/utils/locHelpers';
 import { useActiveGame } from '~/game/ActiveGame';
 
 export default function useGameSettings() {
   const { settings } = useActiveGame() || {};
   if (!settings) return null;
 
-  const { boardSize, spotTypes } = boardLayoutsConfig[settings.boardLayout];
+  const { boardSize, spotTypes, specialSpots } = boardLayoutsConfig[settings.boardLayout];
   const { tilesPerTurn } = settings;
   const tileAmounts = tileAmountsConfig[settings.tileAmounts];
   const tileValues = tileValuesConfig[settings.tileValues];
 
-  const getSpot = ([x, y]) => {
-    const { spotType, bonusType, bonusAmount } = Object.values(spotTypes).find(({ locations }) =>
-      locations.find(([_x, _y]) => _x === x && _y === y)
-    );
-    return { spotType, bonusType, bonusAmount };
-  };
-
   const cols = [...Array(boardSize[0])];
   const rows = [...Array(boardSize[1])];
+
+  const spots = [...Array(boardSize[0] * boardSize[1])].map((_, k) => {
+    const y = Math.floor(k / boardSize[1]);
+    const x = k % boardSize[0];
+    const { spotType } = specialSpots.find(({ loc }) => loc[0] === x && loc[1] === y) || {};
+    return { ...spotTypes[spotType || 'DEFAULT'], loc: [x, y] };
+  });
+
+  const getSpot = ([x, y]) => getItem(spots, [x, y]);
+
   const boardSpotSize = 100 / boardSize[0];
   const traySpots = [...Array(tilesPerTurn)];
   const traySpotSize = 95 / tilesPerTurn;

@@ -84,7 +84,7 @@ import MockStrategy from 'passport-mock-strategy';
 const mockUser = {
   name: 'Cute Cat',
   email: 'mockUser1@example.com',
-  image: 'https://cataas.com/cat?width=50&height=50',
+  image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/716.jpg',
 };
 const onMockSuccess = async (user, done) => {
   const existing = await User.findOne({ email: user.email });

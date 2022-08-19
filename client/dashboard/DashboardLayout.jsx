@@ -82,8 +82,10 @@ export default function DashboardLayout() {
               <ActiveGameProvider game={game}>
                 <ScoreBoard />
                 <CurrentMoveProvider>
-                  <Board />
-                  <Tray />
+                  <Box col v_center>
+                    <Board />
+                    <Tray />
+                  </Box>
                   <GameMenu />
                 </CurrentMoveProvider>
               </ActiveGameProvider>
