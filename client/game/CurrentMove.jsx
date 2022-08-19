@@ -3,14 +3,20 @@ import { useActiveGame } from '~/game/ActiveGame';
 import useStaticTiles from '~/game/utils/useStaticTiles';
 import useMovableTiles from '~/game/utils/useMovableTiles';
 import { useDragDrop } from '~/game/DragDrop';
+import evaluateMove from '~/game/utils/evaluateMove';
 
 const CurrentMoveContext = React.createContext({});
 
 export default function CurrentMoveProvider(props) {
   const game = useActiveGame();
   if (!game) return null;
-  const { getStaticTile, getSurroundingTiles } = useStaticTiles(game.moveHistory);
+  const { staticTiles, getStaticTile, getAllAdjacentStaticTiles } = useStaticTiles(game.moveHistory);
   const { getMovableTile, deployedTiles, recallTiles, shuffleTiles, moveTile } = useMovableTiles(game.myTiles);
+
+  if (deployedTiles.length) {
+    const result = evaluateMove(staticTiles, deployedTiles);
+    console.log(result);
+  }
 
   const { registerDropZone, findDropZone } = useDragDrop();
   const onDragEnd = (id, point) => {
@@ -20,7 +26,7 @@ export default function CurrentMoveProvider(props) {
 
   const value = {
     getStaticTile,
-    getSurroundingTiles,
+    getAllAdjacentStaticTiles,
     getMovableTile,
     deployedTiles,
     recallTiles,

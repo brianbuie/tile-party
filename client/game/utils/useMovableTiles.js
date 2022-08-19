@@ -18,7 +18,6 @@ export default function useMovableTiles(myTiles) {
   };
 
   const moveTile = (id, [x, y]) => {
-    console.log(`moving ${id} to [${x}, ${y}]`);
     if (getMovableTile([x, y])) return;
     updateTiles(tiles => tiles.map(tile => (tile.id === id ? { ...tile, loc: [x, y] } : { ...tile })));
   };

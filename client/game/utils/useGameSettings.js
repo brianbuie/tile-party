@@ -19,8 +19,8 @@ export default function useGameSettings() {
     return { spotType, bonusType, bonusAmount };
   };
 
-  const cols = Array(boardSize[0]).fill();
-  const rows = Array(boardSize[1]).fill();
+  const cols = [...Array(boardSize[0])];
+  const rows = [...Array(boardSize[1])];
   const boardSpotSize = 100 / boardSize[0];
   const traySpots = [...Array(tilesPerTurn)];
   const traySpotSize = 95 / tilesPerTurn;

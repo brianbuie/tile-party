@@ -6,7 +6,7 @@ import Tile from '~/game/Tile';
 import { useCurrentMove } from '~/game/CurrentMove';
 
 export default function Board() {
-  const { getStaticTile, getSurroundingTiles, getMovableTile, registerDropZone, onDragEnd } = useCurrentMove();
+  const { getStaticTile, getAllAdjacentStaticTiles, getMovableTile, registerDropZone, onDragEnd } = useCurrentMove();
   const { cols, rows, boardSpotSize, getSpot, getLetterValue, avgTileSize } = useGameSettings();
 
   return (
@@ -22,7 +22,7 @@ export default function Board() {
                 {staticTile ? (
                   <Box absolute='0' z='5'>
                     <Tile
-                      surroundingTiles={getSurroundingTiles([x, y])}
+                      surroundingTiles={getAllAdjacentStaticTiles([x, y])}
                       letter={staticTile.letter}
                       value={getLetterValue(staticTile.letter)}
                       isLastMove={staticTile.isLastMove}
