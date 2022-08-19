@@ -1,7 +1,7 @@
 import boardLayoutsConfig from '@common/config/boardLayouts';
 import tileAmountsConfig from '@common/config/tileAmounts';
 import tileValuesConfig from '@common/config/tileValues';
-import { getItem } from '~/game/utils/locHelpers';
+import { getItem, makeLocs } from '~/game/utils/locHelpers';
 import { useActiveGame } from '~/game/ActiveGame';
 
 export default function useGameSettings() {
@@ -16,9 +16,7 @@ export default function useGameSettings() {
   const cols = [...Array(boardSize[0])];
   const rows = [...Array(boardSize[1])];
 
-  const spots = [...Array(boardSize[0] * boardSize[1])].map((_, k) => {
-    const y = Math.floor(k / boardSize[1]);
-    const x = k % boardSize[0];
+  const spots = makeLocs(boardSize).map(([x, y]) => {
     const { spotType } = specialSpots.find(({ loc }) => loc[0] === x && loc[1] === y) || {};
     return { ...spotTypes[spotType || 'DEFAULT'], loc: [x, y] };
   });

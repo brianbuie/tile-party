@@ -11,3 +11,5 @@ export const getAllAdjacentItems = (items, loc) => {
 };
 
 export const hasAnyAdjacentItems = (items, [x, y]) => getAllAdjacentItems(items, [x, y]).some(c => !!c);
+
+export const makeLocs = ([xSize, ySize]) => [...Array(xSize * ySize)].map((_, k) => [k % xSize, Math.floor(k / ySize)]);
