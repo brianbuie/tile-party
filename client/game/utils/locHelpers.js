@@ -16,6 +16,11 @@ export const hasAnyAdjacentItems = (items, [x, y]) => getAllAdjacentItems(items,
 // [[0,0], [1,0], [2,0]...] all the way to [xSize - 1, ySize - 1]
 export const makeLocs = ([xSize, ySize]) => [...Array(xSize * ySize)].map((_, k) => [k % xSize, Math.floor(k / ySize)]);
 
+const getPositions = ([x, y], size) => [y * size, 100 - x * size - size, 100 - y * size - size, x * size];
 // size is a number for % of 100% container
 // returns array of [% from top, % from right, % from bottom, % from left]
-export const getAbsolute = ([x, y], size) => [y * size, 100 - x * size - size, 100 - y * size - size, x * size];
+export const getAbsolute = ([x, y], size) => {
+  if (y !== 'TRAY') return getPositions([x, y], size);
+  const [t, r, b, l] = getPositions([x, 0], size);
+  return [t + 103, r * 1.01, b + 103, l * 1.01];
+};

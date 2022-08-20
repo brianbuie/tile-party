@@ -24,6 +24,7 @@ export default function useGameSettings({ settings }) {
   return {
     spots,
     boardSpotSize,
+    boardSize,
     traySpots,
     traySpotSize,
     getLetterValue,

@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { Box } from '~/ui';
 import ScoreBoard from '~/game/ScoreBoard';
 import CurrentMoveProvider from '~/game/CurrentMove';
-import { BoardSpots, StaticTiles, MovableTiles } from '~/game/Board';
+import { BoardSpots, StaticTiles } from '~/game/Board';
+import MovableTiles from '~/game/MovableTiles';
 import useGameSettings from '~/game/utils/useGameSettings';
-import Tray from '~/game/Tray';
 import GameMenu from '~/game/GameMenu';
 
 const ActiveGameContext = React.createContext({});
@@ -18,12 +18,14 @@ export default function ActiveGame({ game }) {
     []
   );
 
-  const { spots, boardSpotSize, traySpots, traySpotSize, getLetterValue, avgTileSize } = useGameSettings(game);
+  const { spots, boardSize, boardSpotSize, traySpots, traySpotSize, getLetterValue, avgTileSize } =
+    useGameSettings(game);
 
   const value = {
     ...game,
     staticTiles,
     spots,
+    boardSize,
     boardSpotSize,
     traySpots,
     traySpotSize,
@@ -41,7 +43,6 @@ export default function ActiveGame({ game }) {
             <StaticTiles />
             <CurrentMoveProvider>
               <MovableTiles />
-              <Tray />
               <GameMenu />
             </CurrentMoveProvider>
           </Box.Square>

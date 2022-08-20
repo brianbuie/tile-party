@@ -60,13 +60,14 @@ export const roundedMixin = css`
 
 // Utility for providing top, right, bottom, left positions as a string, like margin or padding
 // absolute="0 auto" -> top: 0; right: auto; bottom: 0; left: auto;
+const isNumber = v => !isNaN(v);
 const easyEdges = input => {
   const props = ['top', 'right', 'bottom', 'left'];
   const stringify = arr =>
     props
       .map((p, k) => {
         let val = arr[k] ?? 'auto';
-        if (!isNaN(val)) val += '%';
+        if (isNumber(val)) val += '%';
         return `${p}: ${val};`;
       })
       .join(' ');
