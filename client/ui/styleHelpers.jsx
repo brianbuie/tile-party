@@ -62,7 +62,14 @@ export const roundedMixin = css`
 // absolute="0 auto" -> top: 0; right: auto; bottom: 0; left: auto;
 const easyEdges = input => {
   const props = ['top', 'right', 'bottom', 'left'];
-  const stringify = arr => props.map((p, k) => `${p}: ${arr[k] ?? 'auto'};`).join(' ');
+  const stringify = arr =>
+    props
+      .map((p, k) => {
+        let val = arr[k] ?? 'auto';
+        if (!isNaN(val)) val += '%';
+        return `${p}: ${val};`;
+      })
+      .join(' ');
   let a = input;
   if (typeof input == 'string') a = input.split(' ');
   if (a.length === 1) return stringify(Array(4).fill(a[0]));

@@ -12,4 +12,10 @@ export const getAllAdjacentItems = (items, loc) => {
 
 export const hasAnyAdjacentItems = (items, [x, y]) => getAllAdjacentItems(items, [x, y]).some(c => !!c);
 
+// get array of all Locs
+// [[0,0], [1,0], [2,0]...] all the way to [xSize - 1, ySize - 1]
 export const makeLocs = ([xSize, ySize]) => [...Array(xSize * ySize)].map((_, k) => [k % xSize, Math.floor(k / ySize)]);
+
+// size is a number for % of 100% container
+// returns array of [% from top, % from right, % from bottom, % from left]
+export const getAbsolute = ([x, y], size) => [y * size, 100 - x * size - size, 100 - y * size - size, x * size];

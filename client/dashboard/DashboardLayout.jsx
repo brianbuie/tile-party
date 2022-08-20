@@ -6,12 +6,7 @@ import { useGames, useMe } from '~/utils/useQuery';
 import { Nav, Box } from '~/ui';
 import GamesList from '~/dashboard/GamesList';
 import GameNav from '~/dashboard/GameNav';
-import ActiveGameProvider from '~/game/ActiveGame';
-import GameMenu from '~/game/GameMenu';
-import CurrentMoveProvider from '~/game/CurrentMove';
-import Board from '~/game/Board';
-import Tray from '~/game/Tray';
-import ScoreBoard from '~/game/ScoreBoard';
+import ActiveGame from '~/game/ActiveGame';
 
 const Scroll = styled(Scrollbars)`
   height: calc(100vh - 5rem);
@@ -79,16 +74,7 @@ export default function DashboardLayout() {
           </Box>
           <Box row h_center grow>
             <Box col v_around grow maxWidth='60vh' pad='0 1rem'>
-              <ActiveGameProvider game={game}>
-                <ScoreBoard />
-                <CurrentMoveProvider>
-                  <Box col v_center>
-                    <Board />
-                    <Tray />
-                  </Box>
-                  <GameMenu />
-                </CurrentMoveProvider>
-              </ActiveGameProvider>
+              <ActiveGame game={game} />
             </Box>
           </Box>
         </DashboardRight>

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { useActiveGame } from '~/game/ActiveGame';
-import useStaticTiles from '~/game/utils/useStaticTiles';
 import useMovableTiles from '~/game/utils/useMovableTiles';
 import { useDragDrop } from '~/game/DragDrop';
 import evaluateMove from '~/game/utils/evaluateMove';
@@ -10,7 +9,7 @@ const CurrentMoveContext = React.createContext({});
 export default function CurrentMoveProvider(props) {
   const game = useActiveGame();
   if (!game) return null;
-  const { staticTiles, getStaticTile, getAllAdjacentStaticTiles } = useStaticTiles(game.moveHistory);
+  const { staticTiles } = game;
   const { getMovableTile, deployedTiles, recallTiles, shuffleTiles, moveTile } = useMovableTiles(game.myTiles);
 
   if (deployedTiles.length) {
@@ -25,8 +24,7 @@ export default function CurrentMoveProvider(props) {
   };
 
   const value = {
-    getStaticTile,
-    getAllAdjacentStaticTiles,
+    staticTiles,
     getMovableTile,
     deployedTiles,
     recallTiles,

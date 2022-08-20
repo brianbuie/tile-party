@@ -12,7 +12,7 @@ export const Draggable = ({ id, dragScale, ...props }) => {
     whileDrag: {
       scale: dragScale || 1,
       transition: 0.1,
-      zIndex: 70,
+      zIndex: 25,
     },
     dragMomentum: false,
     dragSnapToOrigin: true,
