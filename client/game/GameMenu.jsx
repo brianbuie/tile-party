@@ -1,13 +1,10 @@
 import { useCurrentMove } from '~/game/CurrentMove';
-import { useActiveGame } from '~/game/ActiveGame';
 import { Box, Button, Icon } from '~/ui';
 
 export default function GameMenu() {
   const { deployedTiles, recallTiles, shuffleTiles } = useCurrentMove();
-  const { traySpotSize } = useActiveGame();
-  const absolute = [100 + 1.5 * traySpotSize, 0, 'auto', 0];
   return (
-    <Box row h_around absolute={absolute}>
+    <Box row h_around pad='1rem 0'>
       <Button pad='0' size='1.5rem'>
         <Icon.Burger />
       </Button>

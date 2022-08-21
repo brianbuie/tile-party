@@ -18,7 +18,7 @@ const App = () => (
             </RequireAuth>
           </ModalProvider>
         </BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+        {/* <ReactQueryDevtools initialIsOpen={false} position='bottom-right' /> */}
       </QueryProvider>
     </IconProvider>
   </GlobalStyle>

@@ -73,7 +73,7 @@ export default function DashboardLayout() {
             </Box>
           </Box>
           <Box row h_center grow>
-            <Box col v_around grow maxWidth='60vh' pad='0 1rem'>
+            <Box col grow maxWidth='60vh' pad='0 1rem'>
               <ActiveGame game={game} />
             </Box>
           </Box>

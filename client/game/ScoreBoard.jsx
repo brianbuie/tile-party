@@ -8,9 +8,9 @@ export default function ScoreBoard() {
   const [me] = useMe();
   if (!game || !me) return null;
   return (
-    <Box row v_center h_around>
+    <Box row v_center h_around pad='1rem 0'>
       {getPlayersMeLast(game, me.id).map(player => (
-        <Box col rounded='1.5rem' key={player.id} pad='1rem 2rem' faded={!isPlayerTurn(game, player.id)}>
+        <Box col key={player.id} faded={!isPlayerTurn(game, player.id)}>
           <Box col h_center height='1.5rem'>
             {getWinningPlayerId(game) === player.id && <Icon.Crown height='1rem' color='var(--crown-gold)' />}
           </Box>

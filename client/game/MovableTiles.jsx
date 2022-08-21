@@ -1,67 +1,77 @@
-import { useState, useRef, useLayoutEffect } from 'react';
 import { Box } from '~/ui';
 import Tile from '~/game/Tile';
 import { useCurrentMove } from '~/game/CurrentMove';
 import { useActiveGame } from '~/game/ActiveGame';
-import { getAbsolute, getItem } from '~/game/utils/locHelpers';
+import { useDropZone, useDrop } from '~/game/DragDrop';
+import { getAbsoluteLoc } from '~/game/utils/locHelpers';
 
-export const Draggable = ({ id, dragScale, ...props }) => {
-  const motionProps = {
+const MovableTile = ({ id, letter }) => {
+  const { getLetterValue } = useActiveGame();
+  const { moveTile } = useCurrentMove();
+  const getLocInDropZone = useDrop();
+
+  const onDragEnd = (e, { point }) => {
+    const { zone, loc } = getLocInDropZone(point);
+    if (!zone) return;
+    if (zone === 'BOARD') return moveTile(id, loc);
+    moveTile(id, [loc[0], 'TRAY']);
+  };
+
+  const props = {
+    onDragEnd,
     layout: true,
     drag: true,
     transition: {
-      duration: 0.1,
+      duration: 0.2,
     },
     whileDrag: {
-      scale: dragScale || 1,
+      scale: 1.2,
       zIndex: 25,
     },
-    dragElastic: 0,
     dragMomentum: false,
+    dragElastic: 0,
     dragSnapToOrigin: true,
     key: id,
     layoutId: id,
     cursor: 'pointer',
   };
-  return <Box.Animated {...motionProps} {...props} />;
+  return (
+    <Box.Animated {...props}>
+      <Tile letter={letter} value={getLetterValue(letter)} />
+    </Box.Animated>
+  );
 };
 
-export default function MovableTiles() {
-  const dropArea = useRef(null);
-  const [locRange, setLocRange] = useState([]);
-  const { boardSize, boardSpotSize, traySpotSize, getLetterValue, avgTileSize } = useActiveGame();
-  const { moveTile, tiles } = useCurrentMove();
-
-  useLayoutEffect(() => {
-    const area = dropArea?.current?.getBoundingClientRect();
-    setLocRange([
-      [area.x, area.x + area.width],
-      [area.y, area.y + area.height],
-    ]);
-  }, []);
-
-  const onDragEnd = (id, { x, y }) => {
-    const [xRange, yRange] = locRange;
-    if (x < xRange[0] || x > xRange[1] || y < yRange[0] || y > yRange[1]) return;
-    moveTile(id, [
-      Math.floor(((x - xRange[0]) / (xRange[1] - xRange[0])) * boardSize[0]),
-      Math.floor(((y - yRange[0]) / (yRange[1] - yRange[0])) * boardSize[1]),
-    ]);
-  };
+export const DeployedTiles = () => {
+  const { boardSpotSize, boardSize } = useActiveGame();
+  const dropZoneRef = useDropZone('BOARD', boardSize);
+  const { tiles } = useCurrentMove();
+  const deployedTiles = tiles.filter(t => t.loc[1] !== 'TRAY');
 
   return (
-    <Box ref={dropArea} absolute='0'>
-      {tiles.map(({ id, letter, loc: [x, y] }) => {
-        const size = y !== 'TRAY' ? boardSpotSize : traySpotSize;
-        const absolute = getAbsolute([x, y], size);
-        const scale = avgTileSize / size;
-        const drop = (e, { point }) => onDragEnd(id, point);
-        return (
-          <Draggable id={id} key={id} dragScale={scale} absolute={absolute} onDragEnd={drop}>
-            <Tile letter={letter} value={getLetterValue(letter)} />
-          </Draggable>
-        );
-      })}
+    <Box absolute ref={dropZoneRef}>
+      {deployedTiles.map(({ loc, id, letter }) => (
+        <Box key={id} absolute={getAbsoluteLoc(loc, boardSpotSize)}>
+          <MovableTile id={id} letter={letter} />
+        </Box>
+      ))}
     </Box>
   );
-}
+};
+
+export const Tray = () => {
+  const { tiles } = useCurrentMove();
+  const { tilesPerTurn, traySpotSize } = useActiveGame();
+  const trayDropZone = useDropZone('TRAY', [tilesPerTurn, 1]);
+  const traySpots = [...Array(tilesPerTurn)].map((_, x) => x);
+
+  return (
+    <Box row h_around ref={trayDropZone}>
+      {traySpots.map(k => (
+        <Box width={traySpotSize * 0.95} key={k}>
+          {tiles[k] && tiles[k].loc[1] === 'TRAY' && <MovableTile {...tiles[k]} />}
+        </Box>
+      ))}
+    </Box>
+  );
+};

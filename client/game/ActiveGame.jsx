@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { Box } from '~/ui';
 import ScoreBoard from '~/game/ScoreBoard';
 import CurrentMoveProvider from '~/game/CurrentMove';
-import { BoardSpots, StaticTiles } from '~/game/Board';
-import MovableTiles from '~/game/MovableTiles';
 import useGameSettings from '~/game/utils/useGameSettings';
+import { DragDropProvider } from '~/game/DragDrop';
+import Board from '~/game/Board';
 import GameMenu from '~/game/GameMenu';
 
 const ActiveGameContext = React.createContext({});
@@ -18,7 +18,7 @@ export default function ActiveGame({ game }) {
     []
   );
 
-  const { spots, boardSize, boardSpotSize, traySpots, traySpotSize, getLetterValue, avgTileSize } =
+  const { spots, boardSize, boardSpotSize, traySpotSize, tilesPerTurn, getLetterValue, avgTileSize } =
     useGameSettings(game);
 
   const value = {
@@ -27,7 +27,7 @@ export default function ActiveGame({ game }) {
     spots,
     boardSize,
     boardSpotSize,
-    traySpots,
+    tilesPerTurn,
     traySpotSize,
     getLetterValue,
     avgTileSize,
@@ -35,19 +35,14 @@ export default function ActiveGame({ game }) {
 
   return (
     <ActiveGameContext.Provider value={value}>
-      <ScoreBoard />
-      <Box col v_center>
-        <Box col bkg='var(--spot-outline)' pad='0.25rem' rounded='1.5%'>
-          <Box.Square>
-            <BoardSpots />
-            <StaticTiles />
-            <CurrentMoveProvider>
-              <MovableTiles />
-              <GameMenu />
-            </CurrentMoveProvider>
-          </Box.Square>
-        </Box>
-        <Box pad='0 0 35% 0' />
+      <Box col v_around>
+        <ScoreBoard />
+        <CurrentMoveProvider>
+          <DragDropProvider>
+            <Board />
+            <GameMenu />
+          </DragDropProvider>
+        </CurrentMoveProvider>
       </Box>
     </ActiveGameContext.Provider>
   );

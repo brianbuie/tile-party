@@ -14,10 +14,12 @@ import { css } from 'styled-components';
 */
 export const flag = (props, vals) => vals[Object.keys(vals).find(k => !!props[k]) || 'default'];
 
+const pct = v => (!isNaN(v) ? v + '%' : v);
+
 export const sizeMixin = css`
   ${({ height }) => height && `height: ${height};`}
   ${({ minHeight }) => minHeight && `min-height: ${minHeight};`}
-  ${({ width }) => width && `width: ${width};`}
+  ${({ width }) => width && `width: ${pct(width)};`}
   ${({ maxWidth }) => maxWidth && `max-width: ${maxWidth};`}
   ${({ grow }) => grow && `flex-grow: ${grow === true ? 1 : grow};`}
   ${({ shrink }) => shrink && 'flex: none;'}
@@ -58,29 +60,22 @@ export const roundedMixin = css`
   }}
 `;
 
-// Utility for providing top, right, bottom, left positions as a string, like margin or padding
-// absolute="0 auto" -> top: 0; right: auto; bottom: 0; left: auto;
-const isNumber = v => !isNaN(v);
-const easyEdges = input => {
-  const props = ['top', 'right', 'bottom', 'left'];
-  const stringify = arr =>
-    props
-      .map((p, k) => {
-        let val = arr[k] ?? 'auto';
-        if (isNumber(val)) val += '%';
-        return `${p}: ${val};`;
-      })
-      .join(' ');
-  let a = input;
-  if (typeof input == 'string') a = input.split(' ');
-  if (a.length === 1) return stringify(Array(4).fill(a[0]));
-  if (a.length === 2) return stringify([a[0], a[1], a[0], a[1]]);
-  if (a.length === 3) return stringify([a[0], a[1], a[2], a[1]]);
-  return stringify(a);
+// Utility for translating Array to string for inset prop
+// adds % if input is a number
+// uses 0 if boolean flag is used.
+const getInset = input => {
+  let inset = input === true ? '0' : input;
+  if (Array.isArray(input)) inset = input.map(v => (!isNaN(v) ? v + '%' : v)).join(' ');
+  return inset;
+};
+
+export const absoluteStyleProps = ({ absolute }) => {
+  if (!absolute) return {};
+  const inset = getInset(absolute);
+  return { style: { position: 'absolute', inset } };
 };
 
 export const positionMixin = css`
   ${({ position }) => position && `position: ${position};`}
-  ${({ absolute }) => absolute && `position: absolute; ${easyEdges(absolute)}`}
-  ${({ fixed }) => fixed && `position: fixed; ${easyEdges(fixed)}`}
+  ${({ fixed }) => fixed && `position: fixed; inset: ${getInset(fixed)};`}
 `;

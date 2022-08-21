@@ -54,8 +54,8 @@ const ModalContainer = () => {
   return ReactDOM.createPortal(
     <AnimatePresence>
       {isOpen && (
-        <Blur col v_center h_center fixed='0' z='100'>
-          <Gradient fixed='0' z='101' />
+        <Blur col v_center h_center fixed z='100'>
+          <Gradient fixed z='101' />
           <ModalContent col z='102'>
             {Content}
           </ModalContent>

@@ -15,7 +15,6 @@ export default function useGameSettings({ settings }) {
   });
 
   const boardSpotSize = 100 / boardSize[0];
-  const traySpots = [...Array(tilesPerTurn)];
   const traySpotSize = 100 / tilesPerTurn;
   const avgTileSize = (traySpotSize + boardSpotSize) / 2;
 
@@ -25,8 +24,8 @@ export default function useGameSettings({ settings }) {
     spots,
     boardSpotSize,
     boardSize,
-    traySpots,
     traySpotSize,
+    tilesPerTurn,
     getLetterValue,
     avgTileSize,
   };

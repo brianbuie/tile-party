@@ -8,9 +8,10 @@ import {
   spacingMixin,
   positionMixin,
   flag,
+  absoluteStyleProps,
 } from '~/ui/styleHelpers';
 
-export const Box = styled.div`
+export const Box = styled.div.attrs(absoluteStyleProps)`
   ${sizeMixin}
   ${spacingMixin}
   ${bkgMixin}
@@ -64,8 +65,9 @@ export const Box = styled.div`
 
 Box.Animated = motion(Box);
 
+const percentify = val => (!isNaN(val) ? val + '%' : val);
 Box.Square = styled(Box)`
   position: relative;
-  width: ${({ size }) => size || '100%'};
-  padding-bottom: ${({ size }) => size || '100%'};
+  width: ${({ size }) => percentify(size) || '100%'};
+  padding-bottom: ${({ size }) => percentify(size) || '100%'};
 `;

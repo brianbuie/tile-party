@@ -1,44 +1,44 @@
-import styled from 'styled-components';
 import { Box } from '~/ui';
+import { DeployedTiles, Tray } from '~/game/MovableTiles';
 import BoardSpot from '~/game/BoardSpot';
 import Tile from '~/game/Tile';
 import { useActiveGame } from '~/game/ActiveGame';
-import { getAbsolute, getAllAdjacentItems } from '~/game/utils/locHelpers';
-
-const AbsoluteBox = styled(Box).attrs(props => {
-  const [top, right, bottom, left] = getAbsolute(props.loc, props.size).map(l => l + '%');
-  return {
-    style: {
-      position: 'absolute',
-      top,
-      right,
-      bottom,
-      left,
-    },
-  };
-})``;
+import { getAllAdjacentItems, getAbsoluteLoc } from '~/game/utils/locHelpers';
 
 export const BoardSpots = () => {
   const { spots, boardSpotSize } = useActiveGame();
-
   return spots.map(({ spotType, loc: [x, y] }) => (
-    <AbsoluteBox key={`${x}_${y}`} loc={[x, y]} size={boardSpotSize}>
+    <Box key={`${x}_${y}`} absolute={getAbsoluteLoc([x, y], boardSpotSize)}>
       <BoardSpot spotType={spotType} />
-    </AbsoluteBox>
+    </Box>
   ));
 };
 
 export const StaticTiles = () => {
   const { staticTiles, boardSpotSize, getLetterValue } = useActiveGame();
-
   return staticTiles.map(({ letter, isLastMove, loc: [x, y] }) => (
-    <AbsoluteBox key={`${x}_${y}`} loc={[x, y]} size={boardSpotSize}>
+    <Box key={`${x}_${y}`} absolute={getAbsoluteLoc([x, y], boardSpotSize)}>
       <Tile
         surroundingTiles={getAllAdjacentItems(staticTiles, [x, y])}
         letter={letter}
         value={getLetterValue(letter)}
         isLastMove={isLastMove}
       />
-    </AbsoluteBox>
+    </Box>
   ));
 };
+
+export default function Board() {
+  return (
+    <Box col>
+      <Box col bkg='var(--spot-outline)' pad='0.25rem' rounded='1.5%'>
+        <Box.Square>
+          <BoardSpots />
+          <StaticTiles />
+          <DeployedTiles />
+        </Box.Square>
+      </Box>
+      <Tray />
+    </Box>
+  );
+}

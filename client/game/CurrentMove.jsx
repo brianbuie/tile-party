@@ -5,18 +5,19 @@ import { getItem } from '~/game/utils/locHelpers';
 
 const CurrentMoveContext = React.createContext({});
 
+const addLoc = myTiles =>
+  myTiles.map((letter, key) => ({
+    id: letter + key,
+    letter,
+    loc: [key, 'TRAY'],
+  }));
+
 export default function CurrentMoveProvider(props) {
   const { staticTiles, myTiles } = useActiveGame();
-  const [tiles, updateTiles] = useState([]);
+  const [tiles, updateTiles] = useState(addLoc(myTiles));
 
   useEffect(() => {
-    updateTiles(
-      myTiles.map((letter, key) => ({
-        id: letter + key,
-        letter,
-        loc: [key, 'TRAY'],
-      }))
-    );
+    updateTiles(addLoc(myTiles));
   }, [myTiles]);
 
   const moveTile = (id, [x, y]) => {
