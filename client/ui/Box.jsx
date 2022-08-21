@@ -3,23 +3,30 @@ import { motion } from 'framer-motion';
 import {
   visibilityMixin,
   bkgMixin,
-  sizeMixin,
   roundedMixin,
   spacingMixin,
   positionMixin,
+  pctIfNum,
   flag,
   absoluteStyleProps,
 } from '~/ui/styleHelpers';
 
 export const Box = styled.div.attrs(absoluteStyleProps)`
-  ${sizeMixin}
   ${spacingMixin}
   ${bkgMixin}
   ${roundedMixin}
   ${visibilityMixin}
   ${positionMixin}
 
-  /* display: ${({ display }) => display || 'flex'}; */
+  /* Size */
+  ${({ height }) => height && `height: ${height};`}
+  ${({ minHeight }) => minHeight && `min-height: ${minHeight};`}
+  ${({ width }) => width && `width: ${pctIfNum(width)};`}
+  ${({ maxWidth }) => maxWidth && `max-width: ${pctIfNum(maxWidth)};`}
+  ${({ grow }) => grow && `flex-grow: ${grow === true ? 1 : grow};`}
+  ${({ shrink }) => shrink && 'flex: none;'}
+
+  /* Flex */
   ${props =>
     flag(props, {
       col: 'display: flex;',
@@ -28,7 +35,6 @@ export const Box = styled.div.attrs(absoluteStyleProps)`
       default: '',
     })}
   flex-direction: ${({ col }) => (col ? 'column' : 'row')};
-
   justify-content: ${props =>
     props.col
       ? flag(props, {
@@ -65,9 +71,8 @@ export const Box = styled.div.attrs(absoluteStyleProps)`
 
 Box.Animated = motion(Box);
 
-const percentify = val => (!isNaN(val) ? val + '%' : val);
 Box.Square = styled(Box)`
   position: relative;
-  width: ${({ size }) => percentify(size) || '100%'};
-  padding-bottom: ${({ size }) => percentify(size) || '100%'};
+  width: ${({ size }) => pctIfNum(size) || '100%'};
+  padding-bottom: ${({ size }) => pctIfNum(size) || '100%'};
 `;

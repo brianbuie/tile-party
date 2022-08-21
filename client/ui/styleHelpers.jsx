@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import theme from '~/ui/theme';
 
 /*
   Utility for translating flags to various styles
@@ -14,16 +15,8 @@ import { css } from 'styled-components';
 */
 export const flag = (props, vals) => vals[Object.keys(vals).find(k => !!props[k]) || 'default'];
 
-const pct = v => (!isNaN(v) ? v + '%' : v);
-
-export const sizeMixin = css`
-  ${({ height }) => height && `height: ${height};`}
-  ${({ minHeight }) => minHeight && `min-height: ${minHeight};`}
-  ${({ width }) => width && `width: ${pct(width)};`}
-  ${({ maxWidth }) => maxWidth && `max-width: ${maxWidth};`}
-  ${({ grow }) => grow && `flex-grow: ${grow === true ? 1 : grow};`}
-  ${({ shrink }) => shrink && 'flex: none;'}
-`;
+// If the input is a number, assume it is supposed to be a %.
+export const pctIfNum = v => (!isNaN(v) ? v + '%' : v);
 
 export const spacingMixin = css`
   ${({ pad }) => pad && `padding: ${pad};`}
@@ -33,7 +26,7 @@ export const spacingMixin = css`
 export const visibilityMixin = css`
   ${({ faded, disabled }) => (faded || disabled ? `opacity: 0.45;` : '')}
   ${({ z }) => z && `z-index: ${z};`}
-  ${({ hide, theme }) => hide && `@media ${theme.screen[hide]} { display: none; }`}
+  ${({ hide }) => hide && `@media ${theme.screen[hide]} { display: none; }`}
 `;
 
 export const bkgMixin = css`
@@ -42,7 +35,7 @@ export const bkgMixin = css`
 `;
 
 export const textColorMixin = css`
-  color: ${({ theme, ...props }) =>
+  color: ${props =>
     flag(props, {
       color: props.color,
       muted: 'var(--text-muted)',
@@ -50,24 +43,22 @@ export const textColorMixin = css`
     })};
 `;
 
+// If input is an array, perform function on each item and join with a space
+// if not a string, perform function on the single item.
+const arrToString = (input, handle) => (Array.isArray(input) ? input.map(i => handle(i)).join(' ') : handle(input));
+
+// If input is exactly true, return 2nd argument, otherwise return 3rd argument
+const isBool = (input, t, f) => (input === true ? t : f);
+
 export const roundedMixin = css`
   ${({ circle }) => circle && 'border-radius: 9999px;'}
-  ${({ rounded, theme }) => {
-    if (!rounded) return;
-    if (Array.isArray(rounded))
-      return `border-radius: ${rounded.map(a => (a === true ? theme.borderRadius : a || '0')).join(' ')};`;
-    return `border-radius: ${rounded === true ? theme.borderRadius : rounded};`;
-  }}
+  ${({ rounded }) => rounded && `border-radius: ${arrToString(rounded, v => isBool(v, theme.borderRadius, v || '0'))};`}
 `;
 
 // Utility for translating Array to string for inset prop
 // adds % if input is a number
-// uses 0 if boolean flag is used.
-const getInset = input => {
-  let inset = input === true ? '0' : input;
-  if (Array.isArray(input)) inset = input.map(v => (!isNaN(v) ? v + '%' : v)).join(' ');
-  return inset;
-};
+// uses 0 if boolean flag is used
+const getInset = i => arrToString(i, v => isBool(v, '0', pctIfNum(v)));
 
 export const absoluteStyleProps = ({ absolute }) => {
   if (!absolute) return {};
