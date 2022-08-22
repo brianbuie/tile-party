@@ -4,6 +4,7 @@ import BoardSpot from '~/game/BoardSpot';
 import Tile from '~/game/Tile';
 import { useActiveGame } from '~/game/ActiveGame';
 import { getAllAdjacentItems, getAbsoluteLoc } from '~/game/utils/locHelpers';
+import ZoomWindow from '~/game/ZoomPan';
 
 export const BoardSpots = () => {
   const { spots, boardSpotSize } = useActiveGame();
@@ -31,13 +32,15 @@ export const StaticTiles = () => {
 export default function Board() {
   return (
     <Box col>
-      <Box col bkg='var(--spot-outline)' pad='0.25rem' rounded='1.5%'>
-        <Box.Square>
-          <BoardSpots />
-          <StaticTiles />
-          <DeployedTiles />
-        </Box.Square>
-      </Box>
+      <ZoomWindow>
+        <Box col bkg='var(--spot-outline)' pad='0.25rem' rounded='1.5%'>
+          <Box.Square>
+            <BoardSpots />
+            <StaticTiles />
+            <DeployedTiles />
+          </Box.Square>
+        </Box>
+      </ZoomWindow>
       <Tray />
     </Box>
   );

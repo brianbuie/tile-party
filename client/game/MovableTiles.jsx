@@ -8,13 +8,14 @@ import { getAbsoluteLoc } from '~/game/utils/locHelpers';
 const MovableTile = ({ id, letter }) => {
   const { getLetterValue } = useActiveGame();
   const { moveTile } = useCurrentMove();
-  const getLocInDropZone = useDrop();
+  const getZonesDroppedIn = useDrop();
 
   const onDragEnd = (e, { point }) => {
-    const { zone, loc } = getLocInDropZone(point);
-    if (!zone) return;
-    if (zone === 'BOARD') return moveTile(id, loc);
-    moveTile(id, [loc[0], 'TRAY']);
+    const zones = getZonesDroppedIn(point);
+    const tray = zones.find(({ zone }) => zone === 'TRAY');
+    const board = zones.find(({ zone }) => zone === 'BOARD');
+    if (tray) return moveTile(id, [tray.loc[0], 'TRAY']);
+    if (board) moveTile(id, board.loc);
   };
 
   const props = {
@@ -44,12 +45,12 @@ const MovableTile = ({ id, letter }) => {
 
 export const DeployedTiles = () => {
   const { boardSpotSize, boardSize } = useActiveGame();
-  const dropZoneRef = useDropZone('BOARD', boardSize);
+  const boardDropZone = useDropZone('BOARD', boardSize);
   const { tiles } = useCurrentMove();
   const deployedTiles = tiles.filter(t => t.loc[1] !== 'TRAY');
 
   return (
-    <Box absolute ref={dropZoneRef}>
+    <Box absolute ref={boardDropZone}>
       {deployedTiles.map(({ loc, id, letter }) => (
         <Box key={id} absolute={getAbsoluteLoc(loc, boardSpotSize)}>
           <MovableTile id={id} letter={letter} />

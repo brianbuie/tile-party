@@ -5,10 +5,10 @@ const DragDropContext = createContext({});
 export const DragDropProvider = props => {
   const [dropZones, setDropZones] = useState({});
 
-  const registerDropZone = (id, xRange, yRange, divisions) => {
+  const registerDropZone = (id, ref, divisions) => {
     setDropZones(dropZones => ({
       ...dropZones,
-      [id]: { id: id, range: [xRange, yRange], divisions },
+      [id]: { id, ref, divisions },
     }));
   };
 
@@ -21,28 +21,30 @@ export const DragDropProvider = props => {
 };
 
 export const useDropZone = (id, divisions = [1, 1]) => {
-  const dropZoneRef = useRef(null);
   const { registerDropZone } = useContext(DragDropContext);
+  const ref = useRef(null);
 
   useLayoutEffect(() => {
-    const { x, y, width, height } = dropZoneRef?.current?.getBoundingClientRect() || {};
-    registerDropZone(id, [x, x + width], [y, y + height], divisions);
+    registerDropZone(id, ref, divisions);
   }, [id]);
 
-  return dropZoneRef;
+  return ref;
 };
 
 export const useDrop = () => {
   const { dropZones } = useContext(DragDropContext);
 
-  const getLocInDropZone = ({ x, y }) => {
-    const { id, range, divisions } =
-      Object.values(dropZones).find(({ range: [[x0, x1], [y0, y1]] }) => x > x0 && x < x1 && y > y0 && y < y1) || {};
-    if (!id) return {};
-    const [[x0, x1], [y0, y1]] = range;
-    const [xD, yD] = divisions;
-    return { zone: id, loc: [Math.floor(((x - x0) / (x1 - x0)) * xD), Math.floor(((y - y0) / (y1 - y0)) * yD)] };
-  };
+  // prettier-ignore
+  const getZonesDroppedIn = ({ x, y }) => Object.values(dropZones)
+		.map(({ id, ref, divisions }) => {
+			const { x, y, width, height } = ref.current?.getBoundingClientRect() || {};
+			return { id, range: [[x, x + width], [y, y + height]], divisions };
+		})
+		.filter(({ range: [[x0, x1], [y0, y1]] }) => x > x0 && x < x1 && y > y0 && y < y1)
+		.map(({ id, range: [[x0, x1], [y0, y1]], divisions: [xD, yD] }) => ({
+			zone: id,
+			loc: [Math.floor(((x - x0) / (x1 - x0)) * xD), Math.floor(((y - y0) / (y1 - y0)) * yD)]
+		}));
 
-  return getLocInDropZone;
+  return getZonesDroppedIn;
 };

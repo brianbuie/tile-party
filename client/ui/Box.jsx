@@ -26,6 +26,9 @@ export const Box = styled.div.attrs(absoluteStyleProps)`
   ${({ grow }) => grow && `flex-grow: ${grow === true ? 1 : grow};`}
   ${({ shrink }) => shrink && 'flex: none;'}
 
+  /* Overflow */
+  ${({ overflow }) => overflow && `overflow: ${overflow};`}
+
   /* Flex */
   ${props =>
     flag(props, {
