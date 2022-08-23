@@ -58,3 +58,13 @@ export const getPlayersMeLast = (game, meId) => {
   const afterMe = players.filter((_, key) => key > myKey);
   return [...afterMe, ...beforeMe, players[myKey]];
 };
+
+export const getStaticTiles = game =>
+  game.moveHistory.map(({ tiles }, k, moves) => tiles.map(t => ({ ...t, isLastMove: k === moves.length - 1 }))).flat();
+
+export const makeMovableTiles = game =>
+  game.myTiles.map((letter, key) => ({
+    id: letter + key,
+    letter,
+    loc: [key, 'TRAY'],
+  }));

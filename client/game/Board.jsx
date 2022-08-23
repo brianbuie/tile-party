@@ -3,6 +3,7 @@ import { DeployedTiles, Tray } from '~/game/MovableTiles';
 import BoardSpot from '~/game/BoardSpot';
 import Tile from '~/game/Tile';
 import { useActiveGame } from '~/game/ActiveGame';
+import { getStaticTiles } from '~/game/utils/gameHelpers';
 import { getAllAdjacentItems, getAbsoluteLoc } from '~/game/utils/locHelpers';
 import ZoomWindow from '~/game/ZoomPan';
 
@@ -16,7 +17,8 @@ export const BoardSpots = () => {
 };
 
 export const StaticTiles = () => {
-  const { staticTiles, boardSpotSize, getLetterValue } = useActiveGame();
+  const { boardSpotSize, getLetterValue, ...game } = useActiveGame();
+  const staticTiles = getStaticTiles(game);
   return staticTiles.map(({ letter, isLastMove, loc: [x, y] }) => (
     <Box key={`${x}_${y}`} absolute={getAbsoluteLoc([x, y], boardSpotSize)}>
       <Tile

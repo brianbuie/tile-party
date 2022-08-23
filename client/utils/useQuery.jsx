@@ -18,3 +18,10 @@ const get = url => axios(url).then(({ data }) => data);
 export const useMe = () => useMyQuery(['me'], () => get(routes.me));
 
 export const useGames = () => useMyQuery(['games'], () => get(routes.viewGames));
+
+export const useWordList = () =>
+  useMyQuery(['wordList'], async () => axios.get('/word-list.txt').then(res => res.data.split('\n')), {
+    networkMode: 'offlineFirst',
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });

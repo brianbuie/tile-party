@@ -13,17 +13,11 @@ export const useActiveGame = () => useContext(ActiveGameContext);
 export default function ActiveGame({ game }) {
   if (!game) return null;
 
-  const staticTiles = game.moveHistory.reduce(
-    (all, { tiles }, i, a) => [...all, ...tiles.map(t => ({ ...t, isLastMove: i === a.length - 1 }))],
-    []
-  );
-
   const { spots, boardSize, boardSpotSize, traySpotSize, tilesPerTurn, getLetterValue, avgTileSize } =
     useGameSettings(game);
 
   const value = {
     ...game,
-    staticTiles,
     spots,
     boardSize,
     boardSpotSize,
