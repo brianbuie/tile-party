@@ -19,7 +19,6 @@ export default function CurrentMoveProvider(props) {
   const moveTile = (id, [x, y]) => {
     if (getItem(tiles, [x, y])) return;
     if (getItem(getStaticTiles(game), [x, y])) return;
-    console.log(`moving to ${x}, ${y}`);
     updateTiles(tiles => tiles.map(tile => (tile.id === id ? { ...tile, loc: [x, y] } : { ...tile })));
   };
 
@@ -36,8 +35,9 @@ export default function CurrentMoveProvider(props) {
   if (deployedTiles.length) {
     try {
       const result = evaluateMove(game, deployedTiles, wordList);
-      const words = result.map(r => r.word).join(', ');
-      console.log(`Play ${words} for X points.`);
+      const words = result.words.map(r => r.word).join(', ');
+      console.log(`Play ${words} for ${result.score} points.`);
+      console.log(result);
     } catch (e) {
       console.log(e);
     }

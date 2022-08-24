@@ -1,4 +1,6 @@
-export const getItem = (items, [x, y]) => items.find(({ loc }) => x === loc[0] && y === loc[1]);
+export const sameLoc = ([x1, y1], [x2, y2]) => x1 === x2 && y1 === y2;
+
+export const getItem = (items, [x, y]) => items.find(({ loc }) => sameLoc(loc, [x, y]));
 
 export const getAdjacentItem = (items, [x, y], [_x, _y]) => getItem(items, [x + _x, y + _y]);
 

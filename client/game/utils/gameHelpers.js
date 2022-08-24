@@ -1,4 +1,5 @@
 import { formatDistanceToNow, parseISO } from 'date-fns';
+import { getItem } from '~/game/utils/locHelpers';
 
 export const getPlayers = game => [...game.players].sort((a, z) => a.sort - z.sort);
 
@@ -59,8 +60,14 @@ export const getPlayersMeLast = (game, meId) => {
   return [...afterMe, ...beforeMe, players[myKey]];
 };
 
-export const getStaticTiles = game =>
-  game.moveHistory.map(({ tiles }, k, moves) => tiles.map(t => ({ ...t, isLastMove: k === moves.length - 1 }))).flat();
+export const getStaticTiles = game => game.moveHistory.map(({ tiles }) => tiles).flat();
+
+export const getAllTiles = (game, newTiles) => [...getStaticTiles(game), ...newTiles];
+
+export const locInLastMove = (game, loc) => {
+  const { tiles } = getLastMove(game);
+  return !!getItem(tiles, loc);
+};
 
 export const makeMovableTiles = game =>
   game.myTiles.map((letter, key) => ({

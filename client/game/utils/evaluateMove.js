@@ -1,5 +1,6 @@
 import { getItem, getAdjacentItem, hasAnyAdjacentItems } from '~/game/utils/locHelpers';
-import { getStaticTiles } from '~/game/utils/gameHelpers';
+import { getStaticTiles, getAllTiles } from '~/game/utils/gameHelpers';
+import useGameSettings from '~/game/utils/useGameSettings';
 
 const newTilesExist = newTiles => {
   if (!newTiles?.length) throw 'No tiles have been played.';
@@ -22,7 +23,7 @@ const newTilesAreNotIslands = (game, newTiles) => {
   }
 };
 
-const scoreWords = (game, newTiles, wordList) => {
+const getWordsPlayed = (game, newTiles) => {
   const getWordInDirection = (tiles, loc, directionKey) => {
     const toStart = [0, 0];
     const toEnd = [0, 0];
@@ -53,41 +54,60 @@ const scoreWords = (game, newTiles, wordList) => {
     };
   };
 
-  const staticTiles = getStaticTiles(game);
-  const allTiles = [...staticTiles, ...newTiles];
+  const allTiles = getAllTiles(game, newTiles);
 
-  let words = {};
+  let unique = {};
   newTiles.forEach(({ loc }) => {
     [0, 1].forEach(direction => {
       const { id, word, tiles } = getWordInDirection(allTiles, loc, direction);
       if (word.length < 2) return;
-      words[id] = { word, tiles };
+      unique[id] = { word, tiles };
     });
   });
+  return Object.values(unique);
+};
 
-  const checked = Object.values(words).map(info => ({
-    ...info,
-    isValid: wordList.includes(info.word),
-  }));
+const checkValidWords = (words, wordList) => {
+  let invalidWords = [];
+  words.forEach(({ word }) => {
+    if (!wordList.includes(word)) invalidWords.push(word);
+  });
+  if (invalidWords.length === 1) throw invalidWords[0] + ' is not a word.';
+  if (invalidWords.length > 1) throw invalidWords.join(', ') + ' are not words.';
+};
 
-  const invalid = checked.filter(w => !w.isValid);
-  if (invalid.length === 1) {
-    throw invalid[0].word + ' is not a word.';
-  }
-  if (invalid.length > 1) {
-    throw invalid.map(i => i.word).join(', ') + ' are not words.';
-  }
-
-  return checked;
+const scoreWords = (words, game, newTiles) => {
+  const { getLetterValue, getSpotBonus, tilesPerTurn, bonuses } = useGameSettings(game);
+  const scoredWords = words.map(info => {
+    let wordBonus = 1;
+    const tiles = info.tiles.map(({ letter, loc }) => {
+      const letterValue = getLetterValue(letter);
+      const spot = getSpotBonus(loc);
+      const isNewTile = !!getItem(newTiles, loc);
+      let score = letterValue;
+      if (!isNewTile) return { letter, loc, isNewTile, score };
+      if (spot.bonusType === 'LETTER') score *= spot.bonusAmount;
+      if (spot.bonusType === 'WORD') wordBonus *= spot.bonusAmount;
+      return { letter, loc, isNewTile, ...spot, score };
+    });
+    const letterScores = tiles.reduce((all, curr) => all + curr.score, 0);
+    return { word: info.word, tiles, score: letterScores * wordBonus };
+  });
+  let score = scoredWords.reduce((all, curr) => all + curr.score, 0);
+  if (newTiles.length === tilesPerTurn) score += bonuses.BINGO;
+  return { score, words: scoredWords };
 };
 
 export default function evaluateMove(game, newTiles, wordList) {
   newTilesExist(newTiles);
   newTilesAreAligned(newTiles);
+  // TODO: verify locations don't collide with existing or other new tiles
   if (!game.moveHistory.length) {
     // TODO: Handle first move
   } else {
     newTilesAreNotIslands(game, newTiles);
   }
-  return scoreWords(game, newTiles, wordList);
+  const words = getWordsPlayed(game, newTiles);
+  checkValidWords(words, wordList);
+  return scoreWords(words, game, newTiles);
 }
