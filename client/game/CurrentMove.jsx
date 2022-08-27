@@ -1,11 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useActiveGame } from '~/game/ActiveGame';
-import evaluateMove from '~/game/utils/evaluateMove';
-import { getStaticTiles, makeMovableTiles } from '~/game/utils/gameHelpers';
-import { getItem } from '~/game/utils/locHelpers';
+import scoreMove from '@common/scoreMove';
+import { getStaticTiles } from '@common/playerHelpers';
+import { getItemByLoc } from '@common/locHelpers';
 import { useWordList } from '~/utils/useQuery';
 
 const CurrentMoveContext = React.createContext({});
+
+const makeMovableTiles = game =>
+  game.myTiles.map((letter, key) => ({
+    id: letter + key,
+    letter,
+    loc: [key, 'TRAY'],
+  }));
 
 export default function CurrentMoveProvider(props) {
   const game = useActiveGame();
@@ -17,8 +24,8 @@ export default function CurrentMoveProvider(props) {
   }, [game.myTiles]);
 
   const moveTile = (id, [x, y]) => {
-    if (getItem(tiles, [x, y])) return;
-    if (getItem(getStaticTiles(game), [x, y])) return;
+    if (getItemByLoc(tiles, [x, y])) return;
+    if (getItemByLoc(getStaticTiles(game), [x, y])) return;
     updateTiles(tiles => tiles.map(tile => (tile.id === id ? { ...tile, loc: [x, y] } : { ...tile })));
   };
 
@@ -34,7 +41,7 @@ export default function CurrentMoveProvider(props) {
 
   if (deployedTiles.length) {
     try {
-      const result = evaluateMove(game, deployedTiles, wordList);
+      const result = scoreMove(game, deployedTiles, wordList);
       const words = result.words.map(r => r.word).join(', ');
       console.log(`Play ${words} for ${result.score} points.`);
       console.log(result);

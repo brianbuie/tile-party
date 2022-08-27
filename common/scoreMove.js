@@ -1,7 +1,15 @@
-import { getItem, getAdjacentItem, hasAnyAdjacentItems } from '~/game/utils/locHelpers';
-import { getStaticTiles, getAllTiles } from '~/game/utils/gameHelpers';
-import useGameSettings from '~/game/utils/useGameSettings';
+import { getItemByLoc, getAdjacentItem, hasAnyAdjacentItems } from './locHelpers';
+import { getStaticTiles } from './playerHelpers';
+import gameConfig from './gameConfig';
 
+/*
+    Utilities
+*/
+const getAllTiles = (game, newTiles) => [...getStaticTiles(game), ...newTiles];
+
+/*
+    Check tile placement, find words, check words, score words
+*/
 const newTilesExist = newTiles => {
   if (!newTiles?.length) throw 'No tiles have been played.';
 };
@@ -37,7 +45,7 @@ const getWordsPlayed = (game, newTiles) => {
       nextTile = getAdjacentItem(tiles, startLoc, toStart);
     }
 
-    let activeTile = getItem(tiles, startLoc);
+    let activeTile = getItemByLoc(tiles, startLoc);
     let inWord = [];
     while (activeTile) {
       inWord = [...inWord, { ...activeTile }];
@@ -76,29 +84,53 @@ const checkValidWords = (words, wordList) => {
   if (invalidWords.length > 1) throw invalidWords.join(', ') + ' are not words.';
 };
 
-const scoreWords = (words, game, newTiles) => {
-  const { getLetterValue, getSpotBonus, tilesPerTurn, bonuses } = useGameSettings(game);
-  const scoredWords = words.map(info => {
-    let wordBonus = 1;
-    const tiles = info.tiles.map(({ letter, loc }) => {
-      const letterValue = getLetterValue(letter);
-      const spot = getSpotBonus(loc);
-      const isNewTile = !!getItem(newTiles, loc);
-      let score = letterValue;
-      if (!isNewTile) return { letter, loc, isNewTile, score };
-      if (spot.bonusType === 'LETTER') score *= spot.bonusAmount;
-      if (spot.bonusType === 'WORD') wordBonus *= spot.bonusAmount;
-      return { letter, loc, isNewTile, ...spot, score };
-    });
-    const letterScores = tiles.reduce((all, curr) => all + curr.score, 0);
-    return { word: info.word, tiles, score: letterScores * wordBonus };
-  });
-  let score = scoredWords.reduce((all, curr) => all + curr.score, 0);
-  if (newTiles.length === tilesPerTurn) score += bonuses.BINGO;
-  return { score, words: scoredWords };
+const bonusConfig = {
+  DL: {
+    appliedTo: 'LETTER',
+    multiplier: 2,
+  },
+  DW: {
+    appliedTo: 'WORD',
+    multiplier: 2,
+  },
+  TL: {
+    appliedTo: 'LETTER',
+    multiplier: 3,
+  },
+  TW: {
+    appliedTo: 'WORD',
+    multiplier: 3,
+  },
+  BINGO: {
+    additional: 50,
+  },
 };
 
-export default function evaluateMove(game, newTiles, wordList) {
+const scoreWords = (validWords, game, newTiles) => {
+  const { getLetterValue, spots, tilesPerTurn } = gameConfig(game);
+  const scoreDetails = validWords.map(info => {
+    let wordBonus = 1;
+    const tiles = info.tiles.map(({ letter, loc }) => {
+      let score = getLetterValue(letter);
+      const isNewTile = !!getItemByLoc(newTiles, loc);
+      if (!isNewTile) return { letter, loc, isNewTile, score };
+      const { spotType } = getItemByLoc(spots, loc);
+      const { appliedTo, multiplier } = bonusConfig[spotType] || {};
+      if (appliedTo === 'LETTER') score *= multiplier;
+      if (appliedTo === 'WORD') wordBonus *= multiplier;
+      return { letter, loc, isNewTile, spotType, score };
+    });
+    const baseScore = tiles.reduce((total, { score }) => total + score, 0);
+    return { word: info.word, tiles, score: baseScore * wordBonus };
+  });
+  let score = scoreDetails.reduce((total, { score }) => total + score, 0);
+  if (newTiles.length === tilesPerTurn) score += bonusConfig.BINGO.additional;
+  const words = scoreDetails.map(({ word }) => word);
+  const tiles = newTiles.map(({ letter, loc }) => ({ letter, loc }));
+  return { score, words, tiles, scoreDetails };
+};
+
+export default function scoreMove(game, newTiles, wordList) {
   newTilesExist(newTiles);
   newTilesAreAligned(newTiles);
   // TODO: verify locations don't collide with existing or other new tiles

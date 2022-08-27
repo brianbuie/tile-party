@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useActiveGame } from '~/game/ActiveGame';
 import { Box } from '~/ui';
 
 const Transformer = styled(Box)`

@@ -1,12 +1,12 @@
 import { Box } from '~/ui';
 import Tile from '~/game/Tile';
 import { useCurrentMove } from '~/game/CurrentMove';
-import { useActiveGame } from '~/game/ActiveGame';
 import { useDropZone, useDrop } from '~/game/DragDrop';
-import { getAbsoluteLoc } from '~/game/utils/locHelpers';
+import { getAbsoluteLoc } from '@common/locHelpers';
+import gameConfig from '@common/gameConfig';
 
 const MovableTile = ({ id, letter }) => {
-  const { getLetterValue } = useActiveGame();
+  const { getLetterValue } = gameConfig();
   const { moveTile } = useCurrentMove();
   const getZonesDroppedIn = useDrop();
 
@@ -44,7 +44,7 @@ const MovableTile = ({ id, letter }) => {
 };
 
 export const DeployedTiles = () => {
-  const { boardSpotSize, boardSize } = useActiveGame();
+  const { boardSpotSize, boardSize } = gameConfig();
   const boardDropZone = useDropZone('BOARD', boardSize);
   const { tiles } = useCurrentMove();
   const deployedTiles = tiles.filter(t => t.loc[1] !== 'TRAY');
@@ -62,7 +62,7 @@ export const DeployedTiles = () => {
 
 export const Tray = () => {
   const { tiles } = useCurrentMove();
-  const { tilesPerTurn, traySpotSize } = useActiveGame();
+  const { tilesPerTurn, traySpotSize } = gameConfig();
   const trayDropZone = useDropZone('TRAY', [tilesPerTurn, 1]);
   const traySpots = [...Array(tilesPerTurn)].map((_, x) => x);
 

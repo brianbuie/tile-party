@@ -1,5 +1,5 @@
 import { Box, Face, Icon, Text } from '~/ui';
-import { getPlayersMeLast, getPlayerScore, isPlayerTurn, getWinningPlayerId } from '~/game/utils/gameHelpers';
+import { getPlayersMeLast, getPlayerScore, isPlayerTurn, getTopScoringPlayerId } from '@common/playerHelpers';
 import { useActiveGame } from '~/game/ActiveGame';
 import { useMe } from '~/utils/useQuery';
 
@@ -12,7 +12,7 @@ export default function ScoreBoard() {
       {getPlayersMeLast(game, me.id).map(player => (
         <Box col key={player.id} faded={!isPlayerTurn(game, player.id)}>
           <Box col h_center height='1.5rem'>
-            {getWinningPlayerId(game) === player.id && <Icon.Crown height='1rem' color='var(--crown-gold)' />}
+            {getTopScoringPlayerId(game) === player.id && <Icon.Crown height='1rem' color='var(--crown-gold)' />}
           </Box>
           <Face size='3rem' user={player} variant={isPlayerTurn(game, player.id) ? 'highlight' : 'muted'} />
           <Box col h_center margin='0.75rem 0 0 0'>

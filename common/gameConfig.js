@@ -1,37 +1,69 @@
-export default {
-  FRIENDLY: {
+import { getItemByLoc } from './locHelpers';
+
+const makeLocs = ([xSize, ySize]) => [...Array(xSize * ySize)].map((_, k) => [k % xSize, Math.floor(k / ySize)]);
+
+export default function gameConfig() {
+  // TODO: Check gameMode in settings
+  // friendly is the only one, so skipping for now.
+  const { boardSize, tilesPerTurn, tiles, bonuses, specialSpots } = friendly();
+
+  const boardSpotSize = 100 / boardSize[0];
+  const traySpotSize = 100 / tilesPerTurn;
+  const avgTileSize = (traySpotSize + boardSpotSize) / 2;
+
+  const getLetterValue = letter => tiles[letter][0];
+
+  const spots = makeLocs(boardSize).map(([x, y]) => {
+    const { spotType } = getItemByLoc(specialSpots, [x, y]) || { spotType: 'DEFAULT' };
+    return { spotType, loc: [x, y] };
+  });
+
+  return {
+    spots,
+    specialSpots,
+    bonuses,
+    boardSpotSize,
+    boardSize,
+    traySpotSize,
+    tilesPerTurn,
+    getLetterValue,
+    avgTileSize,
+  };
+}
+
+export function friendly() {
+  return {
     boardSize: [15, 15],
-    spotTypes: {
-      DEFAULT: {
-        spotType: 'DEFAULT',
-        bonusType: null,
-        bonusAmount: 0,
-      },
-      CENTER: {
-        spotType: 'CENTER',
-        bonusType: null,
-        bonusAmount: 0,
-      },
-      DL: {
-        spotType: 'DL',
-        bonusType: 'LETTER',
-        bonusAmount: 2,
-      },
-      DW: {
-        spotType: 'DW',
-        bonusType: 'WORD',
-        bonusAmount: 2,
-      },
-      TL: {
-        spotType: 'TL',
-        bonusType: 'LETTER',
-        bonusAmount: 3,
-      },
-      TW: {
-        spotType: 'TW',
-        bonusType: 'WORD',
-        bonusAmount: 3,
-      },
+    tilesPerTurn: 7,
+    tiles: {
+      // [Value, Amount]
+      BLANK: [0, 2],
+      A: [1, 9],
+      B: [4, 2],
+      C: [4, 2],
+      D: [2, 5],
+      E: [1, 13],
+      F: [4, 2],
+      G: [3, 3],
+      H: [3, 4],
+      I: [1, 8],
+      J: [10, 1],
+      K: [5, 1],
+      L: [2, 4],
+      M: [4, 2],
+      N: [2, 5],
+      O: [1, 8],
+      P: [4, 2],
+      Q: [10, 1],
+      R: [1, 6],
+      S: [1, 5],
+      T: [1, 7],
+      U: [2, 4],
+      V: [5, 2],
+      W: [4, 2],
+      X: [8, 1],
+      Y: [3, 2],
+      Z: [10, 1],
     },
     specialSpots: [
       {
@@ -279,5 +311,5 @@ export default {
         loc: [11, 14],
       },
     ],
-  },
-};
+  };
+}

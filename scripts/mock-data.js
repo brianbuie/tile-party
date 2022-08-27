@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { shuffle } from 'lodash';
 import { faker } from '@faker-js/faker';
-import tileAmounts from '../common/config/tileAmounts';
+import { friendly } from '../common/gameConfig';
 
 const me = {
   id: '62eb2d9542270058254d553a',
@@ -25,28 +25,26 @@ const mockGame = () => {
     id: faker.random.alpha(10),
     name: null,
     complete: faker.datatype.boolean(),
-    settings: {
-      boardLayout: 'FRIENDLY',
-      tileValues: 'FRIENDLY',
-      tileAmounts: 'FRIENDLY',
-      tilesPerTurn: 7,
-    },
-    players: players.map((player, key) => ({
+    gameMode: 'FRIENDLY',
+    playerDetails: players.map((player, key) => ({
+      id: player.id,
+      order: key + 1,
+      score: faker.datatype.number(300),
+    })),
+    players: players.map(player => ({
       id: player.id,
       name: player.name,
       image: player.image,
-      order: key + 1,
-      score: faker.datatype.number(300),
     })),
     moveHistory: moves().map(({ tiles }, key) => ({
       id: faker.random.alpha(10),
       playerId: players[key].id,
       created: faker.date.recent(14),
-      word: faker.word.noun(5).toUpperCase(),
-      points: faker.datatype.number(45),
+      words: [faker.word.noun(5).toUpperCase()],
+      score: faker.datatype.number(45),
       tiles,
     })),
-    myTiles: [...Array(7)].map(() => faker.helpers.arrayElement(Object.keys(tileAmounts.FRIENDLY))),
+    myTiles: [...Array(7)].map(() => faker.helpers.arrayElement(Object.keys(friendly().tiles))),
   };
 };
 
