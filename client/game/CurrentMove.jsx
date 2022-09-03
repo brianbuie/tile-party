@@ -29,8 +29,6 @@ export default function CurrentMoveProvider(props) {
     updateTiles(tiles => tiles.map(tile => (tile.id === id ? { ...tile, loc: [x, y] } : { ...tile })));
   };
 
-  const deployedTiles = tiles.filter(t => t.loc[1] !== 'TRAY');
-
   const recallTiles = () => {
     updateTiles(tiles => tiles.map((tile, x) => ({ ...tile, loc: [x, 'TRAY'] })));
   };
@@ -39,16 +37,17 @@ export default function CurrentMoveProvider(props) {
     updateTiles(tiles => [...tiles].sort(() => Math.random() - 0.5).map((tile, x) => ({ ...tile, loc: [x, 'TRAY'] })));
   };
 
-  if (deployedTiles.length) {
+  const deployedTiles = tiles.filter(t => t.loc[1] !== 'TRAY');
+
+  const evaluateMove = () => {
+    if (!deployedTiles.length) return null;
     try {
       const result = scoreMove(game, deployedTiles, wordList);
-      const words = result.words.map(r => r.word).join(', ');
-      console.log(`Play ${words} for ${result.score} points.`);
-      console.log(result);
+      return { result };
     } catch (e) {
-      console.log(e);
+      return { error: e };
     }
-  }
+  };
 
   const value = {
     tiles,
@@ -56,6 +55,7 @@ export default function CurrentMoveProvider(props) {
     recallTiles,
     shuffleTiles,
     moveTile,
+    moveStatus: evaluateMove(),
   };
 
   return <CurrentMoveContext.Provider value={value} {...props} />;

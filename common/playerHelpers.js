@@ -1,5 +1,12 @@
 import { formatDistanceToNow, parseISO } from 'date-fns';
 
+export const displayCommas = arr => {
+  const len = arr.length;
+  if (len === 1) return arr[0];
+  if (len === 2) return `${arr[0]} and ${arr[1]}`;
+  if (len > 2) return `${arr.slice(0, len - 1).join(', ')}, and ${arr[len - 1]}`;
+};
+
 /*
     Player utils
 */
@@ -56,7 +63,7 @@ export const getLastMovePlayer = game => {
 export const getLastMoveDescription = game => {
   const move = getLastMove(game);
   // TODO other move types
-  return `played ${move.words.join(', ')} for ${move.score} points`;
+  return `played ${displayCommas(move.words)} for ${move.score} points`;
 };
 
 export const getTimeSinceLastMove = game => {

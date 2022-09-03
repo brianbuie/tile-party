@@ -44,6 +44,7 @@ const mockGame = () => {
       score: faker.datatype.number(45),
       tiles,
     })),
+    tilesRemaining: faker.datatype.number(30),
     myTiles: [...Array(7)].map(() => faker.helpers.arrayElement(Object.keys(friendly().tiles))),
   };
 };

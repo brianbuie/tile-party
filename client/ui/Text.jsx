@@ -20,6 +20,7 @@ export const Text = styled.span`
   ${textColorMixin}
   font-style: ${({ italic }) => (italic ? 'italic' : 'normal')};
   line-height: 1.33;
+  ${({ center }) => center && 'text-align: center;'}
 
   /* Spacing */
   padding: 0;

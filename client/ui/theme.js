@@ -10,6 +10,7 @@ export const colors = css`
   --nav-bkg: #261741;
   --overlay-light: rgba(235, 184, 244, 0.07);
   --page-bkg-gradient: #502674 0%, #131c3b 100%;
+  --primary-button-outline: #f8cfba;
   --primary-gradient: #ff4db3 0%, #f08d58 100%;
   --primary-pink: #ff4eb3;
   --spot-bkg: #39225f;
@@ -20,9 +21,9 @@ export const colors = css`
   --spot-outline-tw: #d54b56;
   --text-default: #fff;
   --text-muted: rgba(201, 211, 253, 0.66);
-  --tile-bkg: #583c78;
-  --tile-outline: #af64e6;
-  --tile-text: #ffc1f7;
+  --tile-bkg: #f2a888;
+  --tile-outline: #de689e;
+  --tile-text: #791b25;
   /* Export End */
 
   /* Gradient Implementations */
