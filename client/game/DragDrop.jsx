@@ -1,62 +1,50 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { debounce } from "lodash";
-import { motion } from "framer-motion";
-import { SquareInner } from "@/ui/Box";
+import { useState, useRef, useLayoutEffect, useContext, createContext } from 'react';
 
-const Movable = motion(SquareInner);
+const DragDropContext = createContext({});
 
-export const Draggable = ({ children, id, dragScale, dragConstraints, ...props }) => {
-  const motionProps = {
-    ...props,
-    layout: true,
-    drag: true,
-    transition: {
-      duration: 0.25,
-    },
-    whileDrag: { scale: dragScale, transition: 0.1 },
-    dragMomentum: false,
-    key: id,
-    layoutId: id,
-    z: "30",
-    cursor: "pointer",
-  };
-  return <Movable {...motionProps}>{children}</Movable>;
-};
-
-export const DropZone = ({ loc, register, children, ...props }) => {
-  const dropArea = useRef(null);
-
-  const registerDropArea = () => {
-    const area = dropArea?.current.getBoundingClientRect();
-    if (!area) console.log("No area for DropZone ", loc);
-    register(loc, [area.x, area.x + area.width], [area.y, area.y + area.height]);
-  };
-
-  useLayoutEffect(() => {
-    registerDropArea();
-    window.addEventListener("resize", debounce(registerDropArea, 400));
-  }, []);
-
-  return (
-    <SquareInner ref={dropArea} {...props}>
-      {children}
-    </SquareInner>
-  );
-};
-
-export const useDragDrop = () => {
+export const DragDropProvider = props => {
   const [dropZones, setDropZones] = useState({});
 
-  const registerDropZone = (loc, xRange, yRange) =>
-    setDropZones((dropZones) => ({ ...dropZones, [loc.join("_")]: { loc, xRange, yRange } }));
-
-  const findDropZone = ({ x, y }) => {
-    return Object.values(dropZones).find(({ xRange, yRange }) => {
-      if (!x || x < xRange[0] || x > xRange[1]) return false;
-      if (!y || y < yRange[0] || y > yRange[1]) return false;
-      return true;
-    });
+  const registerDropZone = (id, ref, divisions) => {
+    setDropZones(dropZones => ({
+      ...dropZones,
+      [id]: { id, ref, divisions },
+    }));
   };
 
-  return { registerDropZone, findDropZone };
+  const value = {
+    registerDropZone,
+    dropZones,
+  };
+
+  return <DragDropContext.Provider value={value} {...props} />;
+};
+
+export const useDropZone = (id, divisions = [1, 1]) => {
+  const { registerDropZone } = useContext(DragDropContext);
+  const ref = useRef(null);
+
+  useLayoutEffect(() => {
+    registerDropZone(id, ref, divisions);
+  }, [id]);
+
+  return ref;
+};
+
+export const useDrop = () => {
+  const { dropZones } = useContext(DragDropContext);
+
+  // prettier-ignore
+  const getZonesDroppedIn = ({ x, y }) => Object.values(dropZones)
+		.map(({ id, ref, divisions }) => {
+			const { x, y, width, height } = ref.current?.getBoundingClientRect() || {};
+			return { id, range: [[x, x + width], [y, y + height]], divisions };
+		})
+		.filter(({ range: [[x0, x1], [y0, y1]] }) => x > x0 && x < x1 && y > y0 && y < y1)
+		.map(({ id, range: [[x0, x1], [y0, y1]], divisions: [xD, yD] }) => ({
+			zone: id,
+			loc: [Math.floor(((x - x0) / (x1 - x0)) * xD), Math.floor(((y - y0) / (y1 - y0)) * yD)]
+		}));
+
+  return getZonesDroppedIn;
 };

@@ -1,39 +1,73 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
+import { flag, bkgMixin, textColorMixin, visibilityMixin } from '~/ui/styleHelpers';
 
-const StyledButton = styled.button`
-  border: none;
-  border-radius: 9999px;
-  line-height: 1.2;
-  white-space: nowrap;
-  text-decoration: none;
-  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
-  color: ${({ textColor }) => textColor || "white"};
-  background-color: ${({ color, theme }) => {
-    if (!color) return "transparent";
-    return theme.colors[color] || color;
-  }};
-  box-shadow: ${({ shadow, theme }) => (shadow ? "inset 0 -0.2em 0 " + theme.colors.shadow : "none")};
-  font-family: ${({ theme }) => theme.fontFamily};
+const ButtonBase = styled.button`
+  /* Base Size */
+  font-size: ${({ size }) => size || '1rem'};
+  .icon {
+    font-size: 1.5em;
+  }
+
+  /* Text Styles */
   font-weight: 600;
-  font-size: ${({ size }) => size || "1em"};
-  padding: ${({ pad }) => pad || "0.75em 1.5em"};
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1.33;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+
+  /* Layout */
   display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  white-space: nowrap;
-  max-width: ${({ maxWidth }) => maxWidth || "none"};
-  opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
+  flex-direction: ${({ vertical }) => (vertical ? 'column' : 'row')};
+  > span {
+    ${({ vertical }) => (vertical ? 'margin-top: 0.3em;' : 'margin-left: 0.75em;')}
+  }
+
+  /* Size */
+  ${({ width }) => width && `width: ${width};`}
+  max-width: ${({ maxWidth }) => maxWidth || 'none'};
+  ${({ grow }) => grow && 'flex-grow: 1;'}
+
+  /* Spacing */
+  padding: ${({ pad }) => pad || '0.75em 1.5em'};
+  ${({ margin }) => margin && `margin: ${margin};`}
+
+  /* Shape & Border */
+  border: none;
+  border-radius: 9999px;
   &:focus {
     outline: none;
     box-shadow: none;
   }
+
+  /* Colors */
+  ${bkgMixin}
+  ${textColorMixin}
   .icon {
-    font-size: 1.5em;
+    ${textColorMixin}
   }
-  span:nth-child(2) {
-    margin-left: 0.5em;
-  }
+
+  /* Disabled */
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  ${visibilityMixin}
 `;
 
-export default StyledButton;
+export const Button = styled(ButtonBase).attrs(props => ({
+  as: flag(props, {
+    to: RouterLink,
+    href: 'a',
+    default: props.as,
+  }),
+}))``;
+
+Button.Primary = styled(Button).attrs({
+  bkg: 'var(--primary-linear-gradient)',
+})``;
+
+Button.Secondary = styled(Button)`
+  border: 0.125em solid white;
+`;

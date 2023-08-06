@@ -3,43 +3,63 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev:client": "vite",
-    "dev:server": "nodemon -r esm server.js",
+    "dev:server": "nodemon --exec node_modules/.bin/babel-node -r dotenv/config api/server.js",
+    "dev:client": "sleep 3 && vite",
     "dev": "concurrently yarn:dev:* -p none",
+    "manifest": "babel-node scripts/build-manifest.js",
+    "analyze": "react-scanner -c scanner.config.js",
+    "clean": "rm -rf .analysis && rm -rf .build",
+    "mock": "babel-node scripts/mock-data.js",
+    "stage": "yarn build && babel-node -r dotenv/config api/server.js dotenv_config_path=.env.prod",
     "build": "vite build --emptyOutDir",
-    "start": "dotenv_config_path=.env.prod node -r esm server.js"
+    "start": "babel-node api/server.js"
   },
-  "nodemonConfig": {
-    "watch": [
-      "api/",
-      "common/",
-      "server.js"
-    ]
+  "engines": {
+    "node": "17.x"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.7",
+    "@babel/node": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "@faker-js/faker": "^7.3.0",
+    "@tanstack/react-query-devtools": "^4.2.1",
     "@vitejs/plugin-react": "^1.0.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
+    "babel-plugin-styled-components": "^2.0.7",
     "concurrently": "^6.2.1",
-    "http-proxy-middleware": "^2.0.1",
+    "icon-gen": "^3.0.1",
     "nodemon": "^2.0.13",
+    "passport-mock-strategy": "^2.0.0",
     "prop-types": "^15.7.2",
+    "react-scanner": "^1.0.3",
     "rimraf": "^3.0.2",
     "vite": "^2.5.10"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.2.1",
+    "axios": "^0.27.2",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.6",
+    "date-fns": "^2.29.1",
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "express-session": "^1.17.3",
     "framer-motion": "^6.5.1",
+    "helmet": "^5.1.1",
     "lodash": "^4.17.21",
-    "path-parser": "^6.1.0",
+    "mongoose": "^6.5.0",
+    "passport": "0.5",
+    "passport-facebook": "^3.0.0",
     "react": "18.2.0",
+    "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "styled-components": "^5.3.5",
-    "use-http": "^1.0.26"
+    "react-router-dom": "5.3.3",
+    "react-swipeable": "^7.0.0",
+    "styled-components": "^5.3.5"
   }
 }

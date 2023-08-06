@@ -1,32 +1,38 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
-import path from "path";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import path from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 const { PORT } = process.env;
 
 export default defineConfig({
-  plugins: [react()],
-  root: "./client/",
-  publicDir: "../public",
+  plugins: [
+    react({
+      babel: {
+        plugins: ['babel-plugin-styled-components'],
+      },
+    }),
+  ],
+  root: './client/',
+  publicDir: '../public',
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./client"),
-      "@common": path.resolve(__dirname, "./common"),
+      '~': path.resolve(__dirname, './client'),
+      '@common': path.resolve(__dirname, './common'),
     },
   },
   server: {
-    open: "http://localhost:3000/",
+    open: 'http://localhost:3000/',
     host: true,
     proxy: {
-      "/api": {
+      '/api': {
         target: `http://localhost:${PORT}`,
         changeOrigin: true,
       },
     },
   },
   build: {
-    outDir: "../.build/",
+    outDir: '../.build/',
   },
 });
